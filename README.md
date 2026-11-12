@@ -18,11 +18,14 @@ Architettura: «Poldo's Proposal» (Figma `481:37`, pagina Website Architecture)
 | `sede-*.html` | Una pagina per ogni sede (20) | Milano completa; le altre con indirizzo, referente e professionisti da completare |
 | `modulistica.html` | Modulistica | PDF su dplmediazione.it/docs |
 | `rassegna-stampa.html` | News & eventi · Rassegna stampa | Contenuti segnaposto |
+| `rassegna-*.html` | Un articolo per ogni card (7) | Testi segnaposto, link alla fonte da inserire |
 | `eventi.html` | News & eventi · Eventi | |
+| `evento-*.html` | Una pagina per ogni evento (6) | Dettagli, iscrizione, «Aggiungi al calendario» |
 | `contatti.html` | Contatti + Lavora con noi | Modulo Netlify Forms |
 | `sedi-convenzionate.html` | Sedi ex Art. 6 D.M. 150/23 | |
 | `regione-*.html` | Una pagina per ogni regione (20) | Elenco accordi dal sito attuale |
 | `privacy.html` | Privacy e cookie | Testo dal sito attuale |
+| `404.html` | Pagina non trovata | Figma `715:144`; messaggio diverso a ogni ricarica (3) |
 
 Le pagine interne (tranne la home) sono costruite in codice, da riportare in Figma.
 
@@ -46,6 +49,7 @@ Ogni pagina è un file HTML autonomo: font (Zodiak, Switzer), immagini e grafich
 - `cs.py`, `mc.py` — Chi siamo e Mediazione civile.
 - `kit.py` — libreria di sezioni (hero, righe con visual animati, card con icone DPL, step, FAQ, liste, blog, legale, form).
 - `pages.py` — tutte le altre pagine dell'architettura.
+- `news.py` — rassegna stampa, eventi, pagine di articoli ed eventi, 404.
 - `build.py` — incorpora logo, icone, immagini (`assets/`) e font (`fonts/`) e scrive i file HTML.
 
 ```bash

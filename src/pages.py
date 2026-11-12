@@ -227,39 +227,6 @@ def modulistica(src):
         v_docs([('Domanda di mediazione.pdf', 'Caricata'), ('Allegato A.pdf', 'Caricata'), ('Delega.pdf', 'Caricata'), ('Primo incontro', 'Fissato')])) + '</div>', 'tint')
     return mk(src, 'modulistica.html', 'Modulistica', b, active_nav='__HREF_MOD__')
 
-# ---------------------------------------------------------------- News: rassegna stampa + eventi (blog, zaro-like)
-def blog(src, fname, title_a, title_b, intro, posts, active, feat_post, links=False):
-    cats = sorted({p[0] for p in posts})
-    fc, ft, fd, fm, fimg = feat_post
-    fig = f'<img src="__IMG_{fimg}__" alt="">' if fimg else f'<span class="ic">{ICONS["dialogo"]}</span>'
-    b = hero(title_a, title_b, intro, btn('DPL Magazine', 'https://www.dplmagazine.it/', 'glass', True, UR.replace('class="ur"', 'class="ico"')), ['News & eventi'])
-    def go(t): return f'<a class="go" href="__HREF_CON__?argomento=Formazione&amp;corso={quote(t)}#modulo">Richiedi informazioni __ARROW_N__</a>' if links else ''
-    def de(m): e = end_iso(m); return f' data-end="{e}"' if e and links else ''
-    grid = ''.join(f'<article class="post"{de(m)} data-cat="{c.lower().replace(" ", "-")}"><div class="ph">{f"<img src={chr(34)}__IMG_{img}__{chr(34)} alt={chr(34)}{chr(34)}>" if img else "<span class=" + chr(34) + "ic" + chr(34) + ">" + ICONS[ic] + "</span>"}</div><div class="meta"><b>{c}</b><span>{m}</span></div><h3>{t}</h3><p>{d}</p>{go(t)}</article>' for c, t, d, m, img, ic in posts)
-    chips = '<button data-chip="all" aria-pressed="true">Tutti</button>' + ''.join(f'<button data-chip="{c.lower().replace(" ", "-")}" aria-pressed="false">{c}</button>' for c in cats)
-    b += sec(f'<div class="post-feat"><div class="ph">{fig}</div><div><div class="meta"><b>{fc}</b><span>{fm}</span></div><h2>{ft}</h2><p>{fd}</p>{go(ft) if links else ""}</div></div>'
-             f'<div class="tools" data-filter=".post"><div class="chips-f">{chips}</div><label class="search">{SEARCH}<input type="search" placeholder="Cerca" aria-label="Cerca"></label></div><div class="posts">{grid}</div>', '')
-    return mk(src, fname, title_a + ' ' + title_b if title_b else title_a, b, active_dd='News &amp; eventi')
-
-def rassegna(src):
-    posts = [('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto dell’articolo su DPL Mediazione.]', '[Data]', 'mb2', None),
-             ('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto dell’articolo.]', '[Data]', 'mb4', None),
-             ('Intervista', '[Titolo dell’intervista]', '[Testata · chi parla e di cosa.]', '[Data]', 'mb8', None),
-             ('Video', '[Titolo del video]', '[Canale · breve descrizione.]', '[Data]', 'mb10', None),
-             ('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto.]', '[Data]', 'mb6', None),
-             ('Intervista', '[Titolo dell’intervista]', '[Testata · breve estratto.]', '[Data]', 'mb3', None)]
-    return blog(src, 'rassegna-stampa.html', 'Rassegna', 'stampa', 'Cosa scrivono di noi: articoli, interviste e video su DPL Mediazione e sulla mediazione in Italia.', posts, 'rs',
-                ('In evidenza', '[Titolo dell’articolo in evidenza]', '[Testata · estratto dell’articolo più recente o più importante.]', '[Data]', 'mb12'))
-
-def eventi(src):
-    posts = [('Convegni', 'La gestione delle emozioni in mediazione', 'Profili deontologici e disciplinari. Accreditato dal COA di Milano: 3 crediti.', '23 novembre 2026', 'mb8', None),
-             ('Aggiornamenti', 'Relazioniamoci · Disturbi di personalità', 'Una giornata di aggiornamento per mediatori, a Milano.', '16 dicembre 2026', 'mb1', None),
-             ('Aggiornamenti', 'Il conflitto nelle successioni ereditarie', 'Giornata di approfondimento a Milano e online.', '20 gennaio 2027', 'mb9', None),
-             ('Aggiornamenti', 'Il conflitto condominiale', 'Giornata di approfondimento a Milano e online.', '17 marzo 2027', 'mb10', None),
-             ('Aggiornamenti', 'Il conflitto per i canoni di locazione', 'Giornata di approfondimento a Milano e online.', '14 aprile 2027', 'mb2', None)]
-    return blog(src, 'eventi.html', 'Eventi', '', 'Incontri, convegni e giornate di aggiornamento aperti a mediatori, avvocati e professionisti.', posts, 'ev',
-                ('Prossimo evento', 'Mediazione 4.0', 'L’appuntamento mensile per mediatori e avvocati: tre ore, il quarto lunedì del mese, in sede a Milano e online. Gratuito.', '23 novembre 2026 · 15:30', 'mb5'), links=True)
-
 # ---------------------------------------------------------------- Contatti (+ Lavora con noi)
 def contatti(src):
     b = hero('Parliamone', '',
@@ -402,9 +369,11 @@ def privacy(src):
 
 def _all():
     out = [(familiare, 'mediazione-familiare.html'), (sanitaria, 'mediazione-sanitaria.html'), (formazione, 'formazione.html'), (sedi, 'sedi.html'), (sede_milano, 'sede-milano.html'),
-           (modulistica, 'modulistica.html'), (rassegna, 'rassegna-stampa.html'), (eventi, 'eventi.html'), (contatti, 'contatti.html'), (sedi_conv, 'sedi-convenzionate.html'), (privacy, 'privacy.html')]
+           (modulistica, 'modulistica.html'), (contatti, 'contatti.html'), (sedi_conv, 'sedi-convenzionate.html'), (privacy, 'privacy.html')]
     for c, r, *_ in CITIES:
         if c != 'Milano': out.append(((lambda src, c=c, r=r: sede(src, c, r)), f'sede-{slug(c)}.html'))
     for n, s in REGIONS: out.append(((lambda src, n=n, s=s: regione(src, n, s)), f'regione-{s}.html'))
+    import news
+    out += news.pages(mk, COURSES)
     return out
 ALL = _all()

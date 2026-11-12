@@ -43,7 +43,7 @@ def rings_svg():
             '<path d="'+d+'" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/></g>')
 cities=['Avellino','Busto Arsizio','Como','Cuneo','Ivrea','Lecco','Milano','Monza','Pavia','Piacenza','Rieti','Roma','Salerno','Sondrio','Terni','Tivoli','Torino','Torre Annunziata','Varese','Velletri']
 ticker='<div class="row">'+''.join(f'<span>{c}</span><i></i>' for c in cities)+'</div>'
-rep={'__DEVICE_CS__':device([(578.54,173.63,868.72),(974.04,433.0,755.96)],516,'s'),'__DEVICE_HERO__':device([(737.5,400.5,868.5),(1134,660,756)],696,'h'),'__DEVICE_TL__':device([(486.5,775.5,680.5),(953.5,775.5,680.5)],1144,'c'),'__LOGO__':LOGO,'__ARROW_W__':svg(arrow%'white'),'__ARROW_N__':svg(arrow%'#19234B'),'__CHEV__':svg(chev),'__ACC__':svg(acc),'__ICO_VIDEO__':video,
+rep={'__DEVICE_404__':device([(565,280,480),(915,535,490)],800,'n'),'__DEVICE_CS__':device([(578.54,173.63,868.72),(974.04,433.0,755.96)],516,'s'),'__DEVICE_HERO__':device([(737.5,400.5,868.5),(1134,660,756)],696,'h'),'__DEVICE_TL__':device([(486.5,775.5,680.5),(953.5,775.5,680.5)],1144,'c'),'__LOGO__':LOGO,'__ARROW_W__':svg(arrow%'white'),'__ARROW_N__':svg(arrow%'#19234B'),'__CHEV__':svg(chev),'__ACC__':svg(acc),'__ICO_VIDEO__':video,
  '__ICO_CLOCK__':clock,'__ICO_FILE__':file,'__ICO_USERS__':users,'__ICO_CAL__':cal,'__ICO_OK__':ok,'__ARROW_UR__':ur,'__TICKER__':ticker,
  '__RINGS_HERO__':rings_svg(),'__RINGS_TL__':rings([(953.5,775.9,680.65),(486.5,775.9,680.65)],'t')}
 def finish(src,out):
