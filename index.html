@@ -97,6 +97,21 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .pill-foot a{display:inline-flex;gap:6px;align-items:center}
 .pill-foot a:hover{color:#fff}
 
+/* ---------- page transition ---------- */
+.pt{position:fixed;inset:0;z-index:120;background:var(--navy-deep);display:grid;place-items:center;visibility:hidden;pointer-events:none;clip-path:inset(100% 0 0 0)}
+.pt svg{width:140px;height:110px;overflow:visible}
+.pt circle{fill:none;stroke:var(--azzurro);stroke-width:1.2;stroke-dasharray:420;stroke-dashoffset:420}
+.pt .pt-fill{fill:var(--azzurro)}.pt .pt-cover{fill:var(--navy-deep)}
+.pt .pt-mark{transform-box:fill-box;transform-origin:center}
+.pt.cover{visibility:visible;pointer-events:auto;clip-path:inset(0 0 0 0);transition:clip-path .75s var(--osmo)}
+.pt.cover circle{stroke-dashoffset:0;transition:stroke-dashoffset .8s var(--osmo) .3s}
+.pt-arrive .pt{visibility:visible;clip-path:inset(0 0 0 0);transition:none}
+.pt-arrive .pt circle{stroke-dashoffset:0;stroke-opacity:0}
+.pt-arrive .pt .pt-cover{display:none}
+.pt.leave{clip-path:inset(0 0 100% 0)!important;transition:clip-path 1s var(--osmo) .15s!important}
+.pt.leave .pt-mark{transform:scale(.9);opacity:0;transition:transform 1s var(--osmo),opacity .6s var(--osmo)}
+.pt-arrive .splash{display:none}
+
 /* ---------- splash (logo intro) ---------- */
 .splash{position:fixed;inset:0;z-index:100;background:var(--navy-deep);display:grid;place-items:center;clip-path:inset(0 0 0 0);transition:clip-path 1.1s var(--osmo)}
 .splash.out{clip-path:inset(0 0 100% 0);transition-delay:.2s}
@@ -345,6 +360,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .foot .rule{grid-column:1/-1}.foot .legal,.foot .links{grid-column:1/-1;white-space:normal}
 }
 </style>
+
+<!-- page transition: navy curtain with the DPL symbol (draw → liquid fill) -->
+<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 180 140"><g class="pt-mark"><path class="pt-fill" fill-rule="evenodd" d="M0 70a66 66 0 1 0 132 0a66 66 0 1 0 -132 0ZM48 70a66 66 0 1 0 132 0a66 66 0 1 0 -132 0Z"/><path class="pt-cover" d="M-10 -20H190V160H-10Z"/><circle class="c1" cx="66" cy="70" r="66"/><circle class="c2" cx="114" cy="70" r="66"/></g></svg></div>
+<script>try{if(sessionStorage.getItem('dpl-pt')){document.documentElement.classList.add('pt-arrive')}}catch(e){}</script>
 
 <!-- splash: logo intro (Figma «Splash Screen» 670:2646) -->
 <div class="splash" id="splash" aria-hidden="true">
@@ -642,9 +661,39 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   }), { threshold: 0, rootMargin: '0px 0px 6% 0px' });
   document.querySelectorAll('.blurin').forEach(el => blurIO.observe(el));
 
+  /* ---- page transition (navy curtain + symbol) ---- */
+  const pt = document.getElementById('pt');
+  if (pt) {
+    const cover = pt.querySelector('.pt-cover');
+    const liquid = (ms, done) => { const t0 = performance.now(); const step = now => {
+      const k = Math.min(1, (now - t0) / ms), p = osmo(k), level = 146 - p * 158, amp = 6 * (1 - p) * Math.min(1, k * 4), ph = now / 160;
+      let d = 'M-10 -20L190 -20'; for (let x = 190; x >= -10; x -= 5) d += 'L' + x + ' ' + (level + amp * Math.sin(x / 17 + ph)).toFixed(2);
+      cover.setAttribute('d', d + 'Z'); if (k < 1) requestAnimationFrame(step); else done && done(); }; requestAnimationFrame(step); };
+    const go = href => {
+      if (reduce) { location.href = href; return; }
+      try { sessionStorage.setItem('dpl-pt', '1'); } catch (e) {}
+      closeMenu && closeMenu(); pt.classList.add('cover');
+      setTimeout(() => liquid(650, () => setTimeout(() => { location.href = href; }, 120)), 900);
+    };
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      const href = a.getAttribute('href'); if (!/^[\w./-]+\.html(#[\w-]*)?$/.test(href)) return;
+      e.preventDefault(); go(href);
+    });
+    const arrive = () => {
+      if (!root.classList.contains('pt-arrive')) return;
+      try { sessionStorage.removeItem('dpl-pt'); } catch (e) {}
+      const sp = document.getElementById('splash'); if (sp) sp.remove();
+      setTimeout(() => pt.classList.add('leave'), 120);
+      setTimeout(() => { root.classList.remove('pt-arrive'); pt.className = 'pt'; cover.setAttribute('d', 'M-10 -20H190V160H-10Z'); }, 1350);
+    };
+    arrive();
+    addEventListener('pageshow', e => { if (e.persisted) { pt.className = 'pt'; root.classList.remove('pt-arrive'); cover.setAttribute('d', 'M-10 -20H190V160H-10Z'); } });
+  }
+
   /* ---- splash (logo intro) ---- */
   const splash = document.getElementById('splash');
-  if (!splash) {}
+  if (!splash || root.classList.contains('pt-arrive')) {}
   else if (reduce) { splash.remove(); }
   else {
     if (lenis) lenis.stop(); document.body.style.overflow = 'hidden';

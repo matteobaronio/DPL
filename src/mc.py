@@ -1,6 +1,6 @@
 # Mediazione civile e commerciale — built directly in code (no Figma frame yet), on the home + Chi siamo system.
 # Content: dplmediazione.it/mediazione-civile.html (facts kept, copy rewritten in the DPL voice: "noi", "tu").
-import re, cs
+import re, common
 
 DOCS = 'https://www.dplmediazione.it/docs/'
 MATERIE = ['Affitto di azienda','Condominio','Contratti assicurativi, bancari e finanziari','Contratti di associazione in partecipazione',
@@ -113,13 +113,11 @@ DL = '<svg class="dl" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d
 def pdf(name, f, cls=''):
     return f'<a{cls} href="{DOCS}{f}" target="_blank" rel="noopener">{name} {DL}</a>'
 
+def _hdr(h):
+    h = h.replace('<button class="dd-btn" aria-expanded="false" aria-haspopup="true">Mediazione', '<button class="dd-btn is-active" aria-expanded="false" aria-haspopup="true">Mediazione', 1)
+    return h.replace('<a href="__HREF_MC__">Civile e commerciale</a>', '<a href="__HREF_MC__" aria-current="page">Civile e commerciale</a>')
+
 def make(src):
-    s = src
-    s = re.sub(r'<title>[^<]*</title>', '<title>Mediazione civile e commerciale · DPL Mediazione</title>', s, count=1)
-    a = s.index('<!-- splash'); b = s.index('<div class="pill"', a); s = s[:a] + s[b:]
-    h0 = s.index('    <header class="hdr">'); h1 = s.index('</header>', h0) + len('</header>')
-    header = s[h0:h1].replace('<button class="dd-btn" aria-expanded="false" aria-haspopup="true">Mediazione', '<button class="dd-btn is-active" aria-expanded="false" aria-haspopup="true">Mediazione', 1)
-    header = header.replace('<a href="__HREF_MC__">Civile e commerciale</a>', '<a href="__HREF_MC__" aria-current="page">Civile e commerciale</a>')
     chips = ''.join(f'<span>{m}</span>' for m in MATERIE)
     tipi = [
       ('01','Obbligatoria', f'<p>Per queste materie la legge chiede di tentare la mediazione prima di rivolgersi al giudice.</p><div class="chips">{chips}</div>'),
@@ -138,7 +136,7 @@ def make(src):
 <section class="sec hero cs-hero mc-hero" id="top">
   <div class="in">
     <div class="rings" data-parallax="0.1"><div class="art">__DEVICE_CS__</div></div>
-{header}
+__HEADER__
     <h1 class="title">Mediazione civile e commerciale</h1>
     <div class="intro">
       <p class="blurin">Ti aiutiamo a risolvere una controversia senza andare in tribunale: in tempi brevi, con costi certi, in sede o in videoconferenza.</p>
@@ -233,9 +231,6 @@ def make(src):
 </section>
 
 '''
-    a = s.index('<!-- HERO 613:2295 -->'); b = s.index('<!-- CTA + FOOTER')
-    s = s[:a] + body + s[b:]
-    s = s.replace('</style>', cs.CSS + CSS + '</style>', 1)
     # accordion behaviour (one open at a time)
     js = '''
   document.querySelectorAll('.acc').forEach(acc => acc.querySelectorAll('.acc-head').forEach(h => h.addEventListener('click', () => {
@@ -244,8 +239,4 @@ def make(src):
     if (o) { it.classList.add('open'); h.setAttribute('aria-expanded','true'); }
   })));
 '''
-    s = s.replace("  /* ---- splash (logo intro) ---- */", js + "  /* ---- splash (logo intro) ---- */", 1)
-    s = s.replace('__HREF_HOME__', 'dpl-home.html').replace('__HREF_CHI__', 'chi-siamo.html').replace('__HREF_MC__', '#top')
-    ids = set(re.findall(r'id="([^"]+)"', s))
-    s = re.sub(r'href="#([A-Za-z][\w-]*)"', lambda m: m.group(0) if m.group(1) in ids else f'href="dpl-home.html#{m.group(1)}"', s)
-    return s
+    return common.page(src, 'Mediazione civile e commerciale · DPL Mediazione', body, CSS, js, _hdr, 'mediazione-civile.html')

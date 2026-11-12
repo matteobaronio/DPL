@@ -1,195 +1,194 @@
-# Chi siamo page (Figma 689:121) built from the homepage source: same head, tokens, header, menu, footer, JS.
-import re
+# Chi siamo — v2, interpreted (not copied from the Figma frame): editorial hero, scroll-lit manifesto,
+# full-bleed photo band, three rows "how we're here", team carousel, navy index of the three areas.
+import common
 
 CSS = r'''
-/* ================= CHI SIAMO (Figma 689:121) ================= */
-.cs-hero{height:U(516);background:var(--navy-deep)}
-.cs-hero .rings{height:U(516)}
-.cs-hero .title{position:absolute;left:U(40);top:U(210);width:U(620);margin:0;font:400 U(60)/U(62) var(--serif);letter-spacing:U(-2.4);text-transform:uppercase;color:var(--title-light);z-index:2}
-.cs-hero .intro{position:absolute;left:U(953);top:U(218);width:U(447);display:flex;flex-direction:column;align-items:flex-start;gap:U(28);z-index:2}
-.cs-hero .intro p{margin:0;font:400 U(18)/U(27) var(--sans);color:var(--title-light)}
-.cs-photo{display:block;width:100%;height:U(640);object-fit:cover}
-.cs-sec{background:#fff;padding:U(120) 0}
-.cs-sec.flush{padding-top:0}
-.cs-sec .in{height:auto;padding:0 U(40);box-sizing:border-box}
-.cs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:U(40)}
-.cs-head .h2{width:U(760)}
-.cs-head p{margin:0;width:U(447);font:400 U(18)/U(27) var(--sans);color:rgba(25,35,75,.8)}
-/* L'idea */
-.idea .cols{margin-top:U(72);display:grid;grid-template-columns:repeat(3,1fr);gap:U(24)}
-.idea figure{margin:0}
-.idea .ph{overflow:hidden;height:U(520)}
-.idea .ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--osmo)}
-.idea figure:hover .ph img{transform:scale(1.02)}
-.idea h3{margin:U(24) 0 0;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
-.idea figure p{margin:U(10) 0 0;font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.7)}
-/* Team */
-.team .h2{width:U(640)}
-.sq-ctrl{display:flex;gap:U(8)}
-.sq-btn{width:U(40);height:U(40);display:grid;place-items:center;border:1px solid rgba(25,35,75,.5);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),opacity .4s var(--osmo)}
-.sq-btn .ico{width:U(16);height:U(16)}
-.sq-btn.car-prev .ico{transform:scaleX(-1)}
-.sq-btn:disabled{border-color:rgba(25,35,75,.15);cursor:default}
-.sq-btn:disabled .ico{opacity:.4}
-.sq-btn:hover:not(:disabled){background:var(--navy);border-color:var(--navy)}
-.sq-btn:hover:not(:disabled) path{stroke:#fff}
-.team .car-view{margin-top:U(56);margin-right:calc(-1*(50vw - U(680)));overflow:hidden;cursor:grab;touch-action:pan-y}
-.team .car-view.drag{cursor:grabbing}
-.team .track{display:flex;gap:U(16);width:max-content;transition:transform 1s var(--osmo);will-change:transform}
-.team .car-view.drag .track{transition:none}
-.person{flex:none;width:U(380);height:U(440);box-sizing:border-box;padding:U(28);display:flex;flex-direction:column;justify-content:space-between;background:#F3F5FC;color:var(--navy);user-select:none;transition:background-color .5s var(--osmo)}
-.person:hover{background:#EBEFFB}
-.person .pic{width:U(88);height:U(88);display:grid;place-items:center;background:var(--azzurro);font:400 U(12)/1 var(--sans);color:rgba(25,35,75,.6)}
-.person .nm{margin:U(20) 0 0;font:400 U(24)/U(31) var(--sans)}
-.person .role{margin:U(4) 0 0;font:400 U(16)/U(22) var(--sans);color:rgba(25,35,75,.55)}
-.person .bio{margin:0;font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.55)}
-.person .more{margin-top:U(20);display:inline-flex;align-items:center;gap:U(6);font:500 U(15)/U(19) var(--sans);color:var(--navy)}
-.person .more .ico{width:U(16);height:U(16);transition:transform .5s var(--osmo)}
-.person .more:hover .ico{transform:translateX(U(3))}
-/* Aree */
-.cs-areas .cards{margin-top:U(64);display:grid;grid-template-columns:repeat(3,1fr);gap:U(24);align-items:stretch}
-.acard{border:1px solid rgba(25,35,75,.12);background:#fff;display:flex;flex-direction:column}
-.acard .ph{height:U(260);overflow:hidden}
-.acard .ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--osmo)}
-.acard:hover .ph img{transform:scale(1.02)}
-.acard .body{padding:U(32) U(32) U(36);display:flex;flex-direction:column;gap:U(16)}
-.acard h3{margin:0;font:400 U(28)/U(34) var(--sans);letter-spacing:U(-.28);color:var(--navy)}
-.acard p{margin:0;font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.8)}
-.pills{margin-top:U(4);display:flex;flex-wrap:wrap;gap:U(8)}
-.pills a{padding:U(7) U(14);border:1px solid rgba(25,35,75,.25);border-radius:999px;font:400 U(14)/U(18) var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),color .4s var(--osmo),border-color .4s var(--osmo)}
-.pills a:hover{background:var(--navy);border-color:var(--navy);color:#fff}
-.acard--acc h3{color:#5A1C30}
-.acard--acc .pills a{border-color:rgba(90,28,48,.25);color:#5A1C30}
-.acard--acc .pills a:hover{background:#5A1C30;border-color:#5A1C30;color:#fff}
-/* Recensione */
-.cs-rev .block{display:flex;gap:U(24);padding:U(12);background:var(--azzurro)}
-.cs-rev .txt{flex:1;min-width:0;padding:U(52) U(32);display:flex;flex-direction:column;justify-content:space-between}
-.cs-rev blockquote{margin:0;font:400 U(34)/U(42) var(--serif);letter-spacing:U(-.34);color:var(--navy)}
-.cs-rev .who{margin:U(20) 0 0;font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.7)}
-.cs-rev .btn-solid{display:flex;align-items:center;justify-content:center;gap:U(10);padding:U(14) U(18);border-radius:U(4);background:var(--navy);font:500 U(15)/U(20) var(--sans);color:#fff;transition:background-color .4s var(--osmo)}
-.cs-rev .btn-solid:hover{background:var(--navy-deep)}
-.cs-rev .btn-solid .ico{width:U(16);height:U(16);transition:transform .5s var(--osmo)}
-.cs-rev .btn-solid:hover .ico{transform:translateX(U(3))}
-.cs-rev .pic{flex:none;width:U(660);height:U(460);object-fit:cover;display:block}
+/* ================= CHI SIAMO v2 ================= */
+.ab-hero{height:U(860);background:var(--navy-deep)}
+.ab-hero .rings{height:U(860)}
+.ab-hero h1{position:absolute;left:U(40);top:U(200);margin:0;width:U(1100);font:400 U(104)/U(94) var(--serif);letter-spacing:U(-4.2);text-transform:uppercase;z-index:2}
+.ab-hero h1 .a{display:block;color:var(--title-light)}.ab-hero h1 .b{display:block;color:var(--azzurro)}
+.ab-hero .foot-row{position:absolute;left:U(40);right:U(40);bottom:U(72);display:flex;justify-content:space-between;align-items:flex-end;gap:U(40);z-index:2}
+.ab-hero .facts{display:flex;gap:U(28);font:500 U(14)/U(20) var(--sans);letter-spacing:U(.84);text-transform:uppercase;color:var(--azzurro)}
+.ab-hero .facts span{display:flex;align-items:center;gap:U(28)}
+.ab-hero .facts span+span::before{content:"";width:U(4);height:U(4);border-radius:50%;background:var(--azzurro);opacity:.6}
+.ab-hero .intro{width:U(447);display:flex;flex-direction:column;align-items:flex-start;gap:U(28)}
+.ab-hero .intro p{margin:0;font:400 U(18)/U(27) var(--sans);color:var(--title-light)}
+.ab-hero .rule{position:absolute;left:U(40);right:U(40);bottom:U(250);height:1px;background:rgba(255,255,255,.12);z-index:2}
+/* manifesto: words light up while scrolling */
+.manifesto{background:#fff;padding:U(160) 0 U(150)}
+.manifesto .in{height:auto;padding:0 U(40);box-sizing:border-box}
+.manifesto p{margin:0 0 0 U(240);width:U(1000);font:400 U(44)/U(56) var(--sans);letter-spacing:U(-.88);color:var(--navy)}
+.manifesto .w{color:rgba(25,35,75,.16);transition:color .5s var(--osmo)}
+.manifesto .w.lit{color:var(--navy)}
+.manifesto .sig{margin:U(48) 0 0 U(240);font:500 U(14)/U(20) var(--sans);letter-spacing:U(.84);text-transform:uppercase;color:rgba(25,35,75,.5)}
+/* photo band with parallax */
+.band{position:relative;height:U(640);overflow:hidden}
+.band img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;will-change:transform}
+/* three rows */
+.rows{margin-top:U(72);border-top:1px solid rgba(25,35,75,.12)}
+.rowx{display:grid;grid-template-columns:U(80) U(420) 1fr U(300);gap:U(32);align-items:start;padding:U(32) 0;border-bottom:1px solid rgba(25,35,75,.12)}
+.rowx .n{font:400 U(16)/U(32) var(--serif);letter-spacing:U(-.96);color:rgba(25,35,75,.5)}
+.rowx h3{margin:0;font:400 U(30)/U(36) var(--sans);letter-spacing:U(-.3);color:var(--navy)}
+.rowx p{margin:0;max-width:U(440);font:400 U(17)/U(26) var(--sans);color:rgba(25,35,75,.75)}
+.rowx .ph{height:U(200);overflow:hidden}
+.rowx .ph img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform 1.4s var(--osmo)}
+.rowx:hover .ph img{transform:scale(1.04)}
+/* team */
+.ab-team .cs-head{align-items:flex-end}
+.ab-team .ctrl{display:flex;gap:U(12)}
+.ab-team .car-view{margin-top:U(56);margin-right:calc(-1*(50vw - U(680)));overflow:hidden;cursor:grab;touch-action:pan-y}
+.ab-team .car-view.drag{cursor:grabbing}
+.ab-team .track{display:flex;gap:U(20);width:max-content;transition:transform 1s var(--osmo);will-change:transform}
+.ab-team .car-view.drag .track{transition:none}
+.mate{flex:none;width:U(320);user-select:none}
+.mate .pic{height:U(400);display:grid;place-items:center;background:#F3F5FC;font:400 U(13)/1 var(--sans);color:rgba(25,35,75,.45);transition:background-color .5s var(--osmo)}
+.mate:hover .pic{background:#EBEFFB}
+.mate .nm{margin:U(20) 0 0;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.mate .role{margin:U(4) 0 0;font:400 U(15)/U(22) var(--sans);color:rgba(25,35,75,.55)}
+/* areas index (navy) */
+.ab-areas{background:#F3F5FC;color:var(--navy);padding:U(120) 0}
+.ab-areas .in{height:auto;padding:0 U(40);box-sizing:border-box}
+.idx{margin-top:U(64);border-top:1px solid rgba(25,35,75,.14)}
+.idx a{display:grid;grid-template-columns:U(80) 1fr U(447) U(40);gap:U(32);align-items:center;padding:U(36) 0;border-bottom:1px solid rgba(25,35,75,.14);color:var(--navy);transition:color .5s var(--osmo)}
+.idx .n{font:400 U(16)/1 var(--serif);color:rgba(25,35,75,.45)}
+.idx .t{font:400 U(64)/U(60) var(--serif);letter-spacing:U(-2.6);text-transform:uppercase;transition:transform .8s var(--osmo)}
+.idx .d{font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.7)}
+.idx .ar{width:U(40);height:U(40);border-radius:50%;border:1px solid rgba(25,35,75,.25);display:grid;place-items:center;transition:background-color .5s var(--osmo),border-color .5s var(--osmo)}
+.idx .ar .ico{width:U(18);height:U(18)}
+.idx a:hover{color:#3B4A8C}
+.idx a:hover .t{transform:translateX(U(16))}
+.idx a:hover .ar{background:var(--navy);border-color:var(--navy)}
+.idx a:hover .ar path{stroke:#fff}
 @media (max-width: 899px){
-  .cs-hero{height:auto}
-  .cs-hero .in{height:auto}
-  .cs-hero .rings{height:100%}
-  .cs-hero .title{position:relative;left:auto;top:auto;width:auto;padding-top:130px;font-size:38px;line-height:38px;letter-spacing:-1.4px}
-  .cs-hero .intro{position:relative;left:auto;top:auto;width:auto;margin:24px 0 0;padding-bottom:56px;gap:24px}
-  .cs-hero .intro p{font-size:17px;line-height:26px}
-  .cs-photo{height:70vw}
-  .cs-sec{padding:64px 0}.cs-sec.flush{padding-top:0}
-  .cs-sec .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
-  .cs-head{flex-direction:column;align-items:flex-start;gap:20px}
-  .cs-head .h2,.cs-head p,.team .h2{width:auto}
-  .cs-head p{font-size:17px;line-height:26px}
-  .idea .cols,.cs-areas .cards{grid-template-columns:1fr;gap:40px;margin-top:32px}
-  .idea .ph{height:110vw;max-height:520px}
-  .team .car-view{margin-top:28px;margin-right:calc(-1*max(16px,env(safe-area-inset-right,0px)))}
-  .person{width:calc(100vw - 72px);max-width:380px;height:400px}
-  .cs-rev .block{flex-direction:column}
-  .cs-rev .txt{padding:28px 16px 16px;gap:32px}
-  .cs-rev blockquote{font-size:24px;line-height:31px}
-  .cs-rev .pic{width:100%;height:70vw}
-  .sq-btn{width:40px;height:40px}
+  .ab-hero{height:auto}
+  .ab-hero .in{height:auto;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
+  .ab-hero .rings{height:100%}
+  .ab-hero h1{position:relative;left:auto;top:auto;width:auto;padding-top:132px;font-size:46px;line-height:44px;letter-spacing:-1.8px}
+  .ab-hero .rule{position:relative;left:auto;right:auto;bottom:auto;margin:40px 0 24px}
+  .ab-hero .foot-row{position:relative;left:auto;right:auto;bottom:auto;flex-direction:column-reverse;align-items:flex-start;gap:32px;padding-bottom:48px}
+  .ab-hero .intro{width:auto;gap:24px}
+  .ab-hero .intro p{font-size:17px;line-height:26px}
+  .ab-hero .facts{flex-wrap:wrap;gap:10px 16px;font-size:12px;letter-spacing:.7px}
+  .ab-hero .facts span{gap:16px}
+  .manifesto{padding:80px 0 72px}
+  .manifesto .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
+  .manifesto p{margin:0;width:auto;font-size:27px;line-height:36px;letter-spacing:-.5px}
+  .manifesto .sig{margin:32px 0 0;font-size:12px}
+  .band{height:72vw}
+  .rows{margin-top:32px}
+  .rowx{grid-template-columns:36px 1fr;gap:6px 12px;padding:24px 0 28px}
+  .rowx .ph{grid-column:1 / -1;grid-row:1;height:58vw;margin-bottom:18px}
+  .rowx .n{grid-column:1;grid-row:2;line-height:30px}
+  .rowx h3{grid-column:2;grid-row:2;font-size:24px;line-height:30px}
+  .rowx p{grid-column:2;grid-row:3;font-size:16px;line-height:24px}
+  .ab-team .car-view{margin-top:28px;margin-right:calc(-1*max(16px,env(safe-area-inset-right,0px)))}
+  .ab-team .cs-head{gap:20px}
+  .ab-team .ctrl{gap:8px;align-self:flex-end}
+  .mate{width:68vw;max-width:300px}
+  .mate .pic{height:86vw;max-height:380px}
+  .ab-areas{padding:64px 0}
+  .ab-areas .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
+  .idx{margin-top:32px}
+  .idx a{grid-template-columns:28px 1fr 36px;gap:8px 12px;padding:24px 0}
+  .idx .n{grid-row:1}
+  .idx .t{font-size:32px;line-height:32px;letter-spacing:-1.2px}
+  .idx .d{grid-column:2 / 4;grid-row:2;font-size:15px;line-height:22px}
+  .idx .ar{grid-column:3;grid-row:1;width:36px;height:36px}
 }
 '''
 
-HERO = '''<!-- HERO Chi siamo 689:170 -->
-<section class="sec hero cs-hero" id="top">
-  <div class="in">
-    <div class="rings" data-parallax="0.1"><div class="art">__DEVICE_CS__</div></div>
-__HEADER__
-    <h1 class="title">Diffondiamo una cultura del dialogo</h1>
-    <div class="intro">
-      <p class="blurin">Aiutiamo le persone ad affrontare i conflitti con maggiore consapevolezza e a trovare soluzioni condivise e durature. In 20 sedi in Italia.</p>
-      <a class="btn btn--glass" href="#contatti">Avvia una mediazione __ARROW_W__</a>
-    </div>
-  </div>
-</section>
-<img class="cs-photo" src="__IMG_cs_hero__" alt="Un mediatore parla con le parti durante un incontro">
-'''
+MANIFESTO = ('Aiutiamo le persone ad affrontare i conflitti con maggiore consapevolezza e a trovare soluzioni condivise e durature. '
+             'Per questo abbiamo creato uno spazio in cui le esigenze delle persone e quelle dei professionisti si incontrano.')
 
-IDEA = [("cs_idea1","Uno spazio per le persone","Ti offriamo uno spazio riservato e confidenziale, in cui sentirti accolto e trovare il professionista più adatto a te."),
-        ("cs_idea2","Un alleato per i professionisti","Agli avvocati e ai professionisti del settore legale offriamo servizi pensati per il loro lavoro: dall’analisi del caso alla strategia, dalla conduzione della procedura alla scelta del mediatore."),
-        ("cs_idea3","L’esperienza di un gruppo","Competenza e affidabilità nascono da anni di lavoro di un gruppo di professionisti: mediatori civili e commerciali, familiari, sanitari e penali, counselor, coach, psicologi e psicoterapeuti.")]
+ROWS = [('01', 'Uno spazio per le persone', 'Ti offriamo uno spazio riservato e confidenziale, in cui sentirti accolto e trovare il professionista più adatto a te.', 'cs_idea1'),
+        ('02', 'Un alleato per i professionisti', 'Agli avvocati e ai professionisti del settore legale offriamo servizi pensati per il loro lavoro: dall’analisi del caso alla strategia, dalla conduzione della procedura alla scelta del mediatore.', 'cs_idea2'),
+        ('03', 'L’esperienza di un gruppo', 'Competenza e affidabilità nascono da anni di lavoro di un gruppo di professionisti: mediatori civili e commerciali, familiari, sanitari e penali, counselor, coach, psicologi e psicoterapeuti.', 'cs_idea3')]
 
-AREAS = [("cs_area1","","Mediazione","Civile e commerciale, familiare, sanitaria, penale e lavorativa: ti accompagniamo in ogni tipo di mediazione, in sede o online.",[("Civile e commerciale","mediazione-civile.html"),"Familiare","Sanitaria, penale e lavorativa"]),
-         ("cs_area2"," acard--acc","DPL Accademy","Siamo ente di formazione accreditato presso il Ministero della Giustizia: corsi per diventare mediatori e percorsi specialistici.",["Civile e commerciale","Familiare","Coordinazione genitoriale","Seminari e aggiornamenti"]),
-         ("cs_area3","","DPL Magazine","Notizie, approfondimenti ed eventi sul mondo della mediazione, su dplmagazine.it.",["Rassegna stampa","Eventi","Media e magazine"])]
+AREAS = [('01', 'Mediazione', 'Civile e commerciale, familiare, sanitaria, penale e lavorativa: ti accompagniamo in ogni tipo di mediazione, in sede o online.', '__HREF_MC__', ''),
+         ('02', 'DPL Accademy', 'Siamo ente di formazione accreditato presso il Ministero della Giustizia: corsi per diventare mediatori e percorsi specialistici.', '#', ''),
+         ('03', 'DPL Magazine', 'Notizie, approfondimenti ed eventi sul mondo della mediazione, su dplmagazine.it.', 'https://www.dplmagazine.it/', ' target="_blank" rel="noopener"')]
 
-def person(name, role):
-    return (f'<article class="person"><div><div class="pic">[Foto]</div><p class="nm">{name}</p><p class="role">{role}</p></div>'
-            f'<div><p class="bio">[Breve presentazione: esperienza, ambiti di mediazione, sede.]</p><a class="more" href="#">Vedi profilo __ARROW_N16__</a></div></article>')
-
-def body():
-    idea = '\n'.join(f'''      <figure><div class="ph"><img src="__IMG_{im}__" alt=""></div><h3 class="blurin">{t}</h3><p class="blurin">{p}</p></figure>''' for im,t,p in IDEA)
-    people = '\n'.join('        '+person(*x) for x in [("Lucia Di Palermo","[Ruolo]")]+[("[Nome Cognome]","[Ruolo · Sede]")]*7)
-    areas = '\n'.join(f'''      <article class="acard{cls}"><div class="ph"><img src="__IMG_{im}__" alt=""></div><div class="body"><h3>{t}</h3><p>{p}</p><div class="pills">{''.join((f'<a href="{x[1]}">{x[0]}</a>' if isinstance(x,tuple) else f'<a href="#">{x}</a>') for x in pills)}</div></div></article>''' for im,cls,t,p,pills in AREAS)
-    return f'''<!-- L'IDEA 689:181 -->
-<section class="cs-sec idea" id="idea">
-  <div class="in">
-    <div class="cs-head"><h2 class="h2 blurin">Dove le persone e i professionisti si incontrano</h2><p class="blurin">L’idea nasce dal desiderio di creare una realtà nuova, in cui far incontrare le esigenze delle persone e quelle dei professionisti.</p></div>
-    <div class="cols">
-{idea}
-    </div>
-  </div>
-</section>
-
-<!-- IL TEAM 689:201 -->
-<section class="cs-sec flush team" id="team">
-  <div class="in">
-    <div class="cs-head head-row"><h2 class="h2 blurin">Le persone che ti accompagnano</h2>
-      <div class="sq-ctrl"><button class="sq-btn car-prev" aria-label="Persona precedente" disabled>__ARROW_N16__</button><button class="sq-btn car-next" aria-label="Persona successiva">__ARROW_N16__</button></div></div>
-    <div class="car-view" aria-roledescription="carosello" aria-label="Il team">
-      <div class="track">
-{people}
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LE NOSTRE AREE 689:306 -->
-<section class="cs-sec flush cs-areas" id="aree">
-  <div class="in">
-    <div class="cs-head"><h2 class="h2 blurin">Mediazione, formazione, informazione</h2><p class="blurin">Tre aree con lo stesso modo di lavorare: ascolto, chiarezza e competenza.</p></div>
-    <div class="cards">
-{areas}
-    </div>
-  </div>
-</section>
-
-<!-- RECENSIONE 689:352 -->
-<section class="cs-sec flush cs-rev" id="recensioni">
-  <div class="in">
-    <div class="block">
-      <div class="txt">
-        <div><blockquote>«…la cura, la professionalità e il calore con cui i mediatori DPL accolgono ed accompagnano i clienti nel loro percorso.»</blockquote><p class="who">Silvia B. · Corso biennale di mediazione familiare</p></div>
-        <a class="btn-solid" href="https://www.dplmediazione.it/dicono-di-noi.html" target="_blank" rel="noopener">Leggi tutte le recensioni __ARROW_W16__</a>
-      </div>
-      <img class="pic" src="__IMG_cs_rev__" alt="">
-    </div>
-  </div>
-</section>
-
+JS = '''
+  /* ---- Chi siamo: manifesto words light up with scroll; photo band parallax ---- */
+  const mani = document.querySelector('.manifesto p');
+  if (mani) {
+    const words = [...mani.querySelectorAll('.w')], band = document.querySelector('.band img');
+    const loop = () => {
+      const vh = innerHeight, r = mani.getBoundingClientRect();
+      const p = reduce ? 1 : Math.min(1, Math.max(0, (vh * .82 - r.top) / (r.height + vh * .35)));
+      const n = Math.round(p * words.length); words.forEach((w, i) => w.classList.toggle('lit', i < n));
+      if (band && !reduce) { const b = band.parentElement.getBoundingClientRect(); if (b.bottom > 0 && b.top < vh) band.style.transform = `translate3d(0,${(-(b.top + b.height / 2 - vh / 2) / vh * b.height * .14).toFixed(1)}px,0)`; }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
 '''
 
 def make(src):
-    s = src
-    s = re.sub(r'<title>[^<]*</title>', '<title>Chi siamo · DPL Mediazione</title>', s, count=1)
-    # no logo splash on inner pages
-    a = s.index('<!-- splash'); b = s.index('<div class="pill"', a); s = s[:a] + s[b:]
-    # header markup, reused from the homepage hero
-    h0 = s.index('    <header class="hdr">'); h1 = s.index('</header>', h0) + len('</header>')
-    header = s[h0:h1]
-    header = header.replace('<a href="__HREF_CHI__">Chi siamo</a>', '<a class="is-active" href="__HREF_CHI__" aria-current="page">Chi siamo</a>')
-    # replace everything from the home hero to the closing section
-    a = s.index('<!-- HERO 613:2295 -->'); b = s.index('<!-- CTA + FOOTER')
-    s = s[:a] + HERO.replace('__HEADER__', header) + body() + s[b:]
-    s = s.replace('</style>', CSS + '</style>', 1)
-    s = s.replace('__HREF_HOME__', 'dpl-home.html').replace('__HREF_CHI__', '#top')
-    ids = set(re.findall(r'id="([^"]+)"', s))
-    s = re.sub(r'href="#([A-Za-z][\w-]*)"', lambda m: m.group(0) if m.group(1) in ids else f'href="dpl-home.html#{m.group(1)}"', s)
-    s = s.replace('__ARROW_N16__', '__ARROW_N__').replace('__ARROW_W16__', '__ARROW_W__')
+    words = ' '.join(f'<span class="w">{w}</span>' for w in MANIFESTO.split(' '))
+    rows = '\n'.join(f'      <article class="rowx"><span class="n">{n}</span><h3>{t}</h3><p>{p}</p><div class="ph"><img src="__IMG_{im}__" alt=""></div></article>' for n, t, p, im in ROWS)
+    mates = '\n'.join(f'        <article class="mate"><div class="pic">[Foto]</div><p class="nm">{n}</p><p class="role">{r}</p></article>'
+                      for n, r in [('Lucia Di Palermo', '[Ruolo]')] + [('[Nome Cognome]', '[Ruolo · Sede]')] * 7)
+    idx = '\n'.join(f'      <a href="{h}"{x}><span class="n">{n}</span><span class="t">{t}</span><span class="d">{d}</span><span class="ar">__ARROW_N__</span></a>' for n, t, d, h, x in AREAS)
+    body = f'''<!-- HERO · Chi siamo v2 -->
+<section class="sec hero ab-hero" id="top">
+  <div class="in">
+    <div class="rings" data-parallax="0.1"><div class="art">__DEVICE_HERO__</div></div>
+__HEADER__
+    <h1><span class="a">Diffondiamo una cultura</span><span class="b">del dialogo.</span></h1>
+    <div class="rule"></div>
+    <div class="foot-row">
+      <div class="facts"><span>Organismo n. 1075</span><span>20 sedi in Italia</span><span>Mediazione e formazione</span></div>
+      <div class="intro"><p class="blurin">Siamo mediatori, formatori e professionisti che lavorano insieme perché un conflitto possa diventare un dialogo.</p><a class="btn btn--glass" href="#contatti">Avvia una mediazione __ARROW_W__</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="idea">
+  <div class="in">
+    <p>{words}</p>
+    <div class="sig">L’idea di DPL Mediazione &amp; Co.</div>
+  </div>
+</section>
+
+<div class="band"><img src="__IMG_cs_hero__" alt="Un mediatore parla con le parti durante un incontro"></div>
+
+<!-- COME CI SIAMO -->
+<section class="cs-sec" id="come-ci-siamo">
+  <div class="in">
+    <div class="cs-head"><h2 class="h2 blurin">Dove le persone e i professionisti si incontrano</h2><p class="blurin">Tre modi di esserci, con lo stesso approccio: ascolto, chiarezza e competenza.</p></div>
+    <div class="rows">
+{rows}
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="cs-sec flush ab-team" id="team">
+  <div class="in">
+    <div class="cs-head"><h2 class="h2 blurin">Le persone che ti accompagnano</h2>
+      <div class="ctrl"><button class="rv-btn prev car-prev" aria-label="Persona precedente" disabled>__ARROW_N__</button><button class="rv-btn next car-next" aria-label="Persona successiva">__ARROW_N__</button></div></div>
+    <div class="car-view" aria-roledescription="carosello" aria-label="Il team">
+      <div class="track">
+{mates}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AREE -->
+<section class="ab-areas" id="aree">
+  <div class="in">
+    <div class="cs-head"><h2 class="h2 blurin">Mediazione, formazione, informazione</h2><p class="blurin">Tre aree con lo stesso modo di lavorare.</p></div>
+    <nav class="idx" aria-label="Le nostre aree">
+{idx}
+    </nav>
+  </div>
+</section>
+
+'''
+    hdr = lambda h: h.replace('<a href="__HREF_CHI__">Chi siamo</a>', '<a class="is-active" href="__HREF_CHI__" aria-current="page">Chi siamo</a>')
+    s = common.page(src, 'Chi siamo · DPL Mediazione', body, CSS, JS, hdr, 'chi-siamo.html')
     return s

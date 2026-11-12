@@ -7,7 +7,7 @@ Prototipo navigabile del nuovo sito di DPL Mediazione, sviluppato dal design in 
 | File | Pagina | Figma |
 |---|---|---|
 | `index.html` | Home | Home Desktop `613:2294` |
-| `chi-siamo.html` | Chi siamo | Chi siamo / Desktop / 1440w — v1 `689:121` |
+| `chi-siamo.html` | Chi siamo | — v2 interpretata in codice (non copia del frame Figma), da riportare in Figma |
 | `mediazione-civile.html` | Mediazione civile e commerciale | — costruita in codice, da riportare in Figma |
 
 Ogni pagina è un file HTML autonomo: font (Zodiak, Switzer), immagini e grafiche sono incorporati, quindi si apre con un doppio clic o si pubblica così com'è (es. GitHub Pages dalla root del branch `main`).
@@ -19,10 +19,12 @@ Ogni pagina è un file HTML autonomo: font (Zodiak, Switzer), immagini e grafich
 - Un solo easing per tutte le animazioni: CustomEase «osmo» `M0,0 C0.625,0.05 0,1 1,1` = `cubic-bezier(.625,.05,0,1)`.
 - Blur in entrata solo su titoli e testi (non sul titolo della hero né sui menu).
 - Selezione testo: sfondo `#BAC7F9`, testo `#19234B`.
+- Cambio pagina: tendina blu notte con il simbolo DPL che si disegna e si riempie; all'arrivo la tendina si apre verso l'alto.
 
 ## Sorgenti (`src/`)
 
 - `src.html` — sorgente della home (le misure desktop sono scritte come `U(n)`, convertite in `calc(n*var(--u))`).
+- `common.py` — scheletro e CSS condivisi delle pagine interne.
 - `cs.py`, `mc.py` — generano Chi siamo e Mediazione civile riusando testa, header, menu, footer e JS della home.
 - `build.py` — incorpora logo, icone, immagini (`assets/`) e font (`fonts/`) e scrive i file HTML.
 
