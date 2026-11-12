@@ -100,6 +100,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .splash .c1{transform:translateX(-14px)}.splash .c2{transform:translateX(14px)}
 .splash.draw .c2{transform:translateX(0)}
 .splash .sp-fill{fill:var(--azzurro)}
+.splash .sp-cover{fill:var(--navy-deep)}
 .splash .sp-mark{transform-box:fill-box;transform-origin:center;transition:transform 1.2s var(--osmo),opacity .7s var(--osmo)}
 .splash.filled circle{stroke-opacity:0;transition:stroke-opacity .8s var(--osmo)}
 .splash.out .sp-mark{transform:scale(.9);opacity:0}
@@ -326,7 +327,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <!-- splash: logo intro (Figma «Splash Screen» 670:2646) -->
 <div class="splash" id="splash" aria-hidden="true">
-  <svg viewBox="0 0 180 140"><defs><clipPath id="spClip"><path id="spWave" d="M-10 160H190V160H-10Z"/></clipPath></defs><g class="sp-mark"><path class="sp-fill" clip-path="url(#spClip)" fill-rule="evenodd" d="M0 70a66 66 0 1 0 132 0a66 66 0 1 0 -132 0ZM48 70a66 66 0 1 0 132 0a66 66 0 1 0 -132 0Z"/><circle class="c1" cx="66" cy="70" r="66"/><circle class="c2" cx="114" cy="70" r="66"/></g></svg>
+  <svg viewBox="0 0 180 140"><g class="sp-mark"><path class="sp-fill" fill-rule="evenodd" d="M0 70a66 66 0 1 0 132 0a66 66 0 1 0 -132 0ZM48 70a66 66 0 1 0 132 0a66 66 0 1 0 -132 0Z"/><path id="spWave" class="sp-cover" d="M-10 -20H190V160H-10Z"/><circle class="c1" cx="66" cy="70" r="66"/><circle class="c2" cx="114" cy="70" r="66"/></g></svg>
 </div>
 
 <!-- floating menu -->
@@ -575,10 +576,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     const fillTick = now => {
       const k = Math.min(1, Math.max(0, (now - t0) / FILL_MS)), p = osmo(k);
       const level = 146 - p * 158, amp = 6 * (1 - p) * Math.min(1, k * 4), ph = now / 160;
-      let d = 'M-10 ' + (level + amp * Math.sin(-10 / 17 + ph)).toFixed(2);
-      for (let x = -5; x <= 190; x += 5) d += 'L' + x + ' ' + (level + amp * Math.sin(x / 17 + ph)).toFixed(2);
-      wave.setAttribute('d', d + 'L190 160L-10 160Z');
-      if (k < 1) requestAnimationFrame(fillTick); else splash.classList.add('filled');
+      // navy cover above the liquid level (no url() references: works inside iframes/with <base>)
+      let d = 'M-10 -20L190 -20';
+      for (let x = 190; x >= -10; x -= 5) d += 'L' + x + ' ' + (level + amp * Math.sin(x / 17 + ph)).toFixed(2);
+      wave.setAttribute('d', d + 'Z');
+      if (k < 1) requestAnimationFrame(fillTick); else { wave.setAttribute('d', ''); splash.classList.add('filled'); }
     };
     requestAnimationFrame(fillTick);
     setTimeout(() => { splash.classList.add('out'); }, FILL_AT + FILL_MS + 450);
