@@ -850,6 +850,35 @@ a.post-feat{color:inherit}
   .nf .btns{flex-direction:column;align-items:center}
   .nf-l{gap:8px 18px;margin-top:40px}
 }
+
+/* ---- DPL Accademy: tonalità rosse (D-054, D-128) — bordeaux #5A1C30, rosa #E1BED2; mai bordeaux attaccato al blu notte (D-142), niente gradienti ---- */
+:root{--bordeaux:#5A1C30;--rosa:#E1BED2;--rosa-t:#FAF5F8}
+.px-hero.acc{background:var(--bordeaux)}
+.px-hero.acc .device path{fill:var(--rosa)}
+.px-hero.acc h1 .b{color:var(--rosa)}
+.px-hero.acc .facts{color:var(--rosa)}
+.px-hero.acc .facts span+span::before{background:var(--rosa)}
+.px-sec.acc-t{background:var(--rosa-t)}
+.acc .cs-head .h2{color:var(--bordeaux)}
+.acc .vis{background:var(--bordeaux)}
+.acc .vis .glow{display:none}
+.acc .v-stack .c{color:var(--bordeaux);box-shadow:0 calc(20*var(--u)) calc(50*var(--u)) rgba(40,8,20,.35)}
+.acc .v-stack .c .tag{background:var(--rosa)}
+.acc .feat .ft h3{color:var(--bordeaux)}
+.acc .feat .ft li{color:var(--bordeaux)}
+.acc .feat .ft li::before{background:var(--rosa);box-shadow:0 0 0 calc(3*var(--u)) rgba(225,190,210,.4)}
+.acc .chips-f button[aria-pressed="true"],.acc .chips-f button:hover{background:var(--bordeaux);border-color:var(--bordeaux)}
+.acc .btn-ghost:hover{border-color:var(--bordeaux)}
+.acc .lst a:hover{color:var(--bordeaux)}
+.acc .lst .ur path{stroke:var(--bordeaux)}
+/* course cards are DPL Accademy products everywhere they appear */
+.course .tag{background:var(--rosa-t);color:var(--bordeaux)}
+.course .tag.free{background:var(--rosa);color:var(--bordeaux)}
+.course:hover{border-color:var(--bordeaux)}
+.course h3{color:var(--bordeaux)}
+.course .go{color:var(--bordeaux)}
+.course .go path{stroke:var(--bordeaux)}
+.course .tag.past{background:transparent;border-color:rgba(90,28,48,.3)}
 </style>
 
 <!-- page transition: navy curtain with the DPL symbol (draw → liquid fill) -->
@@ -873,7 +902,7 @@ a.post-feat{color:inherit}
 </div>
 
 <main>
-<section class="sec hero px-hero" id="top">
+<section class="sec hero px-hero " id="top">
   <div class="in">
     <div class="rings" data-parallax="0.1"><div class="art"><svg class="device ring-float" viewBox="0 0 1440 696" style="width:calc(1440*var(--u));height:calc(696*var(--u))" overflow="visible" aria-hidden="true"><defs><clipPath id="dch"><path clip-rule="evenodd" d="M-131.00 400.50a868.50 868.50 0 1 0 1737.00 0a868.50 868.50 0 1 0 -1737.00 0ZM378.00 660.00a756.00 756.00 0 1 0 1512.00 0a756.00 756.00 0 1 0 -1512.00 0Z"/></clipPath><linearGradient id="dgh" gradientUnits="userSpaceOnUse" x1="-131" y1="-468" x2="1890" y2="1416"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".08"/><stop offset=".6" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity=".32"/></linearGradient></defs><path fill="#BAC7F9" fill-opacity=".1" fill-rule="evenodd" d="M-131.00 400.50a868.50 868.50 0 1 0 1737.00 0a868.50 868.50 0 1 0 -1737.00 0ZM378.00 660.00a756.00 756.00 0 1 0 1512.00 0a756.00 756.00 0 1 0 -1512.00 0Z"/></svg></div></div>
     <header class="hdr">
@@ -933,7 +962,7 @@ a.post-feat{color:inherit}
 <div class="ccards"><div class="ccard"><span class="k">Indirizzo</span><span class="v">[Indirizzo della sede]</span></div><div class="ccard"><span class="k">Referente</span><span class="v">[Nome del referente]</span></div><div class="ccard"><span class="k">Segreteria</span><a class="v" href="tel:+390249717642">02 49717642</a></div><div class="ccard"><span class="k">E-mail</span><a class="v" href="mailto:info@dplmediazione.it">info@dplmediazione.it</a></div></div>
   </div>
 </section>
-<section class="px-sec tint" id="corsi">
+<section class="px-sec acc acc-t" id="corsi">
   <div class="in">
 <div class="cs-head"><h2 class="h2 blurin">Corsi disponibili</h2><p class="blurin">Corsi e incontri che puoi seguire online da qualsiasi sede.</p></div><div class="px-body"><div class="courses"><article class="course" data-cat="corso" data-end="2027-03-12"><span class="tag">Corso abilitante</span><h3>Corso di mediazione civile e commerciale · 41ª edizione</h3><dl><dt>Dove</dt><dd>Milano e online</dd><dt>Quando</dt><dd>24 febbraio – 12 marzo 2027</dd><dt>Costo</dt><dd>Consultare i dettagli</dd><dt>Durata</dt><dd>80 ore (+14 approfondimento giuridico)</dd><dt>Crediti</dt><dd>18 CF corso · 10 CF aggiornamento</dd></dl><a class="go" href="contatti.html?argomento=Formazione&amp;corso=Corso%20di%20mediazione%20civile%20e%20commerciale%20%C2%B7%2041%C2%AA%20edizione#modulo">Richiedi informazioni <svg class="ico" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="#19234B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></article>
 <article class="course" data-cat="corso" data-end="2027-06-25"><span class="tag">Corso abilitante</span><h3>Corso di mediazione civile e commerciale · 42ª edizione</h3><dl><dt>Dove</dt><dd>Milano e online</dd><dt>Quando</dt><dd>9 – 25 giugno 2027</dd><dt>Costo</dt><dd>Consultare i dettagli</dd><dt>Durata</dt><dd>80 ore (+14 approfondimento giuridico)</dd><dt>Crediti</dt><dd>18 CF corso · 10 CF aggiornamento</dd></dl><a class="go" href="contatti.html?argomento=Formazione&amp;corso=Corso%20di%20mediazione%20civile%20e%20commerciale%20%C2%B7%2042%C2%AA%20edizione#modulo">Richiedi informazioni <svg class="ico" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="#19234B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></article>

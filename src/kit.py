@@ -472,12 +472,44 @@ a.post-feat{color:inherit}
 }
 '''
 
+
+CSS += r'''
+/* ---- DPL Accademy: tonalità rosse (D-054, D-128) — bordeaux #5A1C30, rosa #E1BED2; mai bordeaux attaccato al blu notte (D-142), niente gradienti ---- */
+:root{--bordeaux:#5A1C30;--rosa:#E1BED2;--rosa-t:#FAF5F8}
+.px-hero.acc{background:var(--bordeaux)}
+.px-hero.acc .device path{fill:var(--rosa)}
+.px-hero.acc h1 .b{color:var(--rosa)}
+.px-hero.acc .facts{color:var(--rosa)}
+.px-hero.acc .facts span+span::before{background:var(--rosa)}
+.px-sec.acc-t{background:var(--rosa-t)}
+.acc .cs-head .h2{color:var(--bordeaux)}
+.acc .vis{background:var(--bordeaux)}
+.acc .vis .glow{display:none}
+.acc .v-stack .c{color:var(--bordeaux);box-shadow:0 U(20) U(50) rgba(40,8,20,.35)}
+.acc .v-stack .c .tag{background:var(--rosa)}
+.acc .feat .ft h3{color:var(--bordeaux)}
+.acc .feat .ft li{color:var(--bordeaux)}
+.acc .feat .ft li::before{background:var(--rosa);box-shadow:0 0 0 U(3) rgba(225,190,210,.4)}
+.acc .chips-f button[aria-pressed="true"],.acc .chips-f button:hover{background:var(--bordeaux);border-color:var(--bordeaux)}
+.acc .btn-ghost:hover{border-color:var(--bordeaux)}
+.acc .lst a:hover{color:var(--bordeaux)}
+.acc .lst .ur path{stroke:var(--bordeaux)}
+/* course cards are DPL Accademy products everywhere they appear */
+.course .tag{background:var(--rosa-t);color:var(--bordeaux)}
+.course .tag.free{background:var(--rosa);color:var(--bordeaux)}
+.course:hover{border-color:var(--bordeaux)}
+.course h3{color:var(--bordeaux)}
+.course .go{color:var(--bordeaux)}
+.course .go path{stroke:var(--bordeaux)}
+.course .tag.past{background:transparent;border-color:rgba(90,28,48,.3)}
+'''
+
 def esc(s): return H.escape(s, quote=True)
 
-def hero(a, b, intro, btns, facts, device='__DEVICE_HERO__', crumb=None):
+def hero(a, b, intro, btns, facts, device='__DEVICE_HERO__', crumb=None, cls=''):
     f = ''.join(f'<span>{x}</span>' for x in facts)
     cr = f'<a class="crumb" href="{crumb[1]}"><span class="ar">←</span>{crumb[0]}</a>' if crumb else ''
-    return f'''<section class="sec hero px-hero" id="top">
+    return f'''<section class="sec hero px-hero {cls}" id="top">
   <div class="in">
     <div class="rings" data-parallax="0.1"><div class="art">{device}</div></div>
 __HEADER__

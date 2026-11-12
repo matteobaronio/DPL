@@ -60,6 +60,8 @@ CSS = r'''
 .idx a:hover .t{transform:translateX(U(16))}
 .idx a:hover .ar{background:var(--navy);border-color:var(--navy)}
 .idx a:hover .ar path{stroke:#fff}
+.idx a[data-acc]:hover{color:var(--bordeaux,#5A1C30)}
+.idx a[data-acc]:hover .ar{background:#5A1C30;border-color:#5A1C30}
 /* recensioni */
 .ab-rev{background:#fff;padding:0 0 U(120)}
 .ab-rev .in{height:auto;padding:0 U(40);box-sizing:border-box}
@@ -120,7 +122,7 @@ ROWS = [('01', 'Uno spazio per le persone', 'Ti offriamo uno spazio riservato e 
         ('03', 'L’esperienza di un gruppo', 'Competenza e affidabilità nascono da anni di lavoro di un gruppo di professionisti: mediatori civili e commerciali, familiari, sanitari e penali, counselor, coach, psicologi e psicoterapeuti.', 'cs_idea3')]
 
 AREAS = [('01', 'Mediazione', 'Civile e commerciale, familiare, sanitaria, penale e lavorativa: ti accompagniamo in ogni tipo di mediazione, in sede o online.', '__HREF_MC__', ''),
-         ('02', 'DPL Accademy', 'Siamo ente di formazione accreditato presso il Ministero della Giustizia: corsi per diventare mediatori e percorsi specialistici.', '#', ''),
+         ('02', 'DPL Accademy', 'Siamo ente di formazione accreditato presso il Ministero della Giustizia: corsi per diventare mediatori e percorsi specialistici.', '__HREF_FORM__', ' data-acc'),
          ('03', 'DPL Magazine', 'Notizie, approfondimenti ed eventi sul mondo della mediazione, su dplmagazine.it.', 'https://www.dplmagazine.it/', ' target="_blank" rel="noopener"')]
 
 JS = '''

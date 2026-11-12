@@ -111,22 +111,22 @@ def formazione(src):
     b = hero('Formazione', 'per mediatori',
              'Siamo ente di formazione accreditato presso il Ministero della Giustizia: corsi per diventare mediatori, aggiornamenti e incontri aperti a professionisti e avvocati.',
              btn('Vedi i corsi', '#corsi') + btn('DPL Accademy', 'https://www.dplaccademy.it/', 'line', True, UR.replace('class="ur"', 'class="ico"')),
-             ['Ente accreditato', 'Milano e online', 'Crediti formativi per avvocati'])
+             ['Ente accreditato', 'Milano e online', 'Crediti formativi per avvocati'], cls='acc')
     b += band('mb5', 'Un formatore spiega durante un corso')
     b += sec(head('Corsi e incontri', 'Civile e commerciale: il calendario dei prossimi appuntamenti.') +
         '<div class="px-body"><div class="tools" data-filter=".course"><div class="chips-f"><button data-chip="all" aria-pressed="true">Tutti</button><button data-chip="corso" aria-pressed="false">Corsi abilitanti</button><button data-chip="aggiornamento" aria-pressed="false">Aggiornamenti</button><button data-chip="incontro" aria-pressed="false">Incontri gratuiti</button></div>'
         f'<label class="search">{SEARCH}<input type="search" placeholder="Cerca un corso" aria-label="Cerca un corso"></label></div>'
-        + courses_block(COURSES) + '</div>', '', 'corsi')
+        + courses_block(COURSES) + '</div>', 'acc', 'corsi')
     b += sec('<div class="px-body" style="margin-top:0">' + feat('Diventare mediatore',
         'Il corso di mediazione civile e commerciale dura 80 ore, con un approfondimento giuridico di 14 ore per chi ha una laurea diversa da giurisprudenza, ed esame finale. Gli aggiornamenti valgono per la formazione continua dei mediatori.',
         ['Patrocinio EIMI e Ordine degli Avvocati di Milano', 'In aula a Milano o online', 'Aggiornamento da 18 ore per i mediatori'],
-        v_stack([('Corso abilitante', 'Mediazione civile e commerciale', '80 ore · esame finale'), ('Aggiornamento', 'Il conflitto condominiale', '17 marzo 2027 · 9–19'), ('Incontro gratuito', 'Mediazione 4.0', 'Quarto lunedì del mese')])) + '</div>', 'tint')
+        v_stack([('Corso abilitante', 'Mediazione civile e commerciale', '80 ore · esame finale'), ('Aggiornamento', 'Il conflitto condominiale', '17 marzo 2027 · 9–19'), ('Incontro gratuito', 'Mediazione 4.0', 'Quarto lunedì del mese')])) + '</div>', 'acc acc-t')
     acc = [('Familiare', 'Corso biennale e percorsi per mediatori familiari.', 'https://www.dplaccademy.it/'),
            ('Coordinazione genitoriale', 'Formazione specialistica per professionisti.', 'https://www.dplaccademy.it/'),
            ('Seminari e aggiornamenti', 'Il calendario completo degli eventi formativi.', 'https://www.dplaccademy.it/'),
            ('Area corsisti', 'Materiali e accesso riservato per chi frequenta i corsi.', 'https://www.dplaccademy.it/login.html')]
     b += sec(head('Su DPL Accademy', 'La formazione familiare e specialistica vive sul sito di DPL Accademy.') +
-        '<div class="lst px-body">' + ''.join(f'<a href="{u}" target="_blank" rel="noopener"><span class="t">{t}</span><span class="m">{d}</span>{UR}</a>' for t, d, u in acc) + '</div>', '')
+        '<div class="lst px-body">' + ''.join(f'<a href="{u}" target="_blank" rel="noopener"><span class="t">{t}</span><span class="m">{d}</span>{UR}</a>' for t, d, u in acc) + '</div>', 'acc')
     b += sec(ctab('Hai domande su un corso?', 'Ti aiutiamo a scegliere il percorso giusto.', btn('Scrivici', '__HREF_CON__') + btn('02 49717642', 'tel:+390249717642', 'line')), 'flush')
     return mk(src, 'formazione.html', 'Formazione', b, active_nav='__HREF_FORM__')
 
@@ -179,7 +179,7 @@ def sede_milano(src):
         '<div class="ccard"><span class="k">E-mail</span><a class="v" href="mailto:info@dplmediazione.it">info@dplmediazione.it</a></div>'
         '<div class="ccard"><span class="k">Segreteria</span><span class="v">Lun–ven<br>9–13 · 14–18</span></div></div>', '')
     mil = [c for c in COURSES]
-    b += sec(head('Corsi della sede', 'Corsi, aggiornamenti e incontri in programma a Milano e online.') + f'<div class="px-body">{courses_block(mil[:6])}</div>', 'tint', 'corsi')
+    b += sec(head('Corsi della sede', 'Corsi, aggiornamenti e incontri in programma a Milano e online.') + f'<div class="px-body">{courses_block(mil[:6])}</div>', 'acc acc-t', 'corsi')
     names = [nice_name(n) for n in PROS.split('|')]
     b += sec(head('Professionisti della sede', f'{len(names)} mediatori e professionisti della sede di Milano.') +
         f'<div class="px-body"><div class="tools" data-filter=".names span"><label class="search">{SEARCH}<input type="search" placeholder="Cerca un professionista" aria-label="Cerca un professionista"></label></div><div class="names">' +
@@ -197,7 +197,7 @@ def sede(src, c, r):
         '<div class="ccard"><span class="k">Segreteria</span><a class="v" href="tel:+390249717642">02 49717642</a></div>'
         '<div class="ccard"><span class="k">E-mail</span><a class="v" href="mailto:info@dplmediazione.it">info@dplmediazione.it</a></div></div>', '')
     online = [x for x in COURSES if 'online' in x[2]]
-    b += sec(head('Corsi disponibili', 'Corsi e incontri che puoi seguire online da qualsiasi sede.') + f'<div class="px-body">{courses_block(online[:6])}</div>', 'tint', 'corsi')
+    b += sec(head('Corsi disponibili', 'Corsi e incontri che puoi seguire online da qualsiasi sede.') + f'<div class="px-body">{courses_block(online[:6])}</div>', 'acc acc-t', 'corsi')
     b += sec(head('Professionisti della sede', 'I mediatori e i professionisti che lavorano a ' + c + '.') + '<div class="px-body"><div class="lst"><div class="row"><span class="t">[Elenco dei professionisti della sede]</span></div></div></div>', '', 'professionisti')
     b += sec(ctab(f'Vuoi un incontro a {c}?', 'Chiamaci o scrivici: fissiamo il primo incontro in sede o online.', btn('02 49717642', 'tel:+390249717642') + btn('Scrivici', f'__HREF_CON__?sede={quote(c)}#modulo', 'line')), 'flush')
     return mk(src, f'sede-{slug(c)}.html', f'Sede di {c}', b, active_nav='__HREF_SEDI__')
