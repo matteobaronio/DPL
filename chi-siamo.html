@@ -304,12 +304,24 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .h2{font-size:32px;line-height:32px;letter-spacing:-1.6px}
   .about .intro{margin-top:24px}.about .intro p{width:auto}
   .numbers-pin{height:auto}
-  .numbers{position:relative;top:auto;height:auto;display:flex;flex-direction:column;gap:40px;padding-block:24px 64px}
-  .col{position:relative;transform:none!important;height:auto;padding-left:20px}
-  .col .div{left:0!important;top:0!important;height:100%!important}
-  .num{position:relative;left:auto!important;top:auto!important;font-size:88px;line-height:80px;letter-spacing:-8px}
-  .num small{font-size:28px}
-  .cap{position:relative;left:auto!important;top:auto!important;width:auto!important;margin-top:16px}
+  .numbers{position:relative;top:auto;height:auto;padding-block:8px 72px}
+  .numbers .in{display:flex;flex-direction:column;gap:56px}
+  .col{position:relative;transform:none!important;height:auto;padding:4px 0 6px 22px}
+  .col .div{left:0!important;top:0!important;height:100%!important;transform-origin:50% 0;transform:scaleY(var(--line,1))}
+  .num{position:relative;left:auto!important;top:auto!important;margin:0;font-size:88px;line-height:80px;letter-spacing:-8px}
+  .num small{font-size:28px;letter-spacing:-.5px;margin-left:6px}
+  .cap{position:relative;left:auto!important;top:auto!important;width:auto!important;max-width:320px;margin:18px 0 0;font-size:16px;line-height:24px}
+  /* «tamburo» numbers: each digit is a 3D drum driven by scroll, alternating spin, locks left → right */
+  .drums{display:inline-flex;align-items:flex-start;perspective:520px;padding-block:44px;margin-block:-44px;
+    -webkit-mask-image:linear-gradient(transparent 8%,#000 38%,#000 62%,transparent 92%);mask-image:linear-gradient(transparent 8%,#000 38%,#000 62%,transparent 92%)}
+  .drum{position:relative;display:inline-block;height:80px;margin-right:-.085em;letter-spacing:0}
+  .drum .ghost{visibility:hidden}
+  .drum .cyl{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+  .drum .face{position:absolute;left:50%;top:0;padding:0 .12em;line-height:80px;letter-spacing:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:opacity .5s var(--osmo)}
+  .drum.lock .face:not(.t){opacity:0}
+  .drum.lock{animation:drumLock .6s var(--osmo)}
+  @keyframes drumLock{0%{transform:translateY(-5px)}100%{transform:none}}
+  .js .blurin{filter:blur(10px);transform:translateY(18px)}
   .areas{height:auto;flex-direction:column}
   .area{flex:none;width:100%;height:auto;min-height:120vw;max-height:none}
   .area .ph{left:0;width:100%;object-fit:cover;transform:none;-webkit-mask-image:none;mask-image:none}
@@ -725,6 +737,38 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   document.addEventListener('click', e => { if (!pill.contains(e.target)) closeMenu(); });
 
+  /* ---- mobile numbers: 3D digit drums driven by scroll ---- */
+  const R_DRUM = 46 / Math.sin(Math.PI / 10);   // 80px cell, 10 faces
+  const drumSets = [];
+  if (mobile() && !reduce) document.querySelectorAll('#numbers .num').forEach(num => {
+    const tn = [...num.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.textContent)); if (!tn) return;
+    const digits = tn.textContent.trim().split('').filter(c => /\d/.test(c)).map(Number);
+    const wrap = document.createElement('span'); wrap.className = 'drums'; wrap.setAttribute('aria-hidden', 'true');
+    const drums = digits.map((d, i) => {
+      const dr = document.createElement('span'); dr.className = 'drum';
+      dr.innerHTML = `<span class="ghost">${d}</span><span class="cyl">` + Array.from({ length: 10 }, (_, k) => `<span class="face${k === d ? ' t' : ''}" style="transform:translateX(-50%) rotateX(${k * 36}deg) translateZ(${R_DRUM.toFixed(1)}px)">${k}</span>`).join('') + '</span>';
+      wrap.appendChild(dr); return { el: dr, cyl: dr.lastChild, d, dir: i % 2 ? -1 : 1, turns: 2 + i, lockAt: digits.length > 1 ? .62 + .38 * i / (digits.length - 1) : 1, last: null, locked: false };
+    });
+    num.setAttribute('aria-label', tn.textContent.trim() + (num.querySelector('small') ? ' ' + num.querySelector('small').textContent : ''));
+    tn.replaceWith(wrap, document.createTextNode(' '));
+    drumSets.push({ num, col: num.closest('.col'), drums });
+  });
+  function drumTick(vh){
+    drumSets.forEach(set => {
+      const top = set.num.getBoundingClientRect().top, p = Math.min(1, Math.max(0, (vh - top) / (vh * .45)));
+      set.col.style.setProperty('--line', osmo(p).toFixed(3));
+      set.drums.forEach(dr => {
+        const pi = Math.min(1, p / dr.lockAt), e = osmo(pi);
+        const ang = -dr.d * 36 + dr.dir * (1 - e) * dr.turns * 360;
+        const v = dr.last == null ? 0 : Math.abs(ang - dr.last); dr.last = ang;
+        dr.cyl.style.transform = `rotateX(${ang.toFixed(2)}deg)`;
+        dr.cyl.style.filter = v > 3 ? `blur(${Math.min(1.6, v / 20).toFixed(2)}px)` : '';
+        if (pi >= 1 && !dr.locked) { dr.locked = true; dr.el.classList.add('lock'); }
+        else if (pi < 1 && dr.locked) { dr.locked = false; dr.el.classList.remove('lock'); }
+      });
+    });
+  }
+
   /* ---- scroll-driven: rings parallax, menu pill, numbers leveling ---- */
   const ringEls = [...document.querySelectorAll('.rings')];
   const cols = [...document.querySelectorAll('#numbers .col')], pin = document.getElementById('numbersPin'), numbersSec = document.getElementById('numbers');
@@ -735,7 +779,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       const r = pin.getBoundingClientRect(), stickyTop = Math.max(90 * u, vh / 2 - 350 * u), total = pin.offsetHeight - numbersSec.offsetHeight;
       const p = total > 0 ? Math.min(1, Math.max(0, (stickyTop - r.top) / total)) : 1, e = osmo(p);
       cols.forEach(c => { const sft = +(c.dataset.shift || 0); c.style.transform = `translate3d(0,${(-sft * e * u).toFixed(2)}px,0)`; });
-    } else cols.forEach(c => c.style.transform = '');
+    } else { cols.forEach(c => c.style.transform = ''); if (drumSets.length) drumTick(vh); }
     if (!reduce) ringEls.forEach(r => { const rect = r.parentElement.getBoundingClientRect(); const rel = (rect.top + rect.height / 2 - vh / 2); r.firstElementChild.style.transform = `translate3d(0,${(-rel * (+r.dataset.parallax)).toFixed(1)}px,0)`; });
   }
   if (lenis) lenis.on('scroll', onScroll); else addEventListener('scroll', onScroll, { passive: true });
