@@ -566,7 +566,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   });
   // blur-in: every text and title except hero title and menus, staggered per section
   // only titles and body copy (no cards, buttons, links, ticker, numbers)
-  ['.about .h2','.about .intro p','.numbers .cap','.area h3','.how .h2','.reviews .h2','.cta-block h2','.cta-block .intro p','.foot .tag']
+  ['.about .h2','.about .intro p','.numbers .cap','.how .h2','.reviews .h2','.cta-block h2','.cta-block .intro p','.foot .tag']
     .forEach(sel => document.querySelectorAll(sel).forEach(el => el.classList.add('blurin')));
   const groups = new Map();
   document.querySelectorAll('.blurin').forEach(el => { const k = el.closest('section'); const n = groups.get(k) || 0; groups.set(k, n + 1); el.dataset.d = Math.min(n, 4) * 0.09; });
