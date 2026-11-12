@@ -593,7 +593,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .v-path .ttl{margin-bottom:calc(22*var(--u));font:400 calc(26*var(--u))/calc(32*var(--u)) var(--sans);color:#fff}
 .v-path .ttl b{font-weight:400;color:var(--azzurro)}
 @keyframes vfill{0%,3%{transform:scaleY(0)}12%,85%{transform:scaleY(1)}95%,100%{transform:scaleY(0)}}
-.v-map{position:absolute;inset:calc(40*var(--u))}
+.v-italy{position:absolute;left:50%;top:50%;height:92%;width:auto;max-width:92%;transform:translate(-50%,-50%);overflow:visible}
+.v-italy .grid circle{fill:rgba(186,199,249,.32);opacity:0;animation:vgrid 1.6s var(--osmo) forwards}
+.in-view .v-italy .grid circle,.vis .v-italy .grid circle{animation-play-state:running}
+@keyframes vgrid{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.v-italy .arcs path{fill:none;stroke:url(#arcg);stroke:var(--azzurro);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.9;animation:varc 9s var(--osmo) infinite}
+@keyframes varc{0%{stroke-dashoffset:1;opacity:0}6%{opacity:.9}22%{stroke-dashoffset:0;opacity:.9}70%{stroke-dashoffset:0;opacity:.35}86%,100%{stroke-dashoffset:-1;opacity:0}}
+.v-italy .pin .dot{fill:var(--azzurro)}
+.v-italy .pin.hq .dot{fill:#fff}
+.v-italy .pin .halo{fill:rgba(186,199,249,.25);transform-box:fill-box;transform-origin:center;animation:vhalo 3s var(--osmo) infinite}
+.v-italy .pin.hq .halo{fill:rgba(255,255,255,.22)}
+@keyframes vhalo{0%{transform:scale(.3);opacity:.9}70%,100%{transform:scale(1.6);opacity:0}}
+.v-italy text{font:500 22px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;fill:rgba(255,255,255,.75)}
+.v-italy .pin.hq text{fill:#fff;font-size:26px}
 .v-map .mp{position:absolute;width:calc(10*var(--u));height:calc(10*var(--u));margin:calc(-5*var(--u)) 0 0 calc(-5*var(--u));border-radius:50%;background:var(--azzurro);box-shadow:0 0 0 0 rgba(186,199,249,.6);animation:vping 6s var(--osmo) infinite}
 .v-map .mp.hq{width:calc(16*var(--u));height:calc(16*var(--u));margin:calc(-8*var(--u)) 0 0 calc(-8*var(--u));background:#fff}
 .v-map .mp span{position:absolute;left:calc(14*var(--u));top:calc(-5*var(--u));font:500 calc(11*var(--u))/calc(14*var(--u)) var(--sans);letter-spacing:calc(.5*var(--u));text-transform:uppercase;color:rgba(255,255,255,.7);white-space:nowrap}
@@ -952,6 +964,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const i = hs.indexOf(e.target); tocLinks.forEach((a, j) => a.classList.toggle('on', i === j)); } }), { rootMargin: '-20% 0px -70% 0px' });
     hs.forEach(h => h && io.observe(h));
   }
+
+  /* ---- contatti: prefill from ?argomento=&corso=&sede= ---- */
+  (() => { const q = new URLSearchParams(location.search), f = document.querySelector('form[name="contatti"]'); if (!f) return;
+    const set = (n, v) => { const el = f.elements[n]; if (!el || !v) return; if (el.tagName === 'SELECT') { const o = [...el.options].find(o => o.text === v); if (o) el.value = o.text; } else el.value = v; };
+    set('argomento', q.get('argomento')); set('sede', q.get('sede'));
+    if (q.get('corso')) f.elements.messaggio.value = 'Vorrei informazioni sul corso «' + q.get('corso') + '».';
+  })();
 
   /* ---- splash (logo intro) ---- */
   const splash = document.getElementById('splash');

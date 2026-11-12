@@ -2,7 +2,7 @@
 # Content: dplmediazione.it/mediazione-civile.html (facts kept, copy rewritten in the DPL voice: "noi", "tu").
 import re, common
 
-DOCS = 'https://www.dplmediazione.it/docs/'
+DOCS = 'docs/'
 MATERIE = ['Affitto di azienda','Condominio','Contratti assicurativi, bancari e finanziari','Contratti di associazione in partecipazione',
   'Contratti di franchising','Contratti di consorzio','Contratti d’opera','Contratti di rete','Contratti di somministrazione',
   'Contratti di subfornitura','Diritti reali','Divisione','Locazione e comodato','Opposizione a decreto ingiuntivo','Patti di famiglia',

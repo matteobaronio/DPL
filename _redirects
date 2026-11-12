@@ -1,0 +1,2 @@
+# Moduli PDF: serviti dal nuovo sito (proxy verso l’archivio attuale finché i file non vengono copiati qui)
+/docs/*  https://www.dplmediazione.it/docs/:splat  200

@@ -207,7 +207,19 @@ CSS = r'''
 .v-path .ttl{margin-bottom:U(22);font:400 U(26)/U(32) var(--sans);color:#fff}
 .v-path .ttl b{font-weight:400;color:var(--azzurro)}
 @keyframes vfill{0%,3%{transform:scaleY(0)}12%,85%{transform:scaleY(1)}95%,100%{transform:scaleY(0)}}
-.v-map{position:absolute;inset:U(40)}
+.v-italy{position:absolute;left:50%;top:50%;height:92%;width:auto;max-width:92%;transform:translate(-50%,-50%);overflow:visible}
+.v-italy .grid circle{fill:rgba(186,199,249,.32);opacity:0;animation:vgrid 1.6s var(--osmo) forwards}
+.in-view .v-italy .grid circle,.vis .v-italy .grid circle{animation-play-state:running}
+@keyframes vgrid{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.v-italy .arcs path{fill:none;stroke:url(#arcg);stroke:var(--azzurro);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.9;animation:varc 9s var(--osmo) infinite}
+@keyframes varc{0%{stroke-dashoffset:1;opacity:0}6%{opacity:.9}22%{stroke-dashoffset:0;opacity:.9}70%{stroke-dashoffset:0;opacity:.35}86%,100%{stroke-dashoffset:-1;opacity:0}}
+.v-italy .pin .dot{fill:var(--azzurro)}
+.v-italy .pin.hq .dot{fill:#fff}
+.v-italy .pin .halo{fill:rgba(186,199,249,.25);transform-box:fill-box;transform-origin:center;animation:vhalo 3s var(--osmo) infinite}
+.v-italy .pin.hq .halo{fill:rgba(255,255,255,.22)}
+@keyframes vhalo{0%{transform:scale(.3);opacity:.9}70%,100%{transform:scale(1.6);opacity:0}}
+.v-italy text{font:500 22px/1 var(--sans);letter-spacing:1px;text-transform:uppercase;fill:rgba(255,255,255,.75)}
+.v-italy .pin.hq text{fill:#fff;font-size:26px}
 .v-map .mp{position:absolute;width:U(10);height:U(10);margin:U(-5) 0 0 U(-5);border-radius:50%;background:var(--azzurro);box-shadow:0 0 0 0 rgba(186,199,249,.6);animation:vping 6s var(--osmo) infinite}
 .v-map .mp.hq{width:U(16);height:U(16);margin:U(-8) 0 0 U(-8);background:#fff}
 .v-map .mp span{position:absolute;left:U(14);top:U(-5);font:500 U(11)/U(14) var(--sans);letter-spacing:U(.5);text-transform:uppercase;color:rgba(255,255,255,.7);white-space:nowrap}
@@ -379,15 +391,46 @@ def v_orbit(icon, labels):
     os_ = ''.join(f'<div class="o" style="animation-delay:{-24 * i / n:.2f}s"><span style="animation-delay:{-24 * i / n:.2f}s">{l}</span></div>' for i, l in enumerate(labels))
     return f'<div class="v-orbit" aria-hidden="true"><div class="ring"></div><div class="core">{ICONS[icon]}</div>{os_}</div>'
 
+ITALY = [  # rough outlines (lat, lon): mainland, Sicily, Sardinia
+ [(43.79,7.53),(44.15,7.65),(44.4,6.9),(45.1,6.6),(45.5,7.0),(45.9,6.8),(46.0,7.9),(46.45,8.45),(45.85,9.0),(46.3,9.25),(46.5,10.1),(46.6,10.45),(46.9,10.5),(46.8,11.0),(47.08,12.2),(46.65,13.7),(46.4,13.7),(45.8,13.6),(45.65,13.8),(45.75,13.2),(45.45,12.4),(45.2,12.3),(44.8,12.4),(44.2,12.4),(43.6,13.5),(43.0,13.9),(42.4,14.2),(41.9,15.2),(41.9,16.1),(41.6,15.9),(41.3,16.5),(40.6,17.9),(40.15,18.5),(39.8,18.35),(40.3,17.4),(40.1,16.6),(39.6,16.5),(39.4,17.1),(38.9,16.6),(38.4,16.6),(37.92,16.05),(38.25,15.65),(38.7,15.9),(39.3,16.0),(39.95,15.6),(40.05,15.3),(40.25,14.9),(40.6,14.4),(40.8,14.15),(41.2,13.6),(41.4,12.9),(41.75,12.2),(42.4,11.3),(43.0,10.5),(43.55,10.3),(44.05,10.0),(44.4,8.9),(44.1,8.2)],
+ [(38.27,15.65),(37.6,15.15),(37.0,15.3),(36.65,15.1),(36.8,14.4),(37.1,13.7),(37.3,13.0),(37.6,12.45),(38.1,12.5),(38.15,13.4),(38.0,14.0)],
+ [(41.25,9.2),(40.9,9.7),(40.0,9.75),(39.1,9.6),(38.9,8.85),(39.2,8.4),(39.9,8.5),(40.6,8.15),(40.95,8.25)]]
+
+def _inside(pt, poly):
+    y, x = pt; c = False; n = len(poly)
+    for i in range(n):
+        y1, x1 = poly[i]; y2, x2 = poly[(i + 1) % n]
+        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1: c = not c
+    return c
+
 def v_map(cities):
-    # cities: (name, lat, lon, hq) — simple equirectangular projection over Italy's bounding box
-    lat0, lat1, lon0, lon1 = 47.2, 36.5, 6.5, 18.6
-    pts = []
-    for i, (n, la, lo, hq) in enumerate(cities):
-        x = (lo - lon0) / (lon1 - lon0) * 100; y = (lat0 - la) / (lat0 - lat1) * 100
-        lbl = f'<span>{n}</span>' if hq or n in ('Torino', 'Roma', 'Salerno', 'Avellino') else ''
-        pts.append(f'<i class="mp{" hq" if hq else ""}" style="left:{x:.1f}%;top:{y:.1f}%;animation-delay:{i * .3:.1f}s">{lbl}</i>')
-    return '<div class="v-map" aria-hidden="true">' + ''.join(pts) + '</div>'
+    """Stripe-like dotted Italy: a dot matrix shaped like the country, city markers that pulse, arcs from Milano drawn in sequence."""
+    import math
+    k = math.cos(math.radians(42)); S = 100
+    X = lambda lo: (lo - 6.4) * k * S; Y = lambda la: (47.3 - la) * S
+    W, H = X(18.7), Y(36.5)
+    dots = []; step = .15
+    la = 47.2
+    while la > 36.5:
+        lo = 6.5
+        while lo < 18.6:
+            if any(_inside((la, lo), p) for p in ITALY):
+                d = (47.2 - la) / 10.7
+                dots.append(f'<circle cx="{X(lo):.0f}" cy="{Y(la):.0f}" r="3.4" style="animation-delay:{d * 1.6:.2f}s"/>')
+            lo += step / k
+        la -= step
+    hq = next((la, lo) for n, la, lo, h in cities if h)
+    arcs, pins = [], []
+    for i, (n, la, lo, h) in enumerate(cities):
+        x, y = X(lo), Y(la)
+        if not h:
+            hx, hy = X(hq[1]), Y(hq[0]); mx, my = (hx + x) / 2, (hy + y) / 2; dist = math.hypot(x - hx, y - hy)
+            cx, cy = mx + (y - hy) * .18, my - dist * .28
+            arcs.append(f'<path d="M{hx:.0f} {hy:.0f}Q{cx:.0f} {cy:.0f} {x:.0f} {y:.0f}" pathLength="1" style="animation-delay:{i * .45:.2f}s"/>')
+        lbl = f'<text x="{x + 16:.0f}" y="{y + 5:.0f}">{n}</text>' if h or n in ('Torino', 'Roma', 'Salerno', 'Varese', 'Terni', 'Cuneo') else ''
+        pins.append(f'<g class="pin{" hq" if h else ""}" style="animation-delay:{i * .45 + .9:.2f}s"><circle class="halo" cx="{x:.0f}" cy="{y:.0f}" r="18"/><circle class="dot" cx="{x:.0f}" cy="{y:.0f}" r="{9 if h else 6.5}"/>{lbl}</g>')
+    return (f'<svg class="v-italy" viewBox="0 0 {W:.0f} {H:.0f}" aria-hidden="true"><g class="grid">{"".join(dots)}</g>'
+            f'<g class="arcs">{"".join(arcs)}</g><g class="pins">{"".join(pins)}</g></svg>')
 
 FILTER_JS = '''
   /* ---- kit: list filters (search + chips) ---- */

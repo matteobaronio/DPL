@@ -15,16 +15,18 @@ Architettura: «Poldo's Proposal» (Figma `481:37`, pagina Website Architecture)
 | `mediazione-sanitaria.html` | Mediazione · Sanitaria, penale e lavorativa | |
 | `formazione.html` | Formazione · Civile e commerciale | Link esterni a dplaccademy.it |
 | `sedi.html` | Le nostre sedi (20 città) | |
-| `sede-milano.html` | Pagina sede (esempio Milano) | Corsi e professionisti della sede |
+| `sede-*.html` | Una pagina per ogni sede (20) | Milano completa; le altre con indirizzo, referente e professionisti da completare |
 | `modulistica.html` | Modulistica | PDF su dplmediazione.it/docs |
 | `rassegna-stampa.html` | News & eventi · Rassegna stampa | Contenuti segnaposto |
 | `eventi.html` | News & eventi · Eventi | |
 | `contatti.html` | Contatti + Lavora con noi | Modulo Netlify Forms |
 | `sedi-convenzionate.html` | Sedi ex Art. 6 D.M. 150/23 | |
-| `regione-lombardia.html` | Pagina regione (esempio Lombardia) | |
+| `regione-*.html` | Una pagina per ogni regione (20) | Elenco accordi dal sito attuale |
 | `privacy.html` | Privacy e cookie | Testo dal sito attuale |
 
 Le pagine interne (tranne la home) sono costruite in codice, da riportare in Figma.
+
+Tutti i link restano in questo sito, tranne i servizi «fuori dal sito» dell'architettura: DPL Accademy, Area riservata (dplmediazione.eu), DPL Magazine e YouTube. I PDF della modulistica sono serviti da `/docs/` tramite `_redirects` (proxy Netlify verso l'archivio attuale).
 
 Ogni pagina è un file HTML autonomo: font (Zodiak, Switzer), immagini e grafiche sono incorporati, quindi si apre con un doppio clic o si pubblica così com'è (es. GitHub Pages dalla root del branch `main`).
 
