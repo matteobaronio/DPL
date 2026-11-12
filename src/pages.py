@@ -1,7 +1,7 @@
 # All inner pages of the "Poldo's Proposal" architecture (Figma 481:37), built with kit.py in the homepage brand.
 import common, kit, regions_data
 from urllib.parse import quote
-from kit import hero, sec, head, feat, icards, steps, faq_sec, qband, ctab, btn, v_chat, v_path, v_docs, v_stack, v_orbit, v_map, ICONS, DL, UR, SEARCH
+from kit import hero, band, sec, head, feat, icards, steps, faq_sec, qband, ctab, btn, v_chat, v_path, v_docs, v_stack, v_orbit, v_map, ICONS, DL, UR, SEARCH
 
 TEL = '<a href="tel:+390249717642">02 49717642</a>'
 DOCS = 'docs/'  # served on the new site (Netlify proxy to the current archive, see _redirects)
@@ -20,6 +20,7 @@ def familiare(src):
              'Un’opportunità per gestire la separazione in modo meno doloroso: uno spazio neutro e riservato, alternativo alle vie legali, in cui sono le parti a decidere per il loro futuro.',
              btn('Fissa il primo incontro', 'tel:+390249717642') + btn('Scrivici', '__HREF_CON__', 'line'),
              ['Primo appuntamento gratuito', 'Al massimo 12 incontri', 'In sede o online'])
+    b += band('mb9', 'Persone a confronto durante un incontro')
     b += sec(head('A chi si rivolge', 'Alle coppie, con o senza figli, e a chi vive un conflitto in famiglia.') + icards([
         ('persona', 'Coppie in crisi', 'Coniugate o conviventi, con o senza figli, in crisi o in fase di separazione.'),
         ('gruppo', 'Coppie separate o divorziate', 'Per riorganizzare la vita familiare e rivedere gli accordi quando le cose cambiano.'),
@@ -52,6 +53,7 @@ def sanitaria(src):
              'Con l’associazione Me.Dia.Re. di Torino offriamo servizi a chi sta vivendo un conflitto sul lavoro, in ambito sanitario o scolastico, tra vicini o nei rapporti professionali.',
              btn('Parla con noi', '__HREF_CON__') + btn('Chiama', 'tel:+390249717642', 'line'),
              ['In collaborazione con Me.Dia.Re.', 'Torino'])
+    b += band('mb6', 'Una professionista durante un incontro')
     b += sec(head('Dove interveniamo', 'Conflitti diversi, lo stesso approccio: ascolto, chiarezza e competenza.') + icards([
         ('gruppo', 'Sul luogo di lavoro', 'Tensioni tra colleghi, con i responsabili o all’interno dei gruppi di lavoro.'),
         ('accoglienza', 'In ambito sanitario', 'Tra pazienti, familiari e strutture o professionisti della cura.'),
@@ -95,6 +97,7 @@ def formazione(src):
              'Siamo ente di formazione accreditato presso il Ministero della Giustizia: corsi per diventare mediatori, aggiornamenti e incontri aperti a professionisti e avvocati.',
              btn('Vedi i corsi', '#corsi') + btn('DPL Accademy', 'https://www.dplaccademy.it/', 'line', True, UR.replace('class="ur"', 'class="ico"')),
              ['Ente accreditato', 'Milano e online', 'Crediti formativi per avvocati'])
+    b += band('mb5', 'Un formatore spiega durante un corso')
     b += sec(head('Corsi e incontri', 'Civile e commerciale: il calendario dei prossimi appuntamenti.') +
         '<div class="px-body"><div class="tools" data-filter=".course"><div class="chips-f"><button data-chip="all" aria-pressed="true">Tutti</button><button data-chip="corso" aria-pressed="false">Corsi abilitanti</button><button data-chip="aggiornamento" aria-pressed="false">Aggiornamenti</button><button data-chip="incontro" aria-pressed="false">Incontri gratuiti</button></div>'
         f'<label class="search">{SEARCH}<input type="search" placeholder="Cerca un corso" aria-label="Cerca un corso"></label></div>'
@@ -125,6 +128,7 @@ def sedi(src):
              'Venti sedi in Italia, da Torino a Salerno: la mediazione vicino a te. Ogni sede ha i suoi mediatori e i suoi corsi.',
              btn('Trova la sede', '#elenco') + btn('Sede di Milano', 'sede-milano.html', 'line'),
              ['20 sedi', '6 regioni', 'Sede principale a Milano'])
+    b += band('mb11', 'Due professionisti camminano in città')
     b += sec('<div class="px-body" style="margin-top:0">' + feat('La rete DPL in Italia',
         'Per la mediazione vale la competenza territoriale: la domanda va presentata a un organismo nel luogo del giudice competente. Con venti sedi è più facile trovare quella giusta.',
         ['Milano, Via Monte Bianco 8: sede principale', 'Lombardia, Piemonte, Emilia-Romagna, Lazio, Umbria e Campania', 'Mediazioni anche in videoconferenza'],
@@ -153,6 +157,7 @@ def sede_milano(src):
              'La nostra sede principale, in Via Monte Bianco 8. Qui si svolgono gli incontri di mediazione e buona parte dei corsi, anche online.',
              btn('Chiama la sede', 'tel:+390249717642') + btn('Indicazioni', 'https://www.google.com/maps/search/?api=1&query=Via+Monte+Bianco+8+Milano', 'line', True, UR.replace('class="ur"', 'class="ico"')),
              ['Via Monte Bianco 8', '20149 Milano', 'Lun–ven 9–13 · 14–18'])
+    b += band('mb1', 'Accoglienza in sede')
     b += sec('<div class="ccards">' +
         '<div class="ccard"><span class="k">Indirizzo</span><span class="v">Via Monte Bianco 8<br>20149 Milano</span></div>'
         '<div class="ccard"><span class="k">Telefono</span><a class="v" href="tel:+390249717642">02 49717642</a></div>'
@@ -170,6 +175,7 @@ def sede_milano(src):
 def sede(src, c, r):
     b = hero('Sede di', c, f'La sede DPL di {c}, in {r}. Per fissare un incontro o avere informazioni, la nostra segreteria ti mette in contatto con la sede.',
              btn('Chiama la segreteria', 'tel:+390249717642') + btn('Scrivici', f'__HREF_CON__?sede={quote(c)}#modulo', 'line'), [r, 'Mediazione in sede e online'])
+    b += band('mb1', 'Accoglienza in sede')
     b += sec('<div class="ccards">'
         '<div class="ccard"><span class="k">Indirizzo</span><span class="v">[Indirizzo della sede]</span></div>'
         '<div class="ccard"><span class="k">Referente</span><span class="v">[Nome del referente]</span></div>'
@@ -196,6 +202,7 @@ def modulistica(src):
              ['12 documenti', 'PDF', 'Aggiornati al 2025'])
     labels = {'mediazione': 'Domanda e allegati', 'procedura': 'Durante la procedura', 'costi': 'Costi'}
     rows = ''.join(f'<a data-cat="{c}" href="{DOCS}{f}" target="_blank" rel="noopener">__ICO_FILE__<span class="t">{n}</span><span class="m">{labels[c]} · PDF</span>{DL}</a>' for c, n, f in MODULI)
+    b += band('mb7', 'Documenti su una scrivania')
     b += sec('<div class="px-body" style="margin-top:0"><div class="tools" data-filter=".lst a"><div class="chips-f"><button data-chip="all" aria-pressed="true">Tutti</button>' +
         ''.join(f'<button data-chip="{k}" aria-pressed="false">{v}</button>' for k, v in labels.items()) +
         f'</div><label class="search">{SEARCH}<input type="search" placeholder="Cerca un documento" aria-label="Cerca un documento"></label></div><div class="lst">{rows}</div></div>', '')
@@ -218,24 +225,24 @@ def blog(src, fname, title_a, title_b, intro, posts, active, feat_post):
     return mk(src, fname, title_a + ' ' + title_b if title_b else title_a, b, active_dd='News &amp; eventi')
 
 def rassegna(src):
-    posts = [('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto dell’articolo su DPL Mediazione.]', '[Data]', None, 'dialogo'),
-             ('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto dell’articolo.]', '[Data]', None, 'ascolto'),
-             ('Intervista', '[Titolo dell’intervista]', '[Testata · chi parla e di cosa.]', '[Data]', None, 'persona'),
-             ('Video', '[Titolo del video]', '[Canale · breve descrizione.]', '[Data]', None, 'gruppo'),
-             ('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto.]', '[Data]', None, 'accoglienza'),
-             ('Intervista', '[Titolo dell’intervista]', '[Testata · breve estratto.]', '[Data]', None, 'ricerca')]
+    posts = [('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto dell’articolo su DPL Mediazione.]', '[Data]', 'mb2', None),
+             ('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto dell’articolo.]', '[Data]', 'mb4', None),
+             ('Intervista', '[Titolo dell’intervista]', '[Testata · chi parla e di cosa.]', '[Data]', 'mb8', None),
+             ('Video', '[Titolo del video]', '[Canale · breve descrizione.]', '[Data]', 'mb10', None),
+             ('Stampa', '[Titolo dell’articolo]', '[Testata · breve estratto.]', '[Data]', 'mb6', None),
+             ('Intervista', '[Titolo dell’intervista]', '[Testata · breve estratto.]', '[Data]', 'mb3', None)]
     return blog(src, 'rassegna-stampa.html', 'Rassegna', 'stampa', 'Cosa scrivono di noi: articoli, interviste e video su DPL Mediazione e sulla mediazione in Italia.', posts, 'rs',
-                ('In evidenza', '[Titolo dell’articolo in evidenza]', '[Testata · estratto dell’articolo più recente o più importante.]', '[Data]', 'cs_hero'))
+                ('In evidenza', '[Titolo dell’articolo in evidenza]', '[Testata · estratto dell’articolo più recente o più importante.]', '[Data]', 'mb12'))
 
 def eventi(src):
-    posts = [('Incontri', 'Mediazione 4.0', 'Tre ore al mese per aggiornarsi sugli strumenti della mediazione. Gratuito.', 'Quarto lunedì del mese', 'cs_idea2', None),
-             ('Convegni', 'La gestione delle emozioni in mediazione', 'Profili deontologici e disciplinari. Accreditato dal COA di Milano: 3 crediti.', '23 novembre 2026', 'cs_idea3', None),
-             ('Aggiornamenti', 'Relazioniamoci · Disturbi di personalità', 'Una giornata di aggiornamento per mediatori, a Milano.', '16 dicembre 2026', 'cs_idea1', None),
-             ('Aggiornamenti', 'Il conflitto nelle successioni ereditarie', 'Giornata di approfondimento a Milano e online.', '20 gennaio 2027', None, 'gruppo'),
-             ('Aggiornamenti', 'Il conflitto condominiale', 'Giornata di approfondimento a Milano e online.', '17 marzo 2027', None, 'dialogo'),
-             ('Aggiornamenti', 'Il conflitto per i canoni di locazione', 'Giornata di approfondimento a Milano e online.', '14 aprile 2027', None, 'ascolto')]
+    posts = [('Incontri', 'Mediazione 4.0', 'Tre ore al mese per aggiornarsi sugli strumenti della mediazione. Gratuito.', 'Quarto lunedì del mese', 'mb4', None),
+             ('Convegni', 'La gestione delle emozioni in mediazione', 'Profili deontologici e disciplinari. Accreditato dal COA di Milano: 3 crediti.', '23 novembre 2026', 'mb8', None),
+             ('Aggiornamenti', 'Relazioniamoci · Disturbi di personalità', 'Una giornata di aggiornamento per mediatori, a Milano.', '16 dicembre 2026', 'mb1', None),
+             ('Aggiornamenti', 'Il conflitto nelle successioni ereditarie', 'Giornata di approfondimento a Milano e online.', '20 gennaio 2027', 'mb9', None),
+             ('Aggiornamenti', 'Il conflitto condominiale', 'Giornata di approfondimento a Milano e online.', '17 marzo 2027', 'mb10', None),
+             ('Aggiornamenti', 'Il conflitto per i canoni di locazione', 'Giornata di approfondimento a Milano e online.', '14 aprile 2027', 'mb2', None)]
     return blog(src, 'eventi.html', 'Eventi', '', 'Incontri, convegni e giornate di aggiornamento aperti a mediatori, avvocati e professionisti.', posts, 'ev',
-                ('Prossimo evento', 'Mediazione 4.0', 'L’appuntamento mensile per mediatori e avvocati: tre ore, il quarto lunedì del mese, in sede a Milano e online. Gratuito.', '23 novembre 2026 · 15:30', 'cs_hero'))
+                ('Prossimo evento', 'Mediazione 4.0', 'L’appuntamento mensile per mediatori e avvocati: tre ore, il quarto lunedì del mese, in sede a Milano e online. Gratuito.', '23 novembre 2026 · 15:30', 'mb5'))
 
 # ---------------------------------------------------------------- Contatti (+ Lavora con noi)
 def contatti(src):
@@ -243,6 +250,7 @@ def contatti(src):
              'Ti rispondiamo con chiarezza, senza impegno. Scrivici dal modulo, chiamaci o passa in sede a Milano.',
              btn('Chiama 02 49717642', 'tel:+390249717642') + btn('Scrivici', '#modulo', 'line'),
              ['Lun–ven 9–13 · 14–18', 'Via Monte Bianco 8, Milano'])
+    b += band('mb12', 'Persone sorridenti durante un incontro')
     b += sec('<div class="ccards">'
         '<div class="ccard"><span class="k">Telefono</span><a class="v" href="tel:+390249717642">02 49717642</a></div>'
         '<div class="ccard"><span class="k">E-mail</span><a class="v" href="mailto:info@dplmediazione.it">info@dplmediazione.it</a></div>'
@@ -282,6 +290,7 @@ def sedi_conv(src):
              'Gli organismi con cui abbiamo un accordo ai sensi dell’art. 6 del D.M. 150/2023, regione per regione: indirizzo, organismo e tipo di accordo.',
              btn('Lombardia', 'regione-lombardia.html') + btn('Le nostre sedi', '__HREF_SEDI__', 'line'), ['D.M. 150/2023', '20 regioni'])
     rows = ''.join(f'<a href="regione-{s}.html"><span class="t">{n}</span><span class="m">{len(LOMB) if s == "lombardia" else len(regions_data.rows(s))} accordi</span>__ARROW_N__</a>' for n, s in REGIONS)
+    b += band('mb11', 'Due professionisti camminano in città')
     b += sec(f'<div class="tools" data-filter=".lst a"><label class="search">{SEARCH}<input type="search" placeholder="Cerca una regione" aria-label="Cerca una regione"></label></div><div class="lst lst-2">{rows}</div>', '')
     return mk(src, 'sedi-convenzionate.html', 'Sedi convenzionate ex art. 6', b)
 

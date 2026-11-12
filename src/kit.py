@@ -32,6 +32,9 @@ CSS = r'''
 .px-sec.flush{padding-top:0}
 .px-sec .in{height:auto;padding:0 U(40);box-sizing:border-box}
 .px-body{margin-top:U(64)}
+/* photo band with parallax */
+.px-band{position:relative;height:U(600);overflow:hidden;background:#F3F5FC}
+.px-band img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;will-change:transform}
 /* feature rows (text + live visual) */
 .feat{display:grid;grid-template-columns:1fr 1fr;gap:U(80);align-items:center}
 .feat+.feat{margin-top:U(96)}
@@ -261,6 +264,7 @@ CSS = r'''
   .px-hero .btns .btn .ico{width:16px;height:16px}
   .px-hero .facts{gap:8px 16px;font-size:12px;letter-spacing:.7px}
   .px-hero .facts span{gap:16px}
+  .px-band{height:68vw}
   .px-sec{padding:64px 0}.px-sec.flush{padding-top:0}
   .px-sec .in,.qband .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
   .px-body{margin-top:32px}
@@ -303,6 +307,9 @@ CSS = r'''
   .city .c{font-size:22px;line-height:24px}
   .city .go{right:14px;top:14px;width:28px;height:28px}
   .names{columns:1}
+  .ccards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .ccard{min-height:0;padding:16px;gap:4px}
+  .ccard .v{margin-top:14px;font-size:16px;line-height:22px;overflow-wrap:anywhere}
   .courses:not(.all) .course:nth-child(n+5){display:none}
   .more-c{display:flex!important;justify-content:center;margin-top:20px}
   .v-chat{width:86%}
@@ -334,6 +341,9 @@ __HEADER__
   </div>
 </section>
 '''
+
+def band(img, alt=''):
+    return f'<div class="px-band"><img src="__IMG_{img}__" alt="{alt}"></div>\n'
 
 def sec(inner, cls='', sid=''):
     return f'<section class="px-sec {cls}"{f" id={chr(34)}{sid}{chr(34)}" if sid else ""}>\n  <div class="in">\n{inner}\n  </div>\n</section>\n'
@@ -443,6 +453,9 @@ FILTER_JS = '''
     chips.forEach(c => c.addEventListener('click', () => { chip = c.dataset.chip; chips.forEach(x => x.setAttribute('aria-pressed', String(x === c))); run(); }));
   });
   document.querySelectorAll('.more-c button').forEach(b => b.addEventListener('click', () => { const c = b.closest('.px-body').querySelector('.courses'); c.classList.add('all'); b.parentElement.remove(); }));
+  /* ---- kit: photo band parallax ---- */
+  const bands = [...document.querySelectorAll('.px-band img')];
+  if (bands.length && !reduce) { const bl = () => { const vh = innerHeight; bands.forEach(im => { const r = im.parentElement.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) im.style.transform = `translate3d(0,${(-(r.top + r.height / 2 - vh / 2) / vh * r.height * .14).toFixed(1)}px,0)`; }); requestAnimationFrame(bl); }; requestAnimationFrame(bl); }
   /* ---- kit: legal table of contents highlight ---- */
   const tocLinks = [...document.querySelectorAll('.toc a')];
   if (tocLinks.length) {
