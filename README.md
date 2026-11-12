@@ -4,11 +4,27 @@ Prototipo navigabile del nuovo sito di DPL Mediazione, sviluppato dal design in 
 
 ## Pagine
 
-| File | Pagina | Figma |
+Architettura: «Poldo's Proposal» (Figma `481:37`, pagina Website Architecture).
+
+| File | Pagina | Note |
 |---|---|---|
-| `index.html` | Home | Home Desktop `613:2294` |
-| `chi-siamo.html` | Chi siamo | — v2 interpretata in codice (non copia del frame Figma), da riportare in Figma |
-| `mediazione-civile.html` | Mediazione civile e commerciale | — costruita in codice, da riportare in Figma |
+| `index.html` | Home | Figma `613:2294` |
+| `chi-siamo.html` | Chi siamo | L'idea, il team, recensioni, aree |
+| `mediazione-civile.html` | Mediazione · Civile e commerciale | |
+| `mediazione-familiare.html` | Mediazione · Familiare | |
+| `mediazione-sanitaria.html` | Mediazione · Sanitaria, penale e lavorativa | |
+| `formazione.html` | Formazione · Civile e commerciale | Link esterni a dplaccademy.it |
+| `sedi.html` | Le nostre sedi (20 città) | |
+| `sede-milano.html` | Pagina sede (esempio Milano) | Corsi e professionisti della sede |
+| `modulistica.html` | Modulistica | PDF su dplmediazione.it/docs |
+| `rassegna-stampa.html` | News & eventi · Rassegna stampa | Contenuti segnaposto |
+| `eventi.html` | News & eventi · Eventi | |
+| `contatti.html` | Contatti + Lavora con noi | Modulo Netlify Forms |
+| `sedi-convenzionate.html` | Sedi ex Art. 6 D.M. 150/23 | |
+| `regione-lombardia.html` | Pagina regione (esempio Lombardia) | |
+| `privacy.html` | Privacy e cookie | Testo dal sito attuale |
+
+Le pagine interne (tranne la home) sono costruite in codice, da riportare in Figma.
 
 Ogni pagina è un file HTML autonomo: font (Zodiak, Switzer), immagini e grafiche sono incorporati, quindi si apre con un doppio clic o si pubblica così com'è (es. GitHub Pages dalla root del branch `main`).
 
@@ -25,7 +41,9 @@ Ogni pagina è un file HTML autonomo: font (Zodiak, Switzer), immagini e grafich
 
 - `src.html` — sorgente della home (le misure desktop sono scritte come `U(n)`, convertite in `calc(n*var(--u))`).
 - `common.py` — scheletro e CSS condivisi delle pagine interne.
-- `cs.py`, `mc.py` — generano Chi siamo e Mediazione civile riusando testa, header, menu, footer e JS della home.
+- `cs.py`, `mc.py` — Chi siamo e Mediazione civile.
+- `kit.py` — libreria di sezioni (hero, righe con visual animati, card con icone DPL, step, FAQ, liste, blog, legale, form).
+- `pages.py` — tutte le altre pagine dell'architettura.
 - `build.py` — incorpora logo, icone, immagini (`assets/`) e font (`fonts/`) e scrive i file HTML.
 
 ```bash

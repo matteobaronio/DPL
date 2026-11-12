@@ -1,5 +1,11 @@
 # Shared building blocks for inner pages (Chi siamo, Mediazione civile…): page skeleton from the home source + common CSS.
 import re
+HREFS = {'__HREF_HOME__': 'dpl-home.html', '__HREF_CHI__': 'chi-siamo.html', '__HREF_MC__': 'mediazione-civile.html', '__HREF_FAM__': 'mediazione-familiare.html',
+         '__HREF_SAN__': 'mediazione-sanitaria.html', '__HREF_FORM__': 'formazione.html', '__HREF_SEDI__': 'sedi.html', '__HREF_MOD__': 'modulistica.html',
+         '__HREF_RS__': 'rassegna-stampa.html', '__HREF_EV__': 'eventi.html', '__HREF_CON__': 'contatti.html', '__HREF_EX6__': 'sedi-convenzionate.html', '__HREF_PRIV__': 'privacy.html'}
+def hrefs(s, home='dpl-home.html'):
+    for k, v in HREFS.items(): s = s.replace(k, home if k == '__HREF_HOME__' else v)
+    return s
 
 CSS = r'''
 /* ================= INNER PAGES · shared ================= */
@@ -43,7 +49,7 @@ def page(src, title, body, css='', js='', header_fix=None, self_href=None):
     s = s[:a] + body.replace('__HEADER__', header) + s[b:]
     s = s.replace('</style>', CSS + css + '</style>', 1)
     if js: s = s.replace("  /* ---- splash (logo intro) ---- */", js + "\n  /* ---- splash (logo intro) ---- */", 1)
-    s = s.replace('__HREF_HOME__', 'dpl-home.html').replace('__HREF_CHI__', 'chi-siamo.html').replace('__HREF_MC__', 'mediazione-civile.html')
+    s = hrefs(s)
     if self_href: s = s.replace(f'href="{self_href}"', 'href="#top"')
     ids = set(re.findall(r'id="([^"]+)"', s))
     s = re.sub(r'href="#([A-Za-z][\w-]*)"', lambda m: m.group(0) if m.group(1) in ids else f'href="dpl-home.html#{m.group(1)}"', s)

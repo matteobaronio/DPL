@@ -446,7 +446,21 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .idx a:hover .t{transform:translateX(calc(16*var(--u)))}
 .idx a:hover .ar{background:var(--navy);border-color:var(--navy)}
 .idx a:hover .ar path{stroke:#fff}
+/* recensioni */
+.ab-rev{background:#fff;padding:0 0 calc(120*var(--u))}
+.ab-rev .in{height:auto;padding:0 calc(40*var(--u));box-sizing:border-box}
+.revs{margin-top:calc(56*var(--u));display:grid;grid-template-columns:repeat(3,1fr);gap:calc(16*var(--u))}
+.revs figure{margin:0;padding:calc(32*var(--u)) calc(28*var(--u));background:#F3F5FC;display:flex;flex-direction:column;gap:calc(24*var(--u));min-height:calc(300*var(--u));box-sizing:border-box}
+.revs blockquote{margin:0;font:400 calc(22*var(--u))/calc(30*var(--u)) var(--serif);letter-spacing:calc(-.2*var(--u));color:var(--navy)}
+.revs figcaption{margin-top:auto;padding-top:calc(18*var(--u));border-top:1px solid rgba(25,35,75,.12);font:500 calc(15*var(--u))/calc(22*var(--u)) var(--sans);color:var(--navy)}
+.revs figcaption span{display:block;font-weight:400;color:rgba(25,35,75,.6)}
+.ab-rev .more{margin-top:calc(32*var(--u))}
 @media (max-width: 899px){
+  .ab-rev{padding-bottom:64px}
+  .ab-rev .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
+  .revs{grid-template-columns:1fr;gap:12px;margin-top:28px}
+  .revs figure{min-height:0;padding:24px}
+  .revs blockquote{font-size:20px;line-height:27px}
   .ab-hero{height:auto}
   .ab-hero .in{height:auto;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
   .ab-hero .rings{height:100%}
@@ -493,13 +507,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <div class="pill-menu" id="pillMenu"><div class="pill-inner">
     <ul>
       <li><a href="#top">Chi siamo</a></li>
-      <li><a href="index.html#mediazione">Mediazione</a></li>
-      <li><a href="index.html#come-funziona">Formazione</a></li>
-      <li><a href="index.html#sedi">Le nostre sedi</a></li>
-      <li><a href="index.html#recensioni">News &amp; eventi</a></li>
-      <li><a href="#contatti">Contatti</a></li>
+      <li><a href="mediazione-civile.html">Mediazione</a></li>
+      <li><a href="formazione.html">Formazione</a></li>
+      <li><a href="sedi.html">Le nostre sedi</a></li>
+      <li><a href="modulistica.html">Modulistica</a></li>
+      <li><a href="rassegna-stampa.html">News &amp; eventi</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
     </ul>
-    <div class="pill-foot"><a href="tel:+390249717642">T/ 02 49717642 <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="mailto:info@dplmediazione.it">info@dplmediazione.it <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    <div class="pill-foot"><a href="tel:+390249717642">T/ 02 49717642 <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="mailto:info@dplmediazione.it">E/ info@dplmediazione.it <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
   </div></div>
 </div>
 
@@ -542,13 +557,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <nav aria-label="Principale">
         <a class="is-active" href="#top" aria-current="page">Chi siamo</a>
         <div class="dd"><button class="dd-btn" aria-expanded="false" aria-haspopup="true">Mediazione <svg class="ico" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4.79102 7.91666L9.99935 13.125L15.2077 7.91666" stroke="white" stroke-width="1.25" stroke-linecap="square"/></svg></button>
-          <div class="dd-panel"><div class="dd-inner"><div class="dd-list"><a href="mediazione-civile.html">Civile e commerciale</a><a href="#">Familiare</a><a href="#">Sanitaria, penale e lavorativa</a></div></div></div></div>
-        <a href="#">Formazione</a>
-        <a href="#">Le nostre sedi</a>
+          <div class="dd-panel"><div class="dd-inner"><div class="dd-list"><a href="mediazione-civile.html">Civile e commerciale</a><a href="mediazione-familiare.html">Familiare</a><a href="mediazione-sanitaria.html">Sanitaria, penale e lavorativa</a></div></div></div></div>
+        <a href="formazione.html">Formazione</a>
+        <a href="sedi.html">Le nostre sedi</a>
+        <a href="modulistica.html">Modulistica</a>
         <div class="dd"><button class="dd-btn" aria-expanded="false" aria-haspopup="true">News &amp; eventi <svg class="ico" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4.79102 7.91666L9.99935 13.125L15.2077 7.91666" stroke="white" stroke-width="1.25" stroke-linecap="square"/></svg></button>
-          <div class="dd-panel"><div class="dd-inner"><div class="dd-list"><a href="#">Rassegna stampa</a><a href="#">Media e magazine <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="#">Eventi</a></div></div></div></div>
+          <div class="dd-panel"><div class="dd-inner"><div class="dd-list"><a href="rassegna-stampa.html">Rassegna stampa</a><a href="https://www.dplmagazine.it/" target="_blank" rel="noopener">Media e magazine <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="eventi.html">Eventi</a></div></div></div></div>
       </nav>
-      <a class="btn btn--glass cta" href="#contatti">Contatti</a>
+      <a class="btn btn--glass cta" href="contatti.html">Contatti</a>
     </header>
     <h1><span class="a">Diffondiamo una cultura</span><span class="b">del dialogo.</span></h1>
     <div class="rule"></div>
@@ -597,6 +613,18 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
         <article class="mate"><div class="pic">[Foto]</div><p class="nm">[Nome Cognome]</p><p class="role">[Ruolo · Sede]</p></article>
         <article class="mate"><div class="pic">[Foto]</div><p class="nm">[Nome Cognome]</p><p class="role">[Ruolo · Sede]</p></article>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENSIONI -->
+<section class="ab-rev" id="recensioni">
+  <div class="in">
+    <div class="cs-head"><h2 class="h2 blurin">Dicono di noi</h2><p class="blurin">Le parole di chi ha fatto un percorso con noi, in mediazione o in formazione.</p></div>
+    <div class="revs">
+      <figure><blockquote>«I mediatori hanno creato un ambiente sereno e rispettoso, dove tutti si sono sentiti ascoltati senza giudizio.»</blockquote><figcaption>Maria Cristina Paolillo<span>Mediazione civile e commerciale</span></figcaption></figure>
+      <figure><blockquote>«…la cura, la professionalità e il calore con cui i mediatori DPL accolgono ed accompagnano i clienti nel loro percorso.»</blockquote><figcaption>Silvia B.<span>Corso biennale di mediazione familiare</span></figcaption></figure>
+      <figure><blockquote>«Organismo ben organizzato e gestito sia sul piano tecnico sia umano.»</blockquote><figcaption>Stefano Saglimbeni<span>Mediazione</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -653,13 +681,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <path d="M70.7679 43.9535H53.1562V43.1013H59.9737V31.701C62.2651 33.0456 64.3482 34.731 66.1283 36.6816V43.1013H70.3891C70.5217 43.3853 70.6543 43.6694 70.7679 43.9535Z" fill="white"/>
 </svg></a>
       <p class="tag">La mediazione può essere complessa.<br>L’esperienza non deve esserlo.</p>
-      <div class="fcol" style="left:calc(496.6*var(--u))"><h4>Mediazione</h4><a href="mediazione-civile.html">Civile e commerciale</a><a href="index.html#mediazione">Familiare</a><a href="index.html#mediazione">Sanitaria, penale e lavorativa</a></div>
-      <div class="fcol" style="left:calc(723.8*var(--u))"><h4>Formazione</h4><a href="index.html#come-funziona">Corsi di mediazione</a><a href="index.html#come-funziona">DPL Accademy</a><a href="index.html#come-funziona">Area corsisti</a></div>
-      <div class="fcol" style="left:calc(951.1*var(--u))"><h4>DPL</h4><a href="#top">Chi siamo</a><a href="index.html#sedi">Le nostre sedi</a><a href="index.html#come-funziona">Modulistica</a><a href="index.html#recensioni">News &amp; eventi</a><a href="#contatti">Contatti</a></div>
-      <div class="fcol" style="left:calc(1178.3*var(--u))"><h4>Contatti</h4><span>Via Monte Bianco 8</span><span>20149 Milano</span><span>T/ 02 49717642</span><span>info@dplmediazione.it</span></div>
+      <div class="fcol" style="left:calc(496.6*var(--u))"><h4>Mediazione</h4><a href="mediazione-civile.html">Civile e commerciale</a><a href="mediazione-familiare.html">Familiare</a><a href="mediazione-sanitaria.html">Sanitaria, penale e lavorativa</a></div>
+      <div class="fcol" style="left:calc(723.8*var(--u))"><h4>Formazione</h4><a href="formazione.html">Corsi di mediazione</a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">DPL Accademy</a><a href="https://www.dplaccademy.it/login.html" target="_blank" rel="noopener">Area corsisti</a></div>
+      <div class="fcol" style="left:calc(951.1*var(--u))"><h4>DPL</h4><a href="#top">Chi siamo</a><a href="sedi.html">Le nostre sedi</a><a href="modulistica.html">Modulistica</a><a href="rassegna-stampa.html">News &amp; eventi</a><a href="contatti.html">Contatti</a></div>
+      <div class="fcol" style="left:calc(1178.3*var(--u))"><h4>Contatti</h4><span>Via Monte Bianco 8</span><span>20149 Milano</span><a href="tel:+390249717642">T/ 02 49717642</a><a href="mailto:info@dplmediazione.it">E/ info@dplmediazione.it</a></div>
       <div class="rule"></div>
       <p class="legal">© 2026 DPL Mediazione &amp; Co. · P.IVA 10286890966</p>
-      <p class="links">Sedi ex Art. 6-150/23   ·   Cookie &amp; Policy   ·   Area riservata   ·   Magazine   ·   YouTube</p>
+      <p class="links"><a href="sedi-convenzionate.html">Sedi ex Art. 6-150/23</a>   ·   <a href="privacy.html">Privacy e cookie</a>   ·   <a href="https://www.dplmediazione.eu/" target="_blank" rel="noopener">Area riservata</a>   ·   <a href="https://www.dplmagazine.it/" target="_blank" rel="noopener">Magazine</a>   ·   <a href="#">YouTube</a></p>
     </footer>
   </div>
 </section>

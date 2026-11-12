@@ -60,7 +60,21 @@ CSS = r'''
 .idx a:hover .t{transform:translateX(U(16))}
 .idx a:hover .ar{background:var(--navy);border-color:var(--navy)}
 .idx a:hover .ar path{stroke:#fff}
+/* recensioni */
+.ab-rev{background:#fff;padding:0 0 U(120)}
+.ab-rev .in{height:auto;padding:0 U(40);box-sizing:border-box}
+.revs{margin-top:U(56);display:grid;grid-template-columns:repeat(3,1fr);gap:U(16)}
+.revs figure{margin:0;padding:U(32) U(28);background:#F3F5FC;display:flex;flex-direction:column;gap:U(24);min-height:U(300);box-sizing:border-box}
+.revs blockquote{margin:0;font:400 U(22)/U(30) var(--serif);letter-spacing:U(-.2);color:var(--navy)}
+.revs figcaption{margin-top:auto;padding-top:U(18);border-top:1px solid rgba(25,35,75,.12);font:500 U(15)/U(22) var(--sans);color:var(--navy)}
+.revs figcaption span{display:block;font-weight:400;color:rgba(25,35,75,.6)}
+.ab-rev .more{margin-top:U(32)}
 @media (max-width: 899px){
+  .ab-rev{padding-bottom:64px}
+  .ab-rev .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
+  .revs{grid-template-columns:1fr;gap:12px;margin-top:28px}
+  .revs figure{min-height:0;padding:24px}
+  .revs blockquote{font-size:20px;line-height:27px}
   .ab-hero{height:auto}
   .ab-hero .in{height:auto;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
   .ab-hero .rings{height:100%}
@@ -174,6 +188,18 @@ __HEADER__
       <div class="track">
 {mates}
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENSIONI -->
+<section class="ab-rev" id="recensioni">
+  <div class="in">
+    <div class="cs-head"><h2 class="h2 blurin">Dicono di noi</h2><p class="blurin">Le parole di chi ha fatto un percorso con noi, in mediazione o in formazione.</p></div>
+    <div class="revs">
+      <figure><blockquote>«I mediatori hanno creato un ambiente sereno e rispettoso, dove tutti si sono sentiti ascoltati senza giudizio.»</blockquote><figcaption>Maria Cristina Paolillo<span>Mediazione civile e commerciale</span></figcaption></figure>
+      <figure><blockquote>«…la cura, la professionalità e il calore con cui i mediatori DPL accolgono ed accompagnano i clienti nel loro percorso.»</blockquote><figcaption>Silvia B.<span>Corso biennale di mediazione familiare</span></figcaption></figure>
+      <figure><blockquote>«Organismo ben organizzato e gestito sia sul piano tecnico sia umano.»</blockquote><figcaption>Stefano Saglimbeni<span>Mediazione</span></figcaption></figure>
     </div>
   </div>
 </section>

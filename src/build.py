@@ -71,14 +71,14 @@ def finish(src,out):
     open(out,'w').write(src)
     print(out,'size',len(src),'leftover',left,'fonts',ff.count('@font-face'))
 
-home=src.replace('__HREF_HOME__','#top').replace('__HREF_CHI__','chi-siamo.html').replace('__HREF_MC__','mediazione-civile.html')
-finish(home,'dpl-home.html')
-import cs
-finish(cs.make(src.replace('__HREF_MC__','mediazione-civile.html')),'chi-siamo.html')
-import mc
+import common
+finish(common.hrefs(src, '#top'),'dpl-home.html')
+import cs, mc, pages
+finish(cs.make(src),'chi-siamo.html')
 finish(mc.make(src),'mediazione-civile.html')
+for fn in pages.ALL: finish(fn(src), pages.FILES[fn.__name__])
 # full standalone documents (artifact supporting pages + vault copies)
 os.makedirs('pages', exist_ok=True)
 DOC='<!doctype html>\n<html lang="it">\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-for f in ['dpl-home.html','chi-siamo.html','mediazione-civile.html']:
+for f in ['dpl-home.html','chi-siamo.html','mediazione-civile.html']+list(pages.FILES.values()):
     open('pages/'+f,'w').write(DOC+open(f).read())
