@@ -304,27 +304,25 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .h2{font-size:32px;line-height:32px;letter-spacing:-1.6px}
   .about .intro{margin-top:24px}.about .intro p{width:auto}
   .numbers-pin{height:auto}
-  .numbers{position:relative;top:auto;height:auto;padding-block:8px 72px}
-  .numbers .in{display:flex;flex-direction:column;gap:56px}
-  .col{position:relative;transform:none!important;height:auto;padding:4px 0 6px 22px}
-  .col .div{left:0!important;top:0!important;height:100%!important;transform-origin:50% 0;transform:scaleY(var(--line,1))}
+  .numbers{position:relative;top:auto;height:auto;padding-block:8px 80px}
+  .numbers .in{display:flex;flex-direction:column;gap:72px}
+  .col{position:relative;transform:none!important;height:auto;padding:2px 0 4px 22px}
+  .col .div{left:0!important;top:0!important;height:100%!important;transform-origin:50% 0;transform:scaleY(0);transition:transform 1.4s var(--osmo)}
+  .col.go .div{transform:scaleY(1)}
   .num{position:relative;left:auto!important;top:auto!important;margin:0;font-size:88px;line-height:80px;letter-spacing:-8px}
   .num small{font-size:28px;letter-spacing:-.5px;margin-left:6px}
-  .cap{position:relative;left:auto!important;top:auto!important;width:auto!important;max-width:320px;margin:18px 0 0;font-size:16px;line-height:24px}
-  /* «tamburo» numbers: each digit is a 3D drum driven by scroll, alternating spin, locks left → right */
-  .drums{display:inline-flex;align-items:flex-start;perspective:520px;padding-block:44px;margin-block:-44px;
-    -webkit-mask-image:linear-gradient(transparent 8%,#000 38%,#000 62%,transparent 92%);mask-image:linear-gradient(transparent 8%,#000 38%,#000 62%,transparent 92%)}
-  .drum{position:relative;display:inline-block;height:80px;margin-right:-.085em;letter-spacing:0}
-  .drum .ghost{visibility:hidden}
-  .drum .cyl{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
-  .drum .face{position:absolute;left:50%;top:0;padding:0 .12em;line-height:80px;letter-spacing:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:opacity .5s var(--osmo)}
-  .drum.lock .face:not(.t){opacity:0}
-  .drum.lock{animation:drumLock .6s var(--osmo)}
-  @keyframes drumLock{0%{transform:translateY(-5px)}100%{transform:none}}
+  .cap{position:relative;left:auto!important;top:auto!important;width:auto!important;max-width:320px;margin:12px 0 0;font-size:16px;line-height:24px}
+  /* odometer: each digit rolls up to its value when the number enters the screen */
+  .odo{display:inline-flex;align-items:flex-start}
+  .odo .dg{position:relative;display:inline-block;height:80px;overflow:hidden;margin-right:-.085em;letter-spacing:0}
+  .odo .ghost{visibility:hidden;padding:0 .02em}
+  .odo .strip{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column;align-items:center;transition:transform 1.8s var(--osmo)}
+  .odo .strip span{display:block;height:80px;line-height:80px}
   .js .blurin{filter:blur(10px);transform:translateY(18px)}
-  .areas{height:auto;flex-direction:column}
-  .area{flex:none;width:100%;height:auto;min-height:120vw;max-height:none}
-  .area .ph{left:0;width:100%;object-fit:cover;transform:none;-webkit-mask-image:none;mask-image:none}
+  .areas{height:auto;flex-direction:column;gap:12px;padding:12px max(16px,env(safe-area-inset-left,0px)) 64px;box-sizing:border-box;background:#fff!important}
+  .area{flex:none;width:100%;height:auto;min-height:118vw;max-height:none}
+  .area .bk{display:none}
+  .area .ph{left:0;top:-9%;width:100%;height:118%;object-fit:cover;transform:none;-webkit-mask-image:none;mask-image:none;will-change:transform}
   .area .txt{position:relative;left:auto;bottom:auto;transform:none;width:auto;margin:0 auto;padding:62vw 20px 40px;box-sizing:border-box;margin-left:0!important}
   .area h3{width:80%;font-size:34px;line-height:34px;letter-spacing:-1.6px}
   .area .more p{width:auto;max-width:420px;font-size:16px;line-height:24px;margin:16px 0 20px}
@@ -877,37 +875,30 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   document.addEventListener('click', e => { if (!pill.contains(e.target)) closeMenu(); });
 
-  /* ---- mobile numbers: 3D digit drums driven by scroll ---- */
-  const R_DRUM = 46 / Math.sin(Math.PI / 10);   // 80px cell, 10 faces
-  const drumSets = [];
-  if (mobile() && !reduce) document.querySelectorAll('#numbers .num').forEach(num => {
+  /* ---- mobile numbers: classic odometer, digits roll up to their value on enter ---- */
+  if (mobile()) document.querySelectorAll('#numbers .num').forEach(num => {
     const tn = [...num.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.textContent)); if (!tn) return;
-    const digits = tn.textContent.trim().split('').filter(c => /\d/.test(c)).map(Number);
-    const wrap = document.createElement('span'); wrap.className = 'drums'; wrap.setAttribute('aria-hidden', 'true');
-    const drums = digits.map((d, i) => {
-      const dr = document.createElement('span'); dr.className = 'drum';
-      dr.innerHTML = `<span class="ghost">${d}</span><span class="cyl">` + Array.from({ length: 10 }, (_, k) => `<span class="face${k === d ? ' t' : ''}" style="transform:translateX(-50%) rotateX(${k * 36}deg) translateZ(${R_DRUM.toFixed(1)}px)">${k}</span>`).join('') + '</span>';
-      wrap.appendChild(dr); return { el: dr, cyl: dr.lastChild, d, dir: i % 2 ? -1 : 1, turns: 2 + i, lockAt: digits.length > 1 ? .62 + .38 * i / (digits.length - 1) : 1, last: null, locked: false };
+    const txt = tn.textContent.trim(), digits = txt.split('').filter(c => /\d/.test(c)).map(Number);
+    const wrap = document.createElement('span'); wrap.className = 'odo'; wrap.setAttribute('aria-hidden', 'true');
+    digits.forEach((d, i) => {
+      const reps = i + 1, seq = [];
+      for (let r = 0; r < reps; r++) for (let k = 0; k < 10; k++) seq.push(k);
+      seq.push(...Array.from({ length: d + 1 }, (_, k) => k));
+      const dg = document.createElement('span'); dg.className = 'dg';
+      dg.innerHTML = `<span class="ghost">${d}</span><span class="strip" data-to="${seq.length - 1}" style="transition-delay:${(i * .09).toFixed(2)}s">${seq.map(k => `<span>${k}</span>`).join('')}</span>`;
+      wrap.appendChild(dg);
     });
-    num.setAttribute('aria-label', tn.textContent.trim() + (num.querySelector('small') ? ' ' + num.querySelector('small').textContent : ''));
+    num.setAttribute('aria-label', txt + (num.querySelector('small') ? ' ' + num.querySelector('small').textContent : ''));
     tn.replaceWith(wrap, document.createTextNode(' '));
-    drumSets.push({ num, col: num.closest('.col'), drums });
   });
-  function drumTick(vh){
-    drumSets.forEach(set => {
-      const top = set.num.getBoundingClientRect().top, p = Math.min(1, Math.max(0, (vh - top) / (vh * .45)));
-      set.col.style.setProperty('--line', osmo(p).toFixed(3));
-      set.drums.forEach(dr => {
-        const pi = Math.min(1, p / dr.lockAt), e = osmo(pi);
-        const ang = -dr.d * 36 + dr.dir * (1 - e) * dr.turns * 360;
-        const v = dr.last == null ? 0 : Math.abs(ang - dr.last); dr.last = ang;
-        dr.cyl.style.transform = `rotateX(${ang.toFixed(2)}deg)`;
-        dr.cyl.style.filter = v > 3 ? `blur(${Math.min(1.6, v / 20).toFixed(2)}px)` : '';
-        if (pi >= 1 && !dr.locked) { dr.locked = true; dr.el.classList.add('lock'); }
-        else if (pi < 1 && dr.locked) { dr.locked = false; dr.el.classList.remove('lock'); }
-      });
-    });
+  const goCol = col => { col.classList.add('go'); col.querySelectorAll('.strip').forEach(st => st.style.transform = `translateY(${-(+st.dataset.to) * 80}px)`); };
+  if (mobile()) {
+    const odoIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { goCol(e.target); odoIO.unobserve(e.target); } }), { threshold: .55 });
+    document.querySelectorAll('#numbers .col').forEach(c => reduce ? goCol(c) : odoIO.observe(c));
   }
+  /* ---- mobile parallax on photos ---- */
+  // home area cards (img already 118% tall) + framed photos on inner pages (scaled to leave room)
+  const parImgs = [...document.querySelectorAll('.area .ph, .idea .ph img, .acard .ph img, .tipi .pic img')];
 
   /* ---- scroll-driven: rings parallax, menu pill, numbers leveling ---- */
   const ringEls = [...document.querySelectorAll('.rings')];
@@ -919,7 +910,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       const r = pin.getBoundingClientRect(), stickyTop = Math.max(90 * u, vh / 2 - 350 * u), total = pin.offsetHeight - numbersSec.offsetHeight;
       const p = total > 0 ? Math.min(1, Math.max(0, (stickyTop - r.top) / total)) : 1, e = osmo(p);
       cols.forEach(c => { const sft = +(c.dataset.shift || 0); c.style.transform = `translate3d(0,${(-sft * e * u).toFixed(2)}px,0)`; });
-    } else { cols.forEach(c => c.style.transform = ''); if (drumSets.length) drumTick(vh); }
+    } else { cols.forEach(c => c.style.transform = ''); if (!reduce) parImgs.forEach(im => { const r = im.parentElement.getBoundingClientRect(); if (r.bottom < -50 || r.top > vh + 50) return; const rel = (r.top + r.height / 2 - vh / 2) / vh; const sc = im.classList.contains('ph') && im.closest('.area') ? '' : ' scale(1.16)'; im.style.transform = `translate3d(0,${(-rel * r.height * .12).toFixed(1)}px,0)${sc}`; }); }
     if (!reduce) ringEls.forEach(r => { const rect = r.parentElement.getBoundingClientRect(); const rel = (rect.top + rect.height / 2 - vh / 2); r.firstElementChild.style.transform = `translate3d(0,${(-rel * (+r.dataset.parallax)).toFixed(1)}px,0)`; });
   }
   if (lenis) lenis.on('scroll', onScroll); else addEventListener('scroll', onScroll, { passive: true });
