@@ -88,10 +88,21 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .pill-inner{overflow:hidden;min-height:0}
 .pill ul{list-style:none;margin:0;padding:6px 20px 0}
 .pill li{overflow:hidden;border-top:1px solid rgba(255,255,255,.12)}
-.pill li a{display:flex;align-items:center;gap:10px;height:60px;font:400 17px/1 var(--sans);transform:translateY(100%);transition:transform .6s var(--osmo),opacity .3s var(--osmo)}
-.pill li a::before{content:"";width:5px;height:5px;background:var(--azzurro);border-radius:50%;opacity:0;transition:opacity .3s var(--osmo)}
-.pill li a:hover::before,.pill li a[aria-current]::before{opacity:1}
-.pill.open li a{transform:none}
+.pill .pm-top{display:flex;align-items:center;gap:10px;width:100%;height:60px;font:400 17px/1 var(--sans);color:#fff;text-align:left;transform:translateY(100%);transition:transform .6s var(--osmo),opacity .3s var(--osmo)}
+.pill .pm-chev{margin-left:auto;width:9px;height:9px;border-right:1.3px solid currentColor;border-bottom:1.3px solid currentColor;transform:translateY(-30%) rotate(45deg);transition:transform .5s var(--osmo)}
+.pill li.open .pm-chev{transform:translateY(20%) rotate(-135deg)}
+.pill .pm-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--osmo)}
+.pill li.open .pm-sub{grid-template-rows:1fr}
+.pill .pm-sub>div{overflow:hidden;min-height:0;display:flex;flex-direction:column;padding-left:15px}
+.pill .pm-sub a{display:flex;align-items:center;gap:8px;min-height:44px;font:400 15px/20px var(--sans);color:rgba(255,255,255,.72);opacity:0;transform:translateY(-6px);transition:opacity .4s var(--osmo),transform .5s var(--osmo),color .3s var(--osmo)}
+.pill li.open .pm-sub a{opacity:1;transform:none}
+.pill .pm-sub a:last-child{margin-bottom:12px}
+.pill .pm-sub a:hover,.pill .pm-sub a[aria-current]{color:var(--azzurro)}
+.pill .pm-sub a .ico{width:12px;height:12px}
+.pill-inner{max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain}
+.pill .pm-top::before{content:"";width:5px;height:5px;background:var(--azzurro);border-radius:50%;opacity:0;transition:opacity .3s var(--osmo)}
+.pill .pm-top:hover::before,.pill .pm-top[aria-current]::before,.pill li.open .pm-top::before{opacity:1}
+.pill.open .pm-top{transform:none}
 .pill-foot{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;font:400 14px/20px var(--sans);color:rgba(255,255,255,.75);opacity:0;transform:translateY(8px);transition:opacity .4s var(--osmo),transform .6s var(--osmo)}
 .pill.open .pill-foot{opacity:1;transform:none;transition-delay:.3s}
 .pill-foot a{display:inline-flex;gap:6px;align-items:center}
@@ -688,13 +699,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <button class="pill-head" id="pillBtn" aria-expanded="false" aria-controls="pillMenu"><span>Menu</span><span class="burger" aria-hidden="true"><i></i><i></i></span></button>
   <div class="pill-menu" id="pillMenu"><div class="pill-inner">
     <ul>
-      <li><a href="chi-siamo.html">Chi siamo</a></li>
-      <li><a href="mediazione-civile.html">Mediazione</a></li>
-      <li><a href="formazione.html">Formazione</a></li>
-      <li><a href="sedi.html">Le nostre sedi</a></li>
-      <li><a href="modulistica.html">Modulistica</a></li>
-      <li><a href="rassegna-stampa.html">News &amp; eventi</a></li>
-      <li><a href="contatti.html">Contatti</a></li>
+      <li><a class="pm-top" href="chi-siamo.html">Chi siamo</a></li>
+      <li class="has"><button class="pm-top" type="button" aria-expanded="false">Mediazione<span class="pm-chev" aria-hidden="true"></span></button><div class="pm-sub"><div><a href="mediazione-civile.html">Civile e commerciale</a><a href="mediazione-familiare.html">Familiare</a><a href="mediazione-sanitaria.html">Sanitaria, penale e lavorativa</a></div></div></li>
+      <li class="has"><button class="pm-top" type="button" aria-expanded="false">Formazione<span class="pm-chev" aria-hidden="true"></span></button><div class="pm-sub"><div><a href="formazione.html">Corsi civile e commerciale</a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">Familiare <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">Coordinazione genitoriale <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">Seminari e aggiornamenti <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.dplaccademy.it/login.html" target="_blank" rel="noopener">Area corsisti <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></li>
+      <li class="has"><button class="pm-top" type="button" aria-expanded="false">Le nostre sedi<span class="pm-chev" aria-hidden="true"></span></button><div class="pm-sub"><div><a href="sedi.html">Tutte le sedi</a><a href="sede-milano.html">Sede di Milano</a><a href="sedi-convenzionate.html">Sedi convenzionate ex art. 6</a></div></div></li>
+      <li><a class="pm-top" href="modulistica.html">Modulistica</a></li>
+      <li class="has"><button class="pm-top" type="button" aria-expanded="false">News &amp; eventi<span class="pm-chev" aria-hidden="true"></span></button><div class="pm-sub"><div><a href="rassegna-stampa.html">Rassegna stampa</a><a href="https://www.dplmagazine.it/" target="_blank" rel="noopener">Media e magazine <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="eventi.html">Eventi</a></div></div></li>
+      <li class="has"><button class="pm-top" type="button" aria-expanded="false">Contatti<span class="pm-chev" aria-hidden="true"></span></button><div class="pm-sub"><div><a href="contatti.html">Scrivici</a><a href="contatti.html#lavora-con-noi">Lavora con noi</a></div></div></li>
     </ul>
     <div class="pill-foot"><a href="tel:+390249717642">T/ 02 49717642 <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="mailto:info@dplmediazione.it">E/ info@dplmediazione.it <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
   </div></div>
@@ -1002,7 +1013,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
   /* ---- floating menu (Haven-style) ---- */
   const pill = document.getElementById('pill'), pillBtn = document.getElementById('pillBtn');
-  pill.querySelectorAll('li a').forEach((a, i) => a.style.transitionDelay = (0.04 * (i + 1)) + 's');
+  pill.querySelectorAll('.pm-top').forEach((a, i) => a.style.transitionDelay = (0.04 * (i + 1)) + 's');
+  pill.querySelectorAll('li.has').forEach(li => {
+    li.querySelectorAll('.pm-sub a').forEach((a, i) => a.style.transitionDelay = (0.05 + 0.04 * i) + 's');
+    li.querySelector('.pm-top').addEventListener('click', e => { e.stopPropagation(); const o = !li.classList.contains('open');
+      pill.querySelectorAll('li.has').forEach(x => { x.classList.remove('open'); x.querySelector('.pm-top').setAttribute('aria-expanded', 'false'); });
+      if (o) { li.classList.add('open'); li.querySelector('.pm-top').setAttribute('aria-expanded', 'true'); } });
+  });
   function closeMenu(){ pill.classList.remove('open'); pillBtn.setAttribute('aria-expanded', 'false'); }
   pillBtn.addEventListener('click', () => { const o = pill.classList.toggle('open'); pillBtn.setAttribute('aria-expanded', String(o)); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
