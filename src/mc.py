@@ -144,6 +144,7 @@ __HEADER__
     </div>
   </div>
 </section>
+<div class="px-band"><img src="__IMG_mb3__" alt="Una persona consulta i documenti dal portatile"></div>
 
 <!-- CHE COS'È -->
 <section class="cs-sec" id="cos-e">
@@ -239,4 +240,7 @@ __HEADER__
     if (o) { it.classList.add('open'); h.setAttribute('aria-expanded','true'); }
   })));
 '''
-    return common.page(src, 'Mediazione civile e commerciale · DPL Mediazione', body, CSS, js, _hdr, 'mediazione-civile.html')
+    import kit
+    band_css = '\n.px-band{position:relative;height:U(600);overflow:hidden;background:#F3F5FC}\n.px-band img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;will-change:transform}\n@media (max-width: 899px){.px-band{height:68vw}}\n'
+    band_js = kit.FILTER_JS[kit.FILTER_JS.index('  /* ---- kit: photo band parallax'):kit.FILTER_JS.index('  /* ---- kit: legal table')]
+    return common.page(src, 'Mediazione civile e commerciale · DPL Mediazione', body, CSS + band_css, js + band_js, _hdr, 'mediazione-civile.html')

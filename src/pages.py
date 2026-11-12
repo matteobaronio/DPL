@@ -7,12 +7,12 @@ TEL = '<a href="tel:+390249717642">02 49717642</a>'
 DOCS = 'docs/'  # served on the new site (Netlify proxy to the current archive, see _redirects)
 OLD = 'https://www.dplmediazione.it/'
 
-def mk(src, fname, title, body, active_nav=None, active_dd=None, js=''):
+def mk(src, fname, title, body, active_nav=None, active_dd=None, js='', cta=True):
     def hdr(h):
         if active_nav: h = h.replace(f'<a href="{active_nav}">', f'<a class="is-active" href="{active_nav}" aria-current="page">', 1)
         if active_dd: h = h.replace(f'<button class="dd-btn" aria-expanded="false" aria-haspopup="true">{active_dd}', f'<button class="dd-btn is-active" aria-expanded="false" aria-haspopup="true">{active_dd}', 1)
         return h
-    return common.page(src, f'{title} · DPL Mediazione', body, kit.CSS, kit.FILTER_JS + js, hdr, fname)
+    return common.page(src, f'{title} · DPL Mediazione', body, kit.CSS, kit.FILTER_JS + js, hdr, fname, cta)
 
 # ---------------------------------------------------------------- Mediazione familiare
 def familiare(src):
@@ -83,14 +83,29 @@ COURSES = [
  ('aggiornamento', 'Il conflitto condominiale', 'Milano e online', '17 marzo 2027, 9–19', '125 € IVA esente', '', 'In accreditamento'),
  ('aggiornamento', 'Il conflitto per i canoni di locazione', 'Milano e online', '14 aprile 2027, 9–19', '125 € IVA esente', '', 'In accreditamento'),
 ]
+MESI = {m: i for i, m in enumerate(['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'], 1)}
+def end_iso(when):
+    """Last date in a free-text period ('9 – 25 giugno 2027', '14/03/2025 – 04/07/2026') as YYYY-MM-DD, or '' for recurring dates."""
+    import re
+    d = re.findall(r'(\d{1,2})/(\d{1,2})/(\d{4})', when)
+    if d: g, m, y = d[-1]; return f'{y}-{int(m):02d}-{int(g):02d}'
+    d = re.findall(r'(\d{1,2})\s+(' + '|'.join(MESI) + r')\s+(\d{4})', when)
+    if d: g, m, y = d[-1]; return f'{y}-{MESI[m]:02d}-{int(g):02d}'
+    return ''
 CATS = {'corso': 'Corso abilitante', 'incontro': 'Incontro gratuito', 'aggiornamento': 'Aggiornamento'}
 
 def course_cards(items):
     out = []
     for cat, t, where, when, cost, dur, cf in items:
         rows = ''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in [('Dove', where), ('Quando', when), ('Costo', cost), ('Durata', dur), ('Crediti', cf)] if v)
-        out.append(f'<article class="course" data-cat="{cat}"><span class="tag{" free" if cat == "incontro" else ""}">{CATS[cat]}</span><h3>{t}</h3><dl>{rows}</dl><a class="go" href="__HREF_CON__?argomento=Formazione&amp;corso={quote(t)}#modulo">Richiedi informazioni __ARROW_N__</a></article>')
+        e = end_iso(when); de = f' data-end="{e}"' if e else ''
+        out.append(f'<article class="course" data-cat="{cat}"{de}><span class="tag{" free" if cat == "incontro" else ""}">{CATS[cat]}</span><h3>{t}</h3><dl>{rows}</dl><a class="go" href="__HREF_CON__?argomento=Formazione&amp;corso={quote(t)}#modulo">Richiedi informazioni __ARROW_N__</a></article>')
     return '\n'.join(out)
+
+def courses_block(items):
+    """Course grid; on mobile the first three show, the rest behind «Mostra tutti»."""
+    n = max(0, len(items) - 3)
+    return f'<div class="courses">{course_cards(items)}</div><div class="more-c" data-n="{n}"><button class="btn-ghost" type="button">Mostra tutti i corsi ({len(items)})</button></div>'
 
 def formazione(src):
     b = hero('Formazione', 'per mediatori',
@@ -101,7 +116,7 @@ def formazione(src):
     b += sec(head('Corsi e incontri', 'Civile e commerciale: il calendario dei prossimi appuntamenti.') +
         '<div class="px-body"><div class="tools" data-filter=".course"><div class="chips-f"><button data-chip="all" aria-pressed="true">Tutti</button><button data-chip="corso" aria-pressed="false">Corsi abilitanti</button><button data-chip="aggiornamento" aria-pressed="false">Aggiornamenti</button><button data-chip="incontro" aria-pressed="false">Incontri gratuiti</button></div>'
         f'<label class="search">{SEARCH}<input type="search" placeholder="Cerca un corso" aria-label="Cerca un corso"></label></div>'
-        f'<div class="courses">{course_cards(COURSES)}</div><div class="more-c"><button class="btn-ghost" type="button">Mostra tutti i corsi</button></div></div>', '', 'corsi')
+        + courses_block(COURSES) + '</div>', '', 'corsi')
     b += sec('<div class="px-body" style="margin-top:0">' + feat('Diventare mediatore',
         'Il corso di mediazione civile e commerciale dura 80 ore, con un approfondimento giuridico di 14 ore per chi ha una laurea diversa da giurisprudenza, ed esame finale. Gli aggiornamenti valgono per la formazione continua dei mediatori.',
         ['Patrocinio EIMI e Ordine degli Avvocati di Milano', 'In aula a Milano o online', 'Aggiornamento da 18 ore per i mediatori'],
@@ -156,7 +171,7 @@ def sede_milano(src):
     b = hero('Sede di', 'Milano',
              'La nostra sede principale, in Via Monte Bianco 8. Qui si svolgono gli incontri di mediazione e buona parte dei corsi, anche online.',
              btn('Chiama la sede', 'tel:+390249717642') + btn('Indicazioni', 'https://www.google.com/maps/search/?api=1&query=Via+Monte+Bianco+8+Milano', 'line', True, UR.replace('class="ur"', 'class="ico"')),
-             ['Via Monte Bianco 8', '20149 Milano', 'Lun–ven 9–13 · 14–18'])
+             ['Via Monte Bianco 8', '20149 Milano', 'Lun–ven 9–13 · 14–18'], crumb=('Le nostre sedi', '__HREF_SEDI__'))
     b += band('mb1', 'Accoglienza in sede')
     b += sec('<div class="ccards">' +
         '<div class="ccard"><span class="k">Indirizzo</span><span class="v">Via Monte Bianco 8<br>20149 Milano</span></div>'
@@ -164,17 +179,17 @@ def sede_milano(src):
         '<div class="ccard"><span class="k">E-mail</span><a class="v" href="mailto:info@dplmediazione.it">info@dplmediazione.it</a></div>'
         '<div class="ccard"><span class="k">Segreteria</span><span class="v">Lun–ven<br>9–13 · 14–18</span></div></div>', '')
     mil = [c for c in COURSES]
-    b += sec(head('Corsi della sede', 'Corsi, aggiornamenti e incontri in programma a Milano e online.') + f'<div class="px-body"><div class="courses">{course_cards(mil[:6])}</div></div>', 'tint', 'corsi')
+    b += sec(head('Corsi della sede', 'Corsi, aggiornamenti e incontri in programma a Milano e online.') + f'<div class="px-body">{courses_block(mil[:6])}</div>', 'tint', 'corsi')
     names = [nice_name(n) for n in PROS.split('|')]
     b += sec(head('Professionisti della sede', f'{len(names)} mediatori e professionisti della sede di Milano.') +
         f'<div class="px-body"><div class="tools" data-filter=".names span"><label class="search">{SEARCH}<input type="search" placeholder="Cerca un professionista" aria-label="Cerca un professionista"></label></div><div class="names">' +
-        ''.join(f'<span>{n}</span>' for n in names) + '</div></div>', '', 'professionisti')
+        ''.join(f'<span>{n}</span>' for n in names) + f'</div><div class="more-c" data-n="{len(names) - 12}"><button class="btn-ghost" type="button">Mostra tutti i {len(names)} professionisti</button></div></div>', '', 'professionisti')
     b += sec(ctab('Vuoi un incontro a Milano?', 'Chiamaci o scrivici: fissiamo il primo incontro in sede o online.', btn('02 49717642', 'tel:+390249717642') + btn('Scrivici', '__HREF_CON__', 'line')), 'flush')
     return mk(src, 'sede-milano.html', 'Sede di Milano', b, active_nav='__HREF_SEDI__')
 
 def sede(src, c, r):
     b = hero('Sede di', c, f'La sede DPL di {c}, in {r}. Per fissare un incontro o avere informazioni, la nostra segreteria ti mette in contatto con la sede.',
-             btn('Chiama la segreteria', 'tel:+390249717642') + btn('Scrivici', f'__HREF_CON__?sede={quote(c)}#modulo', 'line'), [r, 'Mediazione in sede e online'])
+             btn('Chiama la segreteria', 'tel:+390249717642') + btn('Scrivici', f'__HREF_CON__?sede={quote(c)}#modulo', 'line'), [r, 'Mediazione in sede e online'], crumb=('Le nostre sedi', '__HREF_SEDI__'))
     b += band('mb1', 'Accoglienza in sede')
     b += sec('<div class="ccards">'
         '<div class="ccard"><span class="k">Indirizzo</span><span class="v">[Indirizzo della sede]</span></div>'
@@ -182,7 +197,7 @@ def sede(src, c, r):
         '<div class="ccard"><span class="k">Segreteria</span><a class="v" href="tel:+390249717642">02 49717642</a></div>'
         '<div class="ccard"><span class="k">E-mail</span><a class="v" href="mailto:info@dplmediazione.it">info@dplmediazione.it</a></div></div>', '')
     online = [x for x in COURSES if 'online' in x[2]]
-    b += sec(head('Corsi disponibili', 'Corsi e incontri che puoi seguire online da qualsiasi sede.') + f'<div class="px-body"><div class="courses">{course_cards(online[:6])}</div></div>', 'tint', 'corsi')
+    b += sec(head('Corsi disponibili', 'Corsi e incontri che puoi seguire online da qualsiasi sede.') + f'<div class="px-body">{courses_block(online[:6])}</div>', 'tint', 'corsi')
     b += sec(head('Professionisti della sede', 'I mediatori e i professionisti che lavorano a ' + c + '.') + '<div class="px-body"><div class="lst"><div class="row"><span class="t">[Elenco dei professionisti della sede]</span></div></div></div>', '', 'professionisti')
     b += sec(ctab(f'Vuoi un incontro a {c}?', 'Chiamaci o scrivici: fissiamo il primo incontro in sede o online.', btn('02 49717642', 'tel:+390249717642') + btn('Scrivici', f'__HREF_CON__?sede={quote(c)}#modulo', 'line')), 'flush')
     return mk(src, f'sede-{slug(c)}.html', f'Sede di {c}', b, active_nav='__HREF_SEDI__')
@@ -213,14 +228,16 @@ def modulistica(src):
     return mk(src, 'modulistica.html', 'Modulistica', b, active_nav='__HREF_MOD__')
 
 # ---------------------------------------------------------------- News: rassegna stampa + eventi (blog, zaro-like)
-def blog(src, fname, title_a, title_b, intro, posts, active, feat_post):
+def blog(src, fname, title_a, title_b, intro, posts, active, feat_post, links=False):
     cats = sorted({p[0] for p in posts})
     fc, ft, fd, fm, fimg = feat_post
     fig = f'<img src="__IMG_{fimg}__" alt="">' if fimg else f'<span class="ic">{ICONS["dialogo"]}</span>'
     b = hero(title_a, title_b, intro, btn('DPL Magazine', 'https://www.dplmagazine.it/', 'glass', True, UR.replace('class="ur"', 'class="ico"')), ['News & eventi'])
-    grid = ''.join(f'<article class="post" data-cat="{c.lower().replace(" ", "-")}"><div class="ph">{f"<img src={chr(34)}__IMG_{img}__{chr(34)} alt={chr(34)}{chr(34)}>" if img else "<span class=" + chr(34) + "ic" + chr(34) + ">" + ICONS[ic] + "</span>"}</div><div class="meta"><b>{c}</b><span>{m}</span></div><h3>{t}</h3><p>{d}</p></article>' for c, t, d, m, img, ic in posts)
+    def go(t): return f'<a class="go" href="__HREF_CON__?argomento=Formazione&amp;corso={quote(t)}#modulo">Richiedi informazioni __ARROW_N__</a>' if links else ''
+    def de(m): e = end_iso(m); return f' data-end="{e}"' if e and links else ''
+    grid = ''.join(f'<article class="post"{de(m)} data-cat="{c.lower().replace(" ", "-")}"><div class="ph">{f"<img src={chr(34)}__IMG_{img}__{chr(34)} alt={chr(34)}{chr(34)}>" if img else "<span class=" + chr(34) + "ic" + chr(34) + ">" + ICONS[ic] + "</span>"}</div><div class="meta"><b>{c}</b><span>{m}</span></div><h3>{t}</h3><p>{d}</p>{go(t)}</article>' for c, t, d, m, img, ic in posts)
     chips = '<button data-chip="all" aria-pressed="true">Tutti</button>' + ''.join(f'<button data-chip="{c.lower().replace(" ", "-")}" aria-pressed="false">{c}</button>' for c in cats)
-    b += sec(f'<div class="post-feat"><div class="ph">{fig}</div><div><div class="meta"><b>{fc}</b><span>{fm}</span></div><h2>{ft}</h2><p>{fd}</p></div></div>'
+    b += sec(f'<div class="post-feat"><div class="ph">{fig}</div><div><div class="meta"><b>{fc}</b><span>{fm}</span></div><h2>{ft}</h2><p>{fd}</p>{go(ft) if links else ""}</div></div>'
              f'<div class="tools" data-filter=".post"><div class="chips-f">{chips}</div><label class="search">{SEARCH}<input type="search" placeholder="Cerca" aria-label="Cerca"></label></div><div class="posts">{grid}</div>', '')
     return mk(src, fname, title_a + ' ' + title_b if title_b else title_a, b, active_dd='News &amp; eventi')
 
@@ -235,19 +252,18 @@ def rassegna(src):
                 ('In evidenza', '[Titolo dell’articolo in evidenza]', '[Testata · estratto dell’articolo più recente o più importante.]', '[Data]', 'mb12'))
 
 def eventi(src):
-    posts = [('Incontri', 'Mediazione 4.0', 'Tre ore al mese per aggiornarsi sugli strumenti della mediazione. Gratuito.', 'Quarto lunedì del mese', 'mb4', None),
-             ('Convegni', 'La gestione delle emozioni in mediazione', 'Profili deontologici e disciplinari. Accreditato dal COA di Milano: 3 crediti.', '23 novembre 2026', 'mb8', None),
+    posts = [('Convegni', 'La gestione delle emozioni in mediazione', 'Profili deontologici e disciplinari. Accreditato dal COA di Milano: 3 crediti.', '23 novembre 2026', 'mb8', None),
              ('Aggiornamenti', 'Relazioniamoci · Disturbi di personalità', 'Una giornata di aggiornamento per mediatori, a Milano.', '16 dicembre 2026', 'mb1', None),
              ('Aggiornamenti', 'Il conflitto nelle successioni ereditarie', 'Giornata di approfondimento a Milano e online.', '20 gennaio 2027', 'mb9', None),
              ('Aggiornamenti', 'Il conflitto condominiale', 'Giornata di approfondimento a Milano e online.', '17 marzo 2027', 'mb10', None),
              ('Aggiornamenti', 'Il conflitto per i canoni di locazione', 'Giornata di approfondimento a Milano e online.', '14 aprile 2027', 'mb2', None)]
     return blog(src, 'eventi.html', 'Eventi', '', 'Incontri, convegni e giornate di aggiornamento aperti a mediatori, avvocati e professionisti.', posts, 'ev',
-                ('Prossimo evento', 'Mediazione 4.0', 'L’appuntamento mensile per mediatori e avvocati: tre ore, il quarto lunedì del mese, in sede a Milano e online. Gratuito.', '23 novembre 2026 · 15:30', 'mb5'))
+                ('Prossimo evento', 'Mediazione 4.0', 'L’appuntamento mensile per mediatori e avvocati: tre ore, il quarto lunedì del mese, in sede a Milano e online. Gratuito.', '23 novembre 2026 · 15:30', 'mb5'), links=True)
 
 # ---------------------------------------------------------------- Contatti (+ Lavora con noi)
 def contatti(src):
     b = hero('Parliamone', '',
-             'Ti rispondiamo con chiarezza, senza impegno. Scrivici dal modulo, chiamaci o passa in sede a Milano.',
+             'Ti rispondiamo con chiarezza, senza impegno. Scrivici dal modulo, chiamaci o passa in sede a Milano. Vuoi lavorare con noi? <a class="inline-link" href="#lavora-con-noi">Scrivici una e-mail</a>.',
              btn('Chiama 02 49717642', 'tel:+390249717642') + btn('Scrivici', '#modulo', 'line'),
              ['Lun–ven 9–13 · 14–18', 'Via Monte Bianco 8, Milano'])
     b += band('mb12', 'Persone sorridenti durante un incontro')
@@ -266,10 +282,19 @@ def contatti(src):
             '<label class="check full"><input type="checkbox" name="privacy" required> <span>Ho letto l’<a href="__HREF_PRIV__">informativa privacy</a> e acconsento al trattamento dei dati per ricevere una risposta.</span></label>'
             '<button class="btn-navy" type="submit">Invia la richiesta __ARROW_W__</button></form>')
     b += sec('<div class="two-col"><div class="side"><h2 class="h2 blurin">Scrivici</h2><p class="blurin">Raccontaci in poche righe di cosa hai bisogno: ti ricontattiamo noi.</p></div>' + form + '</div>', 'flush', 'modulo')
-    b += sec('<div class="px-body" style="margin-top:0">' + feat('Lavora con noi',
-        'Selezioniamo partner e professionisti per aprire nuove sedi sul territorio. Vuoi aprire una sede o diventare mediatore? Scrivici dal modulo, scegliendo «Altro», o chiamaci.',
-        ['Apertura di una nuova sede', 'Diventare mediatore DPL', 'Formazione per iniziare'],
-        v_chat([('me', 'Vorrei aprire una sede DPL nella mia città.', ''), ('us', 'Bello! Raccontaci di te e della zona: ti spieghiamo come funziona.', 'Segreteria DPL'), ('me', 'Sono avvocato e mediatore da tre anni.', ''), ('us', 'Perfetto, fissiamo una call conoscitiva.', 'Segreteria DPL')]), rev=True) + '</div>', 'tint', 'lavora-con-noi')
+    MAIL = 'info@dplmediazione.it'
+    def mt(subj, body=''):
+        return f'mailto:{MAIL}?subject=' + quote(subj) + ('&amp;body=' + quote(body) if body else '')
+    tmpl = 'Buongiorno,\nmi chiamo … e sono …\n\nMi interessa: …\nCittà o zona: …\n\nAllego il mio CV.\n'
+    roles = [('accoglienza', 'Aprire una sede DPL', 'Hai uno studio o una rete sul territorio? Porta la mediazione DPL nella tua città.', mt('Lavora con noi · Aprire una sede', tmpl), UR),
+             ('persona', 'Diventare mediatore DPL', 'Sei mediatore abilitato e vuoi entrare nei nostri elenchi, in sede o online.', mt('Lavora con noi · Mediatore', tmpl), UR),
+             ('ricerca', 'Non sei ancora mediatore?', 'Inizia dal corso abilitante di 80 ore: a Milano e online, con esame finale.', '__HREF_FORM__#corsi', '<span class="ico">__ARROW_N__</span>')]
+    rl = ''.join(f'<a class="role" href="{u}"><span class="ic">{ICONS[ic]}</span><span><h3>{t}</h3><p>{d}</p></span><span class="go">{g}</span></a>' for ic, t, d, u, g in roles)
+    box = (f'<div class="mailbox"><span class="k">Candidature</span><a class="addr" href="{mt("Lavora con noi · Candidatura", tmpl)}">{MAIL}</a>'
+           '<ul><li><b>01</b>Chi sei e cosa fai</li><li><b>02</b>La città o la zona che ti interessa</li><li><b>03</b>Il tuo CV in PDF, in allegato</li></ul>'
+           f'<div class="btns">{btn("Scrivi l’e-mail", mt("Lavora con noi · Candidatura", tmpl))}<button class="btn btn--line copy" type="button" data-copy="{MAIL}"><span>Copia l’indirizzo</span></button></div>'
+           '<p class="note">Niente moduli da compilare: l’oggetto dell’e-mail è già pronto.</p></div>')
+    b += sec(head('Lavora con noi', 'Cerchiamo mediatori, formatori e partner per aprire nuove sedi. Basta un’e-mail: ti rispondiamo noi.') + f'<div class="job"><div class="roles">{rl}</div>{box}</div>', 'tint', 'lavora-con-noi')
     js = '''
   /* ---- contatti: prefill from ?argomento=&corso=&sede= ---- */
   (() => { const q = new URLSearchParams(location.search), f = document.querySelector('form[name="contatti"]'); if (!f) return;
@@ -278,20 +303,23 @@ def contatti(src):
     if (q.get('corso')) f.elements.messaggio.value = 'Vorrei informazioni sul corso «' + q.get('corso') + '».';
   })();
 '''
-    return mk(src, 'contatti.html', 'Contatti', b, js=js)
+    return mk(src, 'contatti.html', 'Contatti', b, js=js, cta=False)
 
 # ---------------------------------------------------------------- Sedi ex art. 6 D.M. 150/23
 REGIONS = [('Lombardia', 'lombardia'), ('Piemonte', 'piemonte'), ('Valle d’Aosta', 'aosta'), ('Liguria', 'liguria'), ('Veneto', 'veneto'), ('Trentino-Alto Adige', 'trentino'),
            ('Friuli-Venezia Giulia', 'friuli'), ('Emilia-Romagna', 'emiliaromagna'), ('Toscana', 'toscana'), ('Umbria', 'umbria'), ('Marche', 'marche'), ('Lazio', 'lazio'),
            ('Abruzzo', 'abruzzo'), ('Molise', 'molise'), ('Campania', 'campania'), ('Puglia', 'puglia'), ('Basilicata', 'basilicata'), ('Calabria', 'calabria'), ('Sicilia', 'sicilia'), ('Sardegna', 'sardegna')]
 
+def acc(n): return f'{n} accordo' if n == 1 else f'{n} accordi'
+
 def sedi_conv(src):
     b = hero('Sedi convenzionate', 'ex art. 6',
              'Gli organismi con cui abbiamo un accordo ai sensi dell’art. 6 del D.M. 150/2023, regione per regione: indirizzo, organismo e tipo di accordo.',
-             btn('Lombardia', 'regione-lombardia.html') + btn('Le nostre sedi', '__HREF_SEDI__', 'line'), ['D.M. 150/2023', '20 regioni'])
-    rows = ''.join(f'<a href="regione-{s}.html"><span class="t">{n}</span><span class="m">{len(LOMB) if s == "lombardia" else len(regions_data.rows(s))} accordi</span>__ARROW_N__</a>' for n, s in REGIONS)
+             btn('Cerca una regione', '#elenco') + btn('Le nostre sedi', '__HREF_SEDI__', 'line'), ['D.M. 150/2023', '20 regioni'])
+    rows = ''.join(f'<a href="regione-{s}.html"><span class="t">{n}</span><span class="m">{acc(len(LOMB) if s == "lombardia" else len(regions_data.rows(s)))}</span>__ARROW_N__</a>' for n, s in REGIONS)
     b += band('mb11', 'Due professionisti camminano in città')
-    b += sec(f'<div class="tools" data-filter=".lst a"><label class="search">{SEARCH}<input type="search" placeholder="Cerca una regione" aria-label="Cerca una regione"></label></div><div class="lst lst-2">{rows}</div>', '')
+    b += sec(head('Regione per regione', 'Puoi svolgere la mediazione con DPL anche presso questi organismi, grazie agli accordi previsti dall’art. 6 del D.M. 150/2023.') +
+             f'<div class="px-body"><div class="tools" data-filter=".lst a"><label class="search">{SEARCH}<input type="search" placeholder="Cerca una regione" aria-label="Cerca una regione"></label></div><div class="lst lst-2">{rows}</div></div>', '', 'elenco')
     return mk(src, 'sedi-convenzionate.html', 'Sedi convenzionate ex art. 6', b)
 
 LOMB = [('Bergamo','Piazza G. Matteotti 20','Emediation srl n. 232','generico','05/06/2024'),('Bergamo (Capriate San Gervasio)','Vicolo Trieste 6','Me.co Srl n. 153','generico','28/03/2025'),
@@ -310,10 +338,12 @@ LOMB = [('Bergamo','Piazza G. Matteotti 20','Emediation srl n. 232','generico','
 
 def regione(src, name, s):
     data = LOMB if s == 'lombardia' else regions_data.rows(s)
-    b = hero(name, '', f'Le sedi convenzionate ex art. 6 del D.M. 150/2023 in {name}.', btn('Tutte le regioni', '__HREF_EX6__') + btn('Le nostre sedi', '__HREF_SEDI__', 'line'), [f'{len(data)} accordi', 'D.M. 150/2023'])
+    b = hero(name, '', f'Le sedi convenzionate ex art. 6 del D.M. 150/2023 in {name}.', btn('Cerca un organismo', '#elenco') + btn('Le nostre sedi', '__HREF_SEDI__', 'line'), [acc(len(data)), 'D.M. 150/2023'], crumb=('Sedi convenzionate', '__HREF_EX6__'))
+    k = [x for _, x in REGIONS].index(s); pv, nx = REGIONS[k - 1] if k else None, REGIONS[k + 1] if k + 1 < len(REGIONS) else None
+    pn = '<nav class="pn" aria-label="Altre regioni">' + (f'<a href="regione-{pv[1]}.html"><small>← Regione precedente</small>{pv[0]}</a>' if pv else '') + (f'<a class="nx" href="regione-{nx[1]}.html"><small>Regione successiva →</small>{nx[0]}</a>' if nx else '') + '</nav>'
     trs = ''.join(f'<tr class="lr"><td>{c}</td><td>{a}</td><td>{o}</td><td>{"Accordo generico a durata indeterminata" if t == "generico" else "Accordo per singolo procedimento"}</td><td>{d}</td></tr>' for c, a, o, t, d in data)
     b += sec(f'<div class="tools" data-filter=".lr"><label class="search">{SEARCH}<input type="search" placeholder="Cerca città o organismo" aria-label="Cerca"></label></div>'
-             f'<div class="prose" style="max-width:none"><table><thead><tr><th>Città</th><th>Indirizzo</th><th>Organismo</th><th>Accordo</th><th>Stipulato il</th></tr></thead><tbody>{trs}</tbody></table></div>', '')
+             f'<div class="prose" style="max-width:none"><table class="rtab"><thead><tr><th>Città</th><th>Indirizzo</th><th>Organismo</th><th>Accordo</th><th>Stipulato il</th></tr></thead><tbody>{trs}</tbody></table></div>' + pn, '', 'elenco')
     return mk(src, f'regione-{s}.html', f'Sedi convenzionate · {name}', b)
 
 # ---------------------------------------------------------------- Privacy e cookie (legal, maisa-like)

@@ -324,15 +324,97 @@ CSS = r'''
 }
 '''
 
+
+CSS += r'''
+/* ---- UX pass (12/11) ---- */
+.px-hero .crumb{position:absolute;left:U(40);top:U(150);z-index:3;display:inline-flex;align-items:center;gap:U(8);font:500 U(13)/U(18) var(--sans);letter-spacing:U(.78);text-transform:uppercase;color:var(--azzurro);transition:color .4s var(--osmo)}
+.px-hero .crumb:hover{color:#fff}
+.px-hero .crumb .ar{display:inline-block;transition:transform .5s var(--osmo)}
+.px-hero .crumb:hover .ar{transform:translateX(U(-3))}
+.course.past{opacity:.62}
+.course.past:hover{opacity:1}
+.course .tag.past{background:transparent;border:1px solid rgba(25,35,75,.25)}
+.post .go,.post-feat .go{display:inline-flex;align-items:center;gap:U(8);margin-top:U(14);font:500 U(15)/U(20) var(--sans);color:var(--navy)}
+.post .go .ico,.post-feat .go .ico{width:U(16);height:U(16);transition:transform .5s var(--osmo)}
+.post .go:hover .ico,.post-feat .go:hover .ico{transform:translateX(U(3))}
+.post.past .meta span::after{content:" · concluso"}
+.post.past .go{display:none}
+/* lavora con noi: e-mail only */
+.job{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:U(24);margin-top:U(56)}
+.roles{border-top:1px solid rgba(25,35,75,.12)}
+.role{display:grid;grid-template-columns:U(44) minmax(0,1fr) U(32);gap:U(20);align-items:start;padding:U(26) 0;border-bottom:1px solid rgba(25,35,75,.12);color:var(--navy);transition:padding .5s var(--osmo)}
+.role:hover{padding-left:U(8)}
+.role .ic{width:U(44);height:U(44)}
+.role .ic svg{width:100%;height:100%;display:block;fill:var(--navy)}
+.role h3{margin:0;font:400 U(22)/U(28) var(--sans)}
+.role p{margin:U(6) 0 0;font:400 U(15)/U(22) var(--sans);color:rgba(25,35,75,.7)}
+.role .go{width:U(32);height:U(32);border-radius:50%;border:1px solid rgba(25,35,75,.25);display:grid;place-items:center;transition:all .5s var(--osmo)}
+.role .go .ico,.role .go .ur{width:U(14);height:U(14)}
+.role:hover .go{background:var(--navy);border-color:var(--navy);color:#fff}
+.mailbox{background:var(--navy-deep);color:#fff;padding:U(44);display:flex;flex-direction:column;gap:U(22);position:relative;overflow:hidden}
+.mailbox .k{font:500 U(13)/U(18) var(--sans);letter-spacing:U(.78);text-transform:uppercase;color:var(--azzurro)}
+.mailbox .addr{font:400 U(40)/U(44) var(--serif);letter-spacing:U(-1.2);color:#fff;overflow-wrap:anywhere}
+.mailbox ul{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.14)}
+.mailbox li{display:flex;align-items:center;gap:U(14);padding:U(14) 0;border-bottom:1px solid rgba(255,255,255,.14);font:400 U(16)/U(22) var(--sans);color:rgba(255,255,255,.85)}
+.mailbox li b{font:500 U(12)/U(16) var(--sans);color:var(--azzurro);letter-spacing:U(.6)}
+.mailbox .btns{display:flex;gap:U(12);flex-wrap:wrap;margin-top:U(6)}
+.mailbox .copy{cursor:pointer;background:none}
+.mailbox .copy.ok{border-color:var(--azzurro);color:var(--azzurro)}
+.mailbox .note{margin:0;font:400 U(14)/U(20) var(--sans);color:rgba(255,255,255,.6)}
+.inline-link{color:inherit;text-decoration:underline;text-underline-offset:.2em;text-decoration-color:rgba(186,199,249,.6)}
+.inline-link:hover{text-decoration-color:currentColor}
+.rnav{display:flex;flex-wrap:wrap;gap:U(8);margin-top:U(24)}
+.rnav a{padding:U(8) U(16);border:1px solid rgba(25,35,75,.2);border-radius:999px;font:400 U(14)/U(18) var(--sans);color:var(--navy);transition:all .4s var(--osmo)}
+.rnav a:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.pn{display:flex;justify-content:space-between;gap:U(16);margin-top:U(56);padding-top:U(24);border-top:1px solid rgba(25,35,75,.12)}
+.pn a{display:flex;flex-direction:column;gap:U(4);font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.pn a small{font:500 U(12)/U(16) var(--sans);letter-spacing:U(.7);text-transform:uppercase;color:rgba(25,35,75,.5)}
+.pn a.nx{text-align:right;margin-left:auto}
+.closing.short{height:U(600)}
+.closing.short .foot{top:U(20)}
+.cta-block .btns{display:flex;gap:U(12);flex-wrap:wrap;justify-content:center}
+@media (max-width: 899px){
+  .px-hero .crumb{left:max(16px,env(safe-area-inset-left,0px));top:96px;font-size:12px}
+  .ccards{grid-template-columns:minmax(0,1fr)!important;gap:0!important;border-top:1px solid rgba(25,35,75,.12)}
+  .ccard{flex-direction:row;justify-content:space-between;align-items:baseline;gap:16px!important;padding:16px 0!important;background:none;border-bottom:1px solid rgba(25,35,75,.12)}
+  .ccard .v{margin:0!important;text-align:right;font-size:16px;line-height:22px;overflow-wrap:normal!important}
+  .city{min-height:92px;padding:14px}
+  .city .c{font-size:18px;line-height:20px;padding-right:0;overflow-wrap:normal;word-break:normal;hyphens:none}
+  .names{columns:1}
+  .names:not(.all):not(.q) span:nth-child(n+13){display:none}
+  .courses:not(.all):not(.q) .course:nth-child(n+4){display:none}
+  .more-c[data-n="0"]{display:none!important}
+  .job{grid-template-columns:minmax(0,1fr);gap:24px;margin-top:32px}
+  .role{grid-template-columns:36px minmax(0,1fr) 28px;gap:14px;padding:20px 0}
+  .role .ic{width:36px;height:36px}
+  .role h3{font-size:19px;line-height:24px}
+  .role .go{width:28px;height:28px}
+  .mailbox{padding:28px 20px;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+  .mailbox .addr{font-size:28px;line-height:32px}
+  .rtab thead{display:none}
+  .rtab,.rtab tbody{display:block}
+  .rtab tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:16px 0;border-bottom:1px solid rgba(25,35,75,.12)}
+  .rtab td{border:0!important;padding:0!important;font-size:14px;line-height:20px}
+  .rtab td:nth-child(1){font-size:17px;line-height:24px;color:var(--navy)}
+  .rtab td:nth-child(5){grid-column:2;grid-row:1;color:rgba(25,35,75,.55);font-size:13px}
+  .rtab td:nth-child(2),.rtab td:nth-child(3),.rtab td:nth-child(4){grid-column:1/-1;color:rgba(25,35,75,.75)}
+  .pn{flex-direction:column;margin-top:40px}
+  .pn a{font-size:18px;line-height:24px}
+  .closing.short{height:auto;padding-top:0}
+  .cta-block .btns{flex-direction:column;align-items:center}
+}
+'''
+
 def esc(s): return H.escape(s, quote=True)
 
-def hero(a, b, intro, btns, facts, device='__DEVICE_HERO__'):
+def hero(a, b, intro, btns, facts, device='__DEVICE_HERO__', crumb=None):
     f = ''.join(f'<span>{x}</span>' for x in facts)
+    cr = f'<a class="crumb" href="{crumb[1]}"><span class="ar">←</span>{crumb[0]}</a>' if crumb else ''
     return f'''<section class="sec hero px-hero" id="top">
   <div class="in">
     <div class="rings" data-parallax="0.1"><div class="art">{device}</div></div>
 __HEADER__
-    <h1><span class="a">{a}</span>{f'<span class="b">{b}</span>' if b else ''}</h1>
+    {cr}<h1><span class="a">{a}</span>{f'<span class="b">{b}</span>' if b else ''}</h1>
     <div class="rule"></div>
     <div class="foot-row">
       <div class="facts">{f}</div>
@@ -448,11 +530,21 @@ FILTER_JS = '''
     const items = [...document.querySelectorAll(box.dataset.filter)], input = box.querySelector('input'), chips = [...box.querySelectorAll('[data-chip]')];
     let chip = 'all';
     const run = () => { const q = (input ? input.value : '').trim().toLowerCase();
-      items.forEach(it => { const okq = !q || it.textContent.toLowerCase().includes(q); const okc = chip === 'all' || (it.dataset.cat || '').split(' ').includes(chip); it.hidden = !(okq && okc); }); };
+      items.forEach(it => { const okq = !q || it.textContent.toLowerCase().includes(q); const okc = chip === 'all' || (it.dataset.cat || '').split(' ').includes(chip); it.hidden = !(okq && okc); }); if (items[0]) items[0].parentElement.classList.toggle('q', !!q || chip !== 'all'); };
     if (input) input.addEventListener('input', run);
     chips.forEach(c => c.addEventListener('click', () => { chip = c.dataset.chip; chips.forEach(x => x.setAttribute('aria-pressed', String(x === c))); run(); }));
   });
-  document.querySelectorAll('.more-c button').forEach(b => b.addEventListener('click', () => { const c = b.closest('.px-body').querySelector('.courses'); c.classList.add('all'); b.parentElement.remove(); }));
+  document.querySelectorAll('.more-c button').forEach(b => b.addEventListener('click', () => { const c = b.closest('.px-body').querySelector('.courses,.names'); c.classList.add('all'); b.parentElement.remove(); }));
+  /* ---- kit: past dates (courses, events) — marked at runtime so the static page never goes stale ---- */
+  (() => { const now = new Date(); now.setHours(0, 0, 0, 0);
+    document.querySelectorAll('[data-end]').forEach(el => { if (new Date(el.dataset.end + 'T23:59:59') >= now) return; el.classList.add('past');
+      const t = el.querySelector('.tag'); if (t) { t.textContent = 'Edizione conclusa'; t.className = 'tag past'; }
+      const g = el.querySelector('.course .go, .go'); if (g && el.classList.contains('course')) g.firstChild.textContent = 'Avvisami per la prossima edizione ';
+      el.parentElement.appendChild(el); }); })();
+  /* ---- kit: copy e-mail address ---- */
+  document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => { const v = b.dataset.copy, l = b.querySelector('span') || b;
+    try { await navigator.clipboard.writeText(v); } catch (e) { const t = document.createElement('textarea'); t.value = v; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove(); }
+    const o = l.textContent; l.textContent = 'Indirizzo copiato'; b.classList.add('ok'); setTimeout(() => { l.textContent = o; b.classList.remove('ok'); }, 2200); }));
   /* ---- kit: photo band parallax ---- */
   const bands = [...document.querySelectorAll('.px-band img')];
   if (bands.length && !reduce) { const bl = () => { const vh = innerHeight; bands.forEach(im => { const r = im.parentElement.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) im.style.transform = `translate3d(0,${(-(r.top + r.height / 2 - vh / 2) / vh * r.height * .14).toFixed(1)}px,0)`; }); requestAnimationFrame(bl); }; requestAnimationFrame(bl); }

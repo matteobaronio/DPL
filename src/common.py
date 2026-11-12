@@ -38,7 +38,7 @@ CSS = r'''
 }
 '''
 
-def page(src, title, body, css='', js='', header_fix=None, self_href=None):
+def page(src, title, body, css='', js='', header_fix=None, self_href=None, cta=True):
     """Build an inner page: no logo splash, home header (optionally adjusted), given body between header-hero and the closing section."""
     s = re.sub(r'<title>[^<]*</title>', f'<title>{title}</title>', src, count=1)
     a = s.index('<!-- splash'); b = s.index('<div class="pill"', a); s = s[:a] + s[b:]
@@ -46,6 +46,15 @@ def page(src, title, body, css='', js='', header_fix=None, self_href=None):
     header = s[h0:h1]
     if header_fix: header = header_fix(header)
     a = s.index('<!-- HERO 613:2295 -->'); b = s.index('<!-- CTA + FOOTER')
+    # One closing call to action per page: a page's own final CTA band replaces the generic one above the footer.
+    m = list(re.finditer(r'<section class="px-sec[^"]*"[^>]*>\s*<div class="in">\s*<div class="ctab"><div><h2>(.*?)</h2><p>(.*?)</p></div><div class="btns">(.*?)</div></div>\s*</div>\s*</section>\s*', body, re.S))
+    if m and not body[m[-1].end():].strip():
+        h2, p, bt = m[-1].groups(); body = body[:m[-1].start()]
+        s = s[:b] + re.sub(r'<h2>Hai un conflitto.*?</a></div>', lambda _: f'<h2>{h2}</h2>\n      <div class="intro"><p>{p}</p><div class="btns">{bt}</div></div>', s[b:], count=1, flags=re.S)
+    else:
+        s = s[:b] + s[b:].replace('href="mailto:info@dplmediazione.it">Avvia una mediazione', 'href="__HREF_CON__#modulo">Avvia una mediazione', 1)
+    if cta is False:
+        s = s[:b] + re.sub(r'\s*<div class="cta-block">.*?</div>\s*</div>', '', s[b:], count=1, flags=re.S).replace('<section class="sec closing"', '<section class="sec closing short"', 1)
     s = s[:a] + body.replace('__HEADER__', header) + s[b:]
     s = s.replace('</style>', CSS + css + '</style>', 1)
     if js: s = s.replace("  /* ---- splash (logo intro) ---- */", js + "\n  /* ---- splash (logo intro) ---- */", 1)

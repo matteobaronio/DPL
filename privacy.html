@@ -708,6 +708,84 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .v-orbit{width:290px;height:290px}
   .v-orbit .o span{left:145px;font-size:12px}
 }
+
+/* ---- UX pass (12/11) ---- */
+.px-hero .crumb{position:absolute;left:calc(40*var(--u));top:calc(150*var(--u));z-index:3;display:inline-flex;align-items:center;gap:calc(8*var(--u));font:500 calc(13*var(--u))/calc(18*var(--u)) var(--sans);letter-spacing:calc(.78*var(--u));text-transform:uppercase;color:var(--azzurro);transition:color .4s var(--osmo)}
+.px-hero .crumb:hover{color:#fff}
+.px-hero .crumb .ar{display:inline-block;transition:transform .5s var(--osmo)}
+.px-hero .crumb:hover .ar{transform:translateX(calc(-3*var(--u)))}
+.course.past{opacity:.62}
+.course.past:hover{opacity:1}
+.course .tag.past{background:transparent;border:1px solid rgba(25,35,75,.25)}
+.post .go,.post-feat .go{display:inline-flex;align-items:center;gap:calc(8*var(--u));margin-top:calc(14*var(--u));font:500 calc(15*var(--u))/calc(20*var(--u)) var(--sans);color:var(--navy)}
+.post .go .ico,.post-feat .go .ico{width:calc(16*var(--u));height:calc(16*var(--u));transition:transform .5s var(--osmo)}
+.post .go:hover .ico,.post-feat .go:hover .ico{transform:translateX(calc(3*var(--u)))}
+.post.past .meta span::after{content:" · concluso"}
+.post.past .go{display:none}
+/* lavora con noi: e-mail only */
+.job{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:calc(24*var(--u));margin-top:calc(56*var(--u))}
+.roles{border-top:1px solid rgba(25,35,75,.12)}
+.role{display:grid;grid-template-columns:calc(44*var(--u)) minmax(0,1fr) calc(32*var(--u));gap:calc(20*var(--u));align-items:start;padding:calc(26*var(--u)) 0;border-bottom:1px solid rgba(25,35,75,.12);color:var(--navy);transition:padding .5s var(--osmo)}
+.role:hover{padding-left:calc(8*var(--u))}
+.role .ic{width:calc(44*var(--u));height:calc(44*var(--u))}
+.role .ic svg{width:100%;height:100%;display:block;fill:var(--navy)}
+.role h3{margin:0;font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans)}
+.role p{margin:calc(6*var(--u)) 0 0;font:400 calc(15*var(--u))/calc(22*var(--u)) var(--sans);color:rgba(25,35,75,.7)}
+.role .go{width:calc(32*var(--u));height:calc(32*var(--u));border-radius:50%;border:1px solid rgba(25,35,75,.25);display:grid;place-items:center;transition:all .5s var(--osmo)}
+.role .go .ico,.role .go .ur{width:calc(14*var(--u));height:calc(14*var(--u))}
+.role:hover .go{background:var(--navy);border-color:var(--navy);color:#fff}
+.mailbox{background:var(--navy-deep);color:#fff;padding:calc(44*var(--u));display:flex;flex-direction:column;gap:calc(22*var(--u));position:relative;overflow:hidden}
+.mailbox .k{font:500 calc(13*var(--u))/calc(18*var(--u)) var(--sans);letter-spacing:calc(.78*var(--u));text-transform:uppercase;color:var(--azzurro)}
+.mailbox .addr{font:400 calc(40*var(--u))/calc(44*var(--u)) var(--serif);letter-spacing:calc(-1.2*var(--u));color:#fff;overflow-wrap:anywhere}
+.mailbox ul{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.14)}
+.mailbox li{display:flex;align-items:center;gap:calc(14*var(--u));padding:calc(14*var(--u)) 0;border-bottom:1px solid rgba(255,255,255,.14);font:400 calc(16*var(--u))/calc(22*var(--u)) var(--sans);color:rgba(255,255,255,.85)}
+.mailbox li b{font:500 calc(12*var(--u))/calc(16*var(--u)) var(--sans);color:var(--azzurro);letter-spacing:calc(.6*var(--u))}
+.mailbox .btns{display:flex;gap:calc(12*var(--u));flex-wrap:wrap;margin-top:calc(6*var(--u))}
+.mailbox .copy{cursor:pointer;background:none}
+.mailbox .copy.ok{border-color:var(--azzurro);color:var(--azzurro)}
+.mailbox .note{margin:0;font:400 calc(14*var(--u))/calc(20*var(--u)) var(--sans);color:rgba(255,255,255,.6)}
+.inline-link{color:inherit;text-decoration:underline;text-underline-offset:.2em;text-decoration-color:rgba(186,199,249,.6)}
+.inline-link:hover{text-decoration-color:currentColor}
+.rnav{display:flex;flex-wrap:wrap;gap:calc(8*var(--u));margin-top:calc(24*var(--u))}
+.rnav a{padding:calc(8*var(--u)) calc(16*var(--u));border:1px solid rgba(25,35,75,.2);border-radius:999px;font:400 calc(14*var(--u))/calc(18*var(--u)) var(--sans);color:var(--navy);transition:all .4s var(--osmo)}
+.rnav a:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.pn{display:flex;justify-content:space-between;gap:calc(16*var(--u));margin-top:calc(56*var(--u));padding-top:calc(24*var(--u));border-top:1px solid rgba(25,35,75,.12)}
+.pn a{display:flex;flex-direction:column;gap:calc(4*var(--u));font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);color:var(--navy)}
+.pn a small{font:500 calc(12*var(--u))/calc(16*var(--u)) var(--sans);letter-spacing:calc(.7*var(--u));text-transform:uppercase;color:rgba(25,35,75,.5)}
+.pn a.nx{text-align:right;margin-left:auto}
+.closing.short{height:calc(600*var(--u))}
+.closing.short .foot{top:calc(20*var(--u))}
+.cta-block .btns{display:flex;gap:calc(12*var(--u));flex-wrap:wrap;justify-content:center}
+@media (max-width: 899px){
+  .px-hero .crumb{left:max(16px,env(safe-area-inset-left,0px));top:96px;font-size:12px}
+  .ccards{grid-template-columns:minmax(0,1fr)!important;gap:0!important;border-top:1px solid rgba(25,35,75,.12)}
+  .ccard{flex-direction:row;justify-content:space-between;align-items:baseline;gap:16px!important;padding:16px 0!important;background:none;border-bottom:1px solid rgba(25,35,75,.12)}
+  .ccard .v{margin:0!important;text-align:right;font-size:16px;line-height:22px;overflow-wrap:normal!important}
+  .city{min-height:92px;padding:14px}
+  .city .c{font-size:18px;line-height:20px;padding-right:0;overflow-wrap:normal;word-break:normal;hyphens:none}
+  .names{columns:1}
+  .names:not(.all):not(.q) span:nth-child(n+13){display:none}
+  .courses:not(.all):not(.q) .course:nth-child(n+4){display:none}
+  .more-c[data-n="0"]{display:none!important}
+  .job{grid-template-columns:minmax(0,1fr);gap:24px;margin-top:32px}
+  .role{grid-template-columns:36px minmax(0,1fr) 28px;gap:14px;padding:20px 0}
+  .role .ic{width:36px;height:36px}
+  .role h3{font-size:19px;line-height:24px}
+  .role .go{width:28px;height:28px}
+  .mailbox{padding:28px 20px;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+  .mailbox .addr{font-size:28px;line-height:32px}
+  .rtab thead{display:none}
+  .rtab,.rtab tbody{display:block}
+  .rtab tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:16px 0;border-bottom:1px solid rgba(25,35,75,.12)}
+  .rtab td{border:0!important;padding:0!important;font-size:14px;line-height:20px}
+  .rtab td:nth-child(1){font-size:17px;line-height:24px;color:var(--navy)}
+  .rtab td:nth-child(5){grid-column:2;grid-row:1;color:rgba(25,35,75,.55);font-size:13px}
+  .rtab td:nth-child(2),.rtab td:nth-child(3),.rtab td:nth-child(4){grid-column:1/-1;color:rgba(25,35,75,.75)}
+  .pn{flex-direction:column;margin-top:40px}
+  .pn a{font-size:18px;line-height:24px}
+  .closing.short{height:auto;padding-top:0}
+  .cta-block .btns{flex-direction:column;align-items:center}
+}
 </style>
 
 <!-- page transition: navy curtain with the DPL symbol (draw → liquid fill) -->
@@ -826,7 +904,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="rings" data-parallax="0.08"><div class="art"><svg class="device ring-float" viewBox="0 0 1440 1144" style="width:calc(1440*var(--u));height:calc(1144*var(--u))" overflow="visible" aria-hidden="true"><defs><clipPath id="dcc"><path clip-rule="evenodd" d="M-194.00 775.50a680.50 680.50 0 1 0 1361.00 0a680.50 680.50 0 1 0 -1361.00 0ZM273.00 775.50a680.50 680.50 0 1 0 1361.00 0a680.50 680.50 0 1 0 -1361.00 0Z"/></clipPath><linearGradient id="dgc" gradientUnits="userSpaceOnUse" x1="-194" y1="95" x2="1634" y2="1456"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".08"/><stop offset=".6" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity=".32"/></linearGradient></defs><path fill="#BAC7F9" fill-opacity=".1" fill-rule="evenodd" d="M-194.00 775.50a680.50 680.50 0 1 0 1361.00 0a680.50 680.50 0 1 0 -1361.00 0ZM273.00 775.50a680.50 680.50 0 1 0 1361.00 0a680.50 680.50 0 1 0 -1361.00 0Z"/></svg></div></div>
     <div class="cta-block">
       <h2>Hai un conflitto da risolvere?<br>Parliamone.</h2>
-      <div class="intro"><p>Ti rispondiamo con chiarezza, senza impegno.</p><a class="btn btn--glass" href="mailto:info@dplmediazione.it">Avvia una mediazione <svg class="ico" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      <div class="intro"><p>Ti rispondiamo con chiarezza, senza impegno.</p><a class="btn btn--glass" href="contatti.html#modulo">Avvia una mediazione <svg class="ico" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
     </div>
     <footer class="foot">
       <a class="logo" href="#top" aria-label="DPL Mediazione & Co. — torna su"><svg width="134" height="45" viewBox="0 0 134 45" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -979,11 +1057,21 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     const items = [...document.querySelectorAll(box.dataset.filter)], input = box.querySelector('input'), chips = [...box.querySelectorAll('[data-chip]')];
     let chip = 'all';
     const run = () => { const q = (input ? input.value : '').trim().toLowerCase();
-      items.forEach(it => { const okq = !q || it.textContent.toLowerCase().includes(q); const okc = chip === 'all' || (it.dataset.cat || '').split(' ').includes(chip); it.hidden = !(okq && okc); }); };
+      items.forEach(it => { const okq = !q || it.textContent.toLowerCase().includes(q); const okc = chip === 'all' || (it.dataset.cat || '').split(' ').includes(chip); it.hidden = !(okq && okc); }); if (items[0]) items[0].parentElement.classList.toggle('q', !!q || chip !== 'all'); };
     if (input) input.addEventListener('input', run);
     chips.forEach(c => c.addEventListener('click', () => { chip = c.dataset.chip; chips.forEach(x => x.setAttribute('aria-pressed', String(x === c))); run(); }));
   });
-  document.querySelectorAll('.more-c button').forEach(b => b.addEventListener('click', () => { const c = b.closest('.px-body').querySelector('.courses'); c.classList.add('all'); b.parentElement.remove(); }));
+  document.querySelectorAll('.more-c button').forEach(b => b.addEventListener('click', () => { const c = b.closest('.px-body').querySelector('.courses,.names'); c.classList.add('all'); b.parentElement.remove(); }));
+  /* ---- kit: past dates (courses, events) — marked at runtime so the static page never goes stale ---- */
+  (() => { const now = new Date(); now.setHours(0, 0, 0, 0);
+    document.querySelectorAll('[data-end]').forEach(el => { if (new Date(el.dataset.end + 'T23:59:59') >= now) return; el.classList.add('past');
+      const t = el.querySelector('.tag'); if (t) { t.textContent = 'Edizione conclusa'; t.className = 'tag past'; }
+      const g = el.querySelector('.course .go, .go'); if (g && el.classList.contains('course')) g.firstChild.textContent = 'Avvisami per la prossima edizione ';
+      el.parentElement.appendChild(el); }); })();
+  /* ---- kit: copy e-mail address ---- */
+  document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => { const v = b.dataset.copy, l = b.querySelector('span') || b;
+    try { await navigator.clipboard.writeText(v); } catch (e) { const t = document.createElement('textarea'); t.value = v; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove(); }
+    const o = l.textContent; l.textContent = 'Indirizzo copiato'; b.classList.add('ok'); setTimeout(() => { l.textContent = o; b.classList.remove('ok'); }, 2200); }));
   /* ---- kit: photo band parallax ---- */
   const bands = [...document.querySelectorAll('.px-band img')];
   if (bands.length && !reduce) { const bl = () => { const vh = innerHeight; bands.forEach(im => { const r = im.parentElement.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) im.style.transform = `translate3d(0,${(-(r.top + r.height / 2 - vh / 2) / vh * r.height * .14).toFixed(1)}px,0)`; }); requestAnimationFrame(bl); }; requestAnimationFrame(bl); }
