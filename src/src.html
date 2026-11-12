@@ -137,7 +137,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .link .ico{width:U(18);height:U(18);transition:transform .5s var(--osmo)}
 .link:hover .ico{transform:translateX(U(3))}
 /* blur-in words */
-.js .blurin{filter:blur(14px);opacity:.12;transform:translateY(14px);transition:filter 1.4s var(--osmo),opacity 1.4s var(--osmo),transform 1.4s var(--osmo)}
+.js .blurin{filter:blur(12px);opacity:.12;transform:translateY(14px);transition:filter .9s var(--osmo),opacity .9s var(--osmo),transform .9s var(--osmo)}
 .js .blurin.on{filter:blur(0);opacity:1;transform:none}
 
 /* ---------- NUMBERS ---------- */
@@ -569,12 +569,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   ['.about .h2','.about .intro p','.numbers .cap','.how .h2','.reviews .h2','.cta-block h2','.cta-block .intro p','.foot .tag']
     .forEach(sel => document.querySelectorAll(sel).forEach(el => el.classList.add('blurin')));
   const groups = new Map();
-  document.querySelectorAll('.blurin').forEach(el => { const k = el.closest('section'); const n = groups.get(k) || 0; groups.set(k, n + 1); el.dataset.d = Math.min(n, 4) * 0.09; });
+  document.querySelectorAll('.blurin').forEach(el => { const k = el.closest('section'); const n = groups.get(k) || 0; groups.set(k, n + 1); el.dataset.d = Math.min(n, 3) * 0.05; });
   const blurIO = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return; const el = e.target, d = +el.dataset.d || 0;
     el.style.transitionDelay = d + 's'; el.classList.add('on'); blurIO.unobserve(el);
-    setTimeout(() => { el.style.transitionDelay = ''; }, (d + 1.5) * 1000);
-  }), { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+    setTimeout(() => { el.style.transitionDelay = ''; }, (d + 1) * 1000);
+  }), { threshold: 0, rootMargin: '0px 0px 6% 0px' });
   document.querySelectorAll('.blurin').forEach(el => blurIO.observe(el));
 
   /* ---- splash (logo intro) ---- */
