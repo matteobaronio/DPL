@@ -118,9 +118,9 @@ def evento(mk, src, i, courses):
 
 
 # ---------------------------------------------------------------- 404 (Figma 715:144)
-NF = [('Non ti preoccupare.', 'Ti accompagniamo anche in questo: la pagina che cerchi non c’è, ma la strada per tornare sì.'),
+NF = [('Non ti preoccupare.', 'Ti accompagniamo anche in questo. La pagina che cerchi non c’è, ma la strada per tornare sì.'),
       ('Anche qui non ti sei perso.', 'Questa pagina non esiste più. Ripartiamo insieme da un punto chiaro.'),
-      ('Ogni situazione ha un’altra strada.', 'Come in mediazione, si riparte da ciò che funziona: la home, oppure una richiesta alla nostra segreteria.')]
+      ('Ogni situazione ha un’altra strada.', 'Come in mediazione, si riparte da ciò che funziona. Torna alla home o scrivi alla nostra segreteria.')]
 
 NF_JS = '''
   /* ---- 404: a different reassuring message at each reload (cycles through 3) ---- */
@@ -133,7 +133,7 @@ NF_JS = '''
 def notfound(mk, src):
     links = [('Mediazione', '__HREF_MC__'), ('Formazione', '__HREF_FORM__'), ('Le nostre sedi', '__HREF_SEDI__'), ('Modulistica', '__HREF_MOD__'), ('News & eventi', '__HREF_RS__')]
     b = ('<section class="sec nf" id="top">\n  <div class="in">\n    <div class="rings" data-parallax="0.06"><div class="art">__DEVICE_404__</div></div>\n__HEADER__\n'
-         '    <div class="nf-c"><h1 class="nf-n"><span class="sr">Errore </span>404<span class="sr">: pagina non trovata</span></h1>'
+         '    <div class="nf-c"><h1 class="nf-n"><span class="sr">Errore </span>404<span class="sr">, pagina non trovata</span></h1>'
          f'<p class="nf-m" aria-live="polite"><b>{NF[0][0]}</b><span>{NF[0][1]}</span></p>'
          f'<div class="btns">{btn("Torna alla home", "__HREF_HOME__")}{btn("Scrivici", "__HREF_CON__", "line")}</div>'
          '<nav class="nf-l" aria-label="Pagine principali">' + ''.join(f'<a href="{u}">{t}</a>' for t, u in links) + '</nav></div>\n  </div>\n</section>\n')
