@@ -17,7 +17,7 @@ CSS = r'''
 .cs-sec{background:#fff;padding:U(120) 0}
 .cs-sec.flush{padding-top:0}
 .cs-sec .in{height:auto;padding:0 U(40);box-sizing:border-box}
-.cs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:U(40)}
+.cs-head{display:flex;justify-content:space-between;align-items:flex-start;gap:U(40)}
 .cs-head .h2{width:U(760)}
 .cs-head p{margin:0;width:U(447);font:400 U(18)/U(27) var(--sans);color:rgba(25,35,75,.8)}
 .pills{margin-top:U(4);display:flex;flex-wrap:wrap;gap:U(8)}
