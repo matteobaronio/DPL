@@ -476,7 +476,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .lst a,.lst .row{display:flex;align-items:center;gap:calc(16*var(--u));padding:calc(20*var(--u)) 0;border-bottom:1px solid rgba(25,35,75,.12);font:400 calc(18*var(--u))/calc(26*var(--u)) var(--sans);color:var(--navy);transition:color .4s var(--osmo),padding .5s var(--osmo)}
 .lst a:hover{color:#3B4A8C;padding-left:calc(8*var(--u))}
 .lst .t{flex:1;min-width:0}
-.lst .m{font:400 calc(14*var(--u))/calc(20*var(--u)) var(--sans);color:rgba(25,35,75,.55);white-space:nowrap}
+.lst .m{font:400 max(13px,calc(16*var(--u)))/1.4 var(--sans);color:rgba(25,35,75,.7);white-space:nowrap}
 .lst .dl,.lst .ur{width:calc(16*var(--u));height:calc(16*var(--u));flex:none}
 .lst .ic{width:calc(20*var(--u));height:calc(20*var(--u));flex:none}
 .lst-2{display:grid;grid-template-columns:1fr 1fr;column-gap:calc(80*var(--u))}
@@ -487,20 +487,27 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .search svg{width:calc(18*var(--u));height:calc(18*var(--u));flex:none}
 .search input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 calc(16*var(--u))/calc(22*var(--u)) var(--sans);color:var(--navy)}
 .chips-f{display:flex;flex-wrap:wrap;gap:calc(8*var(--u))}
-.chips-f button{padding:calc(8*var(--u)) calc(16*var(--u));border:1px solid rgba(25,35,75,.2);border-radius:999px;font:400 calc(14*var(--u))/calc(18*var(--u)) var(--sans);color:var(--navy);transition:all .4s var(--osmo)}
-.chips-f button[aria-pressed="true"],.chips-f button:hover{background:var(--navy);border-color:var(--navy);color:#fff}
-/* course cards */
-.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(16*var(--u))}
-.course{display:flex;flex-direction:column;gap:calc(14*var(--u));padding:calc(28*var(--u));background:#fff;border:1px solid rgba(25,35,75,.12);transition:border-color .5s var(--osmo),transform .6s var(--osmo)}
-.course:hover{border-color:var(--navy);transform:translateY(calc(-4*var(--u)))}
-.course .tag{align-self:flex-start;padding:calc(5*var(--u)) calc(10*var(--u));border-radius:999px;background:#F3F5FC;font:500 calc(12*var(--u))/calc(16*var(--u)) var(--sans);letter-spacing:calc(.6*var(--u));text-transform:uppercase;color:var(--navy)}
-.course .tag.free{background:var(--azzurro)}
-.course h3{margin:0;font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);color:var(--navy)}
-.course dl{margin:auto 0 0;display:grid;grid-template-columns:auto 1fr;gap:calc(6*var(--u)) calc(14*var(--u));font:400 calc(14*var(--u))/calc(20*var(--u)) var(--sans)}
-.course dt{color:rgba(25,35,75,.5)}
-.course dd{margin:0;color:var(--navy)}
-.course .go{display:inline-flex;align-items:center;gap:calc(8*var(--u));margin-top:calc(8*var(--u));font:500 calc(15*var(--u))/calc(20*var(--u)) var(--sans);color:var(--navy)}
-.course .go .ico{width:calc(16*var(--u));height:calc(16*var(--u))}
+.chips-f button{padding:calc(10*var(--u)) calc(16*var(--u));border:1px solid rgba(25,35,75,.28);border-radius:calc(5*var(--u));font:500 calc(14*var(--u))/calc(18*var(--u)) var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),color .4s var(--osmo)}
+.chips-f button:hover{border-color:var(--navy)}
+.chips-f button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+/* course cards (DPL Accademy) */
+.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--u))}
+.course{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(90,28,48,.14);transition:border-color .5s var(--osmo),transform .6s var(--osmo),box-shadow .6s var(--osmo)}
+.course:hover{border-color:var(--bordeaux);transform:translateY(calc(-4*var(--u)));box-shadow:0 calc(20*var(--u)) calc(44*var(--u)) rgba(90,28,48,.08)}
+.course .tag{align-self:flex-start;margin:calc(32*var(--u)) calc(32*var(--u)) 0;padding:calc(6*var(--u)) calc(10*var(--u)) calc(5*var(--u));border-radius:calc(4*var(--u));font:500 calc(13*var(--u))/calc(16*var(--u)) var(--sans);letter-spacing:0;text-transform:none;white-space:nowrap}
+.course .tag.t-corso{background:var(--bordeaux);color:#fff}
+.course .tag.t-incontro{background:var(--rosa);color:var(--bordeaux)}
+.course .tag.t-aggiornamento{background:#fff;color:var(--bordeaux);box-shadow:inset 0 0 0 1px var(--bordeaux)}
+.course h3{margin:calc(20*var(--u)) calc(32*var(--u)) 0;min-height:calc(56*var(--u));font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);letter-spacing:calc(-.2*var(--u));color:var(--bordeaux)}
+.course dl{margin:calc(24*var(--u)) calc(32*var(--u)) calc(28*var(--u));display:flex;flex-direction:column;gap:calc(12*var(--u))}
+.course .m{display:grid;grid-template-columns:calc(20*var(--u)) minmax(0,1fr);gap:calc(12*var(--u));align-items:start}
+.course dt{display:flex;padding-top:calc(1*var(--u))}
+.course dt .ph{width:calc(20*var(--u));height:calc(20*var(--u));color:rgba(90,28,48,.55)}
+.course dd{margin:0;font:400 calc(15*var(--u))/calc(22*var(--u)) var(--sans);color:rgba(90,28,48,.85)}
+.course .go{display:flex;align-items:center;justify-content:space-between;gap:calc(12*var(--u));margin-top:auto;padding:calc(18*var(--u)) calc(32*var(--u)) calc(20*var(--u));border-top:1px solid rgba(90,28,48,.12);font:500 calc(15*var(--u))/calc(20*var(--u)) var(--sans);color:var(--bordeaux);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
+.course .go .ar{width:calc(20*var(--u));height:calc(20*var(--u));transition:transform .5s var(--osmo)}
+.course .go:hover{background:var(--bordeaux);color:#fff}
+.course .go:hover .ar{transform:translateX(calc(4*var(--u)))}
 .more-c{display:none}
 /* blog (zaro-like) */
 .post-feat{display:grid;grid-template-columns:1.3fr 1fr;gap:calc(48*var(--u));align-items:center;margin-bottom:calc(72*var(--u))}
@@ -717,7 +724,6 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .px-hero .crumb:hover .ar{transform:translateX(calc(-3*var(--u)))}
 .course.past{opacity:.62}
 .course.past:hover{opacity:1}
-.course .tag.past{background:transparent;border:1px solid rgba(25,35,75,.25)}
 .post .go,.post-feat .go{display:inline-flex;align-items:center;gap:calc(8*var(--u));margin-top:calc(14*var(--u));font:500 calc(15*var(--u))/calc(20*var(--u)) var(--sans);color:var(--navy)}
 .post .go .ico,.post-feat .go .ico{width:calc(16*var(--u));height:calc(16*var(--u));transition:transform .5s var(--osmo)}
 .post .go:hover .ico,.post-feat .go:hover .ico{transform:translateX(calc(3*var(--u)))}
@@ -872,18 +878,15 @@ body:has(.px-hero.acc) .closing{--azzurro:var(--rosa);--title-light:#fff}
 .acc .feat .ft h3{color:var(--bordeaux)}
 .acc .feat .ft li{color:var(--bordeaux)}
 .acc .feat .ft li::before{background:var(--rosa);box-shadow:0 0 0 calc(3*var(--u)) rgba(225,190,210,.4)}
-.acc .chips-f button[aria-pressed="true"],.acc .chips-f button:hover{background:var(--bordeaux);border-color:var(--bordeaux)}
+.acc .chips-f button{border-color:rgba(90,28,48,.3);color:var(--bordeaux)}
+.acc .chips-f button:hover{border-color:var(--bordeaux)}
+.acc .chips-f button[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
 .acc .btn-ghost:hover{border-color:var(--bordeaux)}
 .acc .lst a:hover{color:var(--bordeaux)}
 .acc .lst .ur path{stroke:var(--bordeaux)}
+.acc .lst .m{color:rgba(90,28,48,.75)}
 /* course cards are DPL Accademy products everywhere they appear */
-.course .tag{background:var(--rosa-t);color:var(--bordeaux)}
-.course .tag.free{background:var(--rosa);color:var(--bordeaux)}
-.course:hover{border-color:var(--bordeaux)}
-.course h3{color:var(--bordeaux)}
-.course .go{color:var(--bordeaux)}
-.course .go path{stroke:var(--bordeaux)}
-.course .tag.past{background:transparent;border-color:rgba(90,28,48,.3)}
+.course .tag.past{background:#fff;color:rgba(90,28,48,.75);box-shadow:inset 0 0 0 1px rgba(90,28,48,.35)}
 </style>
 
 <!-- page transition: navy curtain with the DPL symbol (draw → liquid fill) -->

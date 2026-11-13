@@ -90,7 +90,7 @@ CSS = r'''
 .lst a,.lst .row{display:flex;align-items:center;gap:U(16);padding:U(20) 0;border-bottom:1px solid rgba(25,35,75,.12);font:400 U(18)/U(26) var(--sans);color:var(--navy);transition:color .4s var(--osmo),padding .5s var(--osmo)}
 .lst a:hover{color:#3B4A8C;padding-left:U(8)}
 .lst .t{flex:1;min-width:0}
-.lst .m{font:400 U(14)/U(20) var(--sans);color:rgba(25,35,75,.55);white-space:nowrap}
+.lst .m{font:400 max(13px,U(16))/1.4 var(--sans);color:rgba(25,35,75,.7);white-space:nowrap}
 .lst .dl,.lst .ur{width:U(16);height:U(16);flex:none}
 .lst .ic{width:U(20);height:U(20);flex:none}
 .lst-2{display:grid;grid-template-columns:1fr 1fr;column-gap:U(80)}
@@ -101,20 +101,27 @@ CSS = r'''
 .search svg{width:U(18);height:U(18);flex:none}
 .search input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 U(16)/U(22) var(--sans);color:var(--navy)}
 .chips-f{display:flex;flex-wrap:wrap;gap:U(8)}
-.chips-f button{padding:U(8) U(16);border:1px solid rgba(25,35,75,.2);border-radius:999px;font:400 U(14)/U(18) var(--sans);color:var(--navy);transition:all .4s var(--osmo)}
-.chips-f button[aria-pressed="true"],.chips-f button:hover{background:var(--navy);border-color:var(--navy);color:#fff}
-/* course cards */
-.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:U(16)}
-.course{display:flex;flex-direction:column;gap:U(14);padding:U(28);background:#fff;border:1px solid rgba(25,35,75,.12);transition:border-color .5s var(--osmo),transform .6s var(--osmo)}
-.course:hover{border-color:var(--navy);transform:translateY(U(-4))}
-.course .tag{align-self:flex-start;padding:U(5) U(10);border-radius:999px;background:#F3F5FC;font:500 U(12)/U(16) var(--sans);letter-spacing:U(.6);text-transform:uppercase;color:var(--navy)}
-.course .tag.free{background:var(--azzurro)}
-.course h3{margin:0;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
-.course dl{margin:auto 0 0;display:grid;grid-template-columns:auto 1fr;gap:U(6) U(14);font:400 U(14)/U(20) var(--sans)}
-.course dt{color:rgba(25,35,75,.5)}
-.course dd{margin:0;color:var(--navy)}
-.course .go{display:inline-flex;align-items:center;gap:U(8);margin-top:U(8);font:500 U(15)/U(20) var(--sans);color:var(--navy)}
-.course .go .ico{width:U(16);height:U(16)}
+.chips-f button{padding:U(10) U(16);border:1px solid rgba(25,35,75,.28);border-radius:U(5);font:500 U(14)/U(18) var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),color .4s var(--osmo)}
+.chips-f button:hover{border-color:var(--navy)}
+.chips-f button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+/* course cards (DPL Accademy) */
+.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:U(20)}
+.course{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(90,28,48,.14);transition:border-color .5s var(--osmo),transform .6s var(--osmo),box-shadow .6s var(--osmo)}
+.course:hover{border-color:var(--bordeaux);transform:translateY(U(-4));box-shadow:0 U(20) U(44) rgba(90,28,48,.08)}
+.course .tag{align-self:flex-start;margin:U(32) U(32) 0;padding:U(6) U(10) U(5);border-radius:U(4);font:500 U(13)/U(16) var(--sans);letter-spacing:0;text-transform:none;white-space:nowrap}
+.course .tag.t-corso{background:var(--bordeaux);color:#fff}
+.course .tag.t-incontro{background:var(--rosa);color:var(--bordeaux)}
+.course .tag.t-aggiornamento{background:#fff;color:var(--bordeaux);box-shadow:inset 0 0 0 1px var(--bordeaux)}
+.course h3{margin:U(20) U(32) 0;min-height:U(56);font:400 U(22)/U(28) var(--sans);letter-spacing:U(-.2);color:var(--bordeaux)}
+.course dl{margin:U(24) U(32) U(28);display:flex;flex-direction:column;gap:U(12)}
+.course .m{display:grid;grid-template-columns:U(20) minmax(0,1fr);gap:U(12);align-items:start}
+.course dt{display:flex;padding-top:U(1)}
+.course dt .ph{width:U(20);height:U(20);color:rgba(90,28,48,.55)}
+.course dd{margin:0;font:400 U(15)/U(22) var(--sans);color:rgba(90,28,48,.85)}
+.course .go{display:flex;align-items:center;justify-content:space-between;gap:U(12);margin-top:auto;padding:U(18) U(32) U(20);border-top:1px solid rgba(90,28,48,.12);font:500 U(15)/U(20) var(--sans);color:var(--bordeaux);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
+.course .go .ar{width:U(20);height:U(20);transition:transform .5s var(--osmo)}
+.course .go:hover{background:var(--bordeaux);color:#fff}
+.course .go:hover .ar{transform:translateX(U(4))}
 .more-c{display:none}
 /* blog (zaro-like) */
 .post-feat{display:grid;grid-template-columns:1.3fr 1fr;gap:U(48);align-items:center;margin-bottom:U(72)}
@@ -334,7 +341,6 @@ CSS += r'''
 .px-hero .crumb:hover .ar{transform:translateX(U(-3))}
 .course.past{opacity:.62}
 .course.past:hover{opacity:1}
-.course .tag.past{background:transparent;border:1px solid rgba(25,35,75,.25)}
 .post .go,.post-feat .go{display:inline-flex;align-items:center;gap:U(8);margin-top:U(14);font:500 U(15)/U(20) var(--sans);color:var(--navy)}
 .post .go .ico,.post-feat .go .ico{width:U(16);height:U(16);transition:transform .5s var(--osmo)}
 .post .go:hover .ico,.post-feat .go:hover .ico{transform:translateX(U(3))}
@@ -495,18 +501,15 @@ body:has(.px-hero.acc) .closing{--azzurro:var(--rosa);--title-light:#fff}
 .acc .feat .ft h3{color:var(--bordeaux)}
 .acc .feat .ft li{color:var(--bordeaux)}
 .acc .feat .ft li::before{background:var(--rosa);box-shadow:0 0 0 U(3) rgba(225,190,210,.4)}
-.acc .chips-f button[aria-pressed="true"],.acc .chips-f button:hover{background:var(--bordeaux);border-color:var(--bordeaux)}
+.acc .chips-f button{border-color:rgba(90,28,48,.3);color:var(--bordeaux)}
+.acc .chips-f button:hover{border-color:var(--bordeaux)}
+.acc .chips-f button[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
 .acc .btn-ghost:hover{border-color:var(--bordeaux)}
 .acc .lst a:hover{color:var(--bordeaux)}
 .acc .lst .ur path{stroke:var(--bordeaux)}
+.acc .lst .m{color:rgba(90,28,48,.75)}
 /* course cards are DPL Accademy products everywhere they appear */
-.course .tag{background:var(--rosa-t);color:var(--bordeaux)}
-.course .tag.free{background:var(--rosa);color:var(--bordeaux)}
-.course:hover{border-color:var(--bordeaux)}
-.course h3{color:var(--bordeaux)}
-.course .go{color:var(--bordeaux)}
-.course .go path{stroke:var(--bordeaux)}
-.course .tag.past{background:transparent;border-color:rgba(90,28,48,.3)}
+.course .tag.past{background:#fff;color:rgba(90,28,48,.75);box-shadow:inset 0 0 0 1px rgba(90,28,48,.35)}
 '''
 
 def esc(s): return H.escape(s, quote=True)
