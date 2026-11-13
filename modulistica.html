@@ -101,8 +101,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .pill .pm-sub a:hover,.pill .pm-sub a[aria-current]{color:var(--azzurro)}
 .pill .pm-sub a .ico{width:12px;height:12px}
 .pill-inner{max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain}
-.pill .pm-top::before{content:"";width:5px;height:5px;background:var(--azzurro);border-radius:50%;opacity:0;transition:opacity .3s var(--osmo)}
-.pill .pm-top:hover::before,.pill .pm-top[aria-current]::before,.pill li.open .pm-top::before{opacity:1}
+.pill .pm-top::before{content:"";flex:none;width:0;height:5px;margin-right:-10px;background:var(--azzurro);border-radius:50%;opacity:0;transition:opacity .3s var(--osmo),width .4s var(--osmo),margin .4s var(--osmo)}
+.pill .pm-top:hover::before,.pill .pm-top[aria-current]::before,.pill li.open .pm-top::before{opacity:1;width:5px;margin-right:0}
 .pill.open .pm-top{transform:none}
 .pill-foot{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;font:400 14px/20px var(--sans);color:rgba(255,255,255,.75);opacity:0;transform:translateY(8px);transition:opacity .4s var(--osmo),transform .6s var(--osmo)}
 .pill.open .pill-foot{opacity:1;transform:none;transition-delay:.3s}
