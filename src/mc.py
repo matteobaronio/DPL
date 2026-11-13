@@ -106,6 +106,44 @@ CSS = r'''
   .row{grid-template-columns:1fr;gap:6px}
   .docs{margin-top:32px}
 }
+
+/* card «quando» e «costi» (stile delle pagine interne) */
+.mc-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:U(16);margin-top:U(56)}
+.mc-card{background:#F3F5FC;padding:U(32) U(28);min-height:U(260);box-sizing:border-box;display:flex;flex-direction:column;transition:background-color .5s var(--osmo)}
+.mc-card:hover{background:#EBEFFB}
+.mc-card .ic{width:U(40);height:U(40)}
+.mc-card .ic svg{width:100%;height:100%;fill:var(--azzurro);display:block}
+.mc-card h3{margin:auto 0 0;padding-top:U(40);font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.mc-card p{margin:U(10) 0 0;font:400 max(14px,U(16))/1.5 var(--sans);color:rgba(25,35,75,.7)}
+.mc-more{margin-top:U(16);border-top:1px solid rgba(25,35,75,.12);border-bottom:1px solid rgba(25,35,75,.12)}
+.mc-more summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:U(12);padding:U(24) 0;font:400 U(20)/U(26) var(--sans);color:var(--navy)}
+.mc-more summary::-webkit-details-marker{display:none}
+.mc-more summary .n{display:inline-flex;align-items:center;justify-content:center;min-width:U(28);height:U(24);padding:0 U(6);border-radius:U(4);background:var(--navy);color:#fff;font:500 max(12px,U(13))/1 var(--sans)}
+.mc-more summary::after{content:"";margin-left:auto;flex:none;width:U(12);height:U(12);border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-25%) rotate(45deg);transition:transform .5s var(--osmo)}
+.mc-more[open] summary::after{transform:translateY(25%) rotate(-135deg)}
+.mc-mat{margin:0;padding:0 0 U(28);list-style:none;columns:3;column-gap:U(40)}
+.mc-mat li{break-inside:avoid;padding:U(8) 0;font:400 max(14px,U(16))/1.4 var(--sans);color:rgba(25,35,75,.8)}
+.mc-note{margin:U(20) 0 0;max-width:U(760);font:400 max(13px,U(14))/1.5 var(--sans);color:rgba(25,35,75,.6)}
+.mc-dl{display:grid;grid-template-columns:U(447) 1fr;gap:U(120);margin-top:U(72)}
+.mc-dl h3{margin:0;padding-top:U(18);font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.mc-dl .lst{border-top:1px solid rgba(25,35,75,.12)}
+.mc-dl .lst a{display:flex;align-items:center;gap:U(16);padding:U(20) 0;border-bottom:1px solid rgba(25,35,75,.12);font:400 U(18)/U(26) var(--sans);color:var(--navy);transition:color .4s var(--osmo),padding .5s var(--osmo)}
+.mc-dl .lst a:hover{color:#3B4A8C;padding-left:U(8)}
+.mc-dl .lst .ic{width:U(20);height:U(20);flex:none}
+.mc-dl .lst .t{flex:1;min-width:0}
+.mc-dl .lst .m{font:400 max(13px,U(14))/1.4 var(--sans);color:rgba(25,35,75,.6)}
+.mc-dl .lst .dl{width:U(16);height:U(16);flex:none}
+@media (max-width: 1100px) and (min-width: 900px){.mc-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width: 899px){
+  .mc-cards{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:32px}
+  .mc-card{min-height:0;padding:24px}
+  .mc-card h3{padding-top:28px;font-size:20px;line-height:26px}
+  .mc-more summary{font-size:18px;line-height:24px;padding:20px 0}
+  .mc-mat{columns:1;padding-bottom:20px}
+  .mc-dl{grid-template-columns:1fr;gap:16px;margin-top:48px}
+  .mc-dl h3{padding-top:0;font-size:20px}
+  .mc-dl .lst a{font-size:16px;line-height:22px;gap:12px}
+}
 '''
 
 DL = '<svg class="dl" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.5v8m-3.5-3.5L8 10.5l3.5-3.5M3 13.5h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
@@ -118,14 +156,11 @@ def _hdr(h):
     return h.replace('<a href="__HREF_MC__">Civile e commerciale</a>', '<a href="__HREF_MC__" aria-current="page">Civile e commerciale</a>')
 
 def make(src):
-    chips = ''.join(f'<span>{m}</span>' for m in MATERIE)
-    tipi = [
-      ('01','Obbligatoria', f'<p>Per queste materie la legge chiede di tentare la mediazione prima di rivolgersi al giudice.</p><div class="chips">{chips}</div>'),
-      ('02','Volontaria', '<p>Puoi sceglierla liberamente per qualsiasi controversia su diritti disponibili, anche senza avvocato o con l’assistenza di un altro professionista.</p><p>Per esempio: recupero crediti (commerciali, condominiali, privati), risarcimento danni, appalto, prestazione d’opera manuale e intellettuale, contestazione di lavori, contratti d’agenzia.</p>'),
-      ('03','Demandata dal giudice', '<p>Durante una causa il giudice può invitare le parti a tentare la mediazione presso un organismo. In questo caso il tentativo è obbligatorio.</p>'),
-      ('04','Prevista da un contratto', '<p>Un contratto o uno statuto può contenere una clausola che prevede la mediazione prima di ogni altra strada.</p>'),
-    ]
-    acc = '\n'.join(f'''        <div class="acc-item{' open' if i==0 else ''}"><button class="acc-head" aria-expanded="{'true' if i==0 else 'false'}"><span class="acc-n">{n}</span><span class="acc-t">{t}</span>__ACC__</button><div class="acc-body"><div>{b}</div></div></div>''' for i,(n,t,b) in enumerate(tipi))
+    tipi_cards = '      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M239.43,133l-32-80A8,8,0,0,0,200,48a8.27,8.27,0,0,0-1.73.21L136,62V40a8,8,0,0,0-16,0V65.58L54.27,80.21A8,8,0,0,0,48.57,85l-32,80a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133Zm-160,35H32.62L56,109.54Zm97.24-32L200,77.54,223.38,136Z"/></svg></span><h3>Obbligatoria</h3><p>Per alcune materie la legge chiede di tentarla prima di andare dal giudice.</p></article>\n      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l40-40,15.08-15.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41Zm-41.87,41.86L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm-25.72,34.8a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z"/></svg></span><h3>Volontaria</h3><p>Puoi sceglierla per qualsiasi controversia su diritti disponibili, anche senza avvocato.</p></article>\n      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M52.69,99.31a16,16,0,0,1,0-22.63l64-64a16,16,0,0,1,22.63,22.63l-64,64a16,16,0,0,1-22.63,0Zm190.63,17.37a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63h0a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.68Zm-35.11-15.8L155.12,47.79a4,4,0,0,0-5.66,0L87.8,109.45a4,4,0,0,0,0,5.66L103,130.34,28.69,204.69a16,16,0,0,0,22.62,22.62L125.66,153l15.23,15.23a4,4,0,0,0,5.66,0l61.66-61.66A4,4,0,0,0,208.21,100.88Z"/></svg></span><h3>Demandata dal giudice</h3><p>Durante una causa il giudice può invitare le parti a tentarla: il tentativo diventa obbligatorio.</p></article>\n      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M80.3,120.26A58.29,58.29,0,0,1,81,97.07C83.32,87,87.89,80,92.1,80c2.57,0,2.94.67,3.12,1,.88,1.61,4,10.93-12.63,46.52A28.87,28.87,0,0,1,80.3,120.26ZM232,56V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56ZM84,160c2-3.59,3.94-7.32,5.9-11.14,10.34-.32,22.21-7.57,35.47-21.68,5,9.69,11.38,15.25,18.87,16.55,8,1.38,16-2.38,23.94-11.2,6,5.53,16.15,11.47,31.8,11.47a8,8,0,0,0,0-16c-17.91,0-24.3-10.88-24.84-11.86a7.83,7.83,0,0,0-6.54-4.51,8,8,0,0,0-7.25,3.6c-6.78,10-11.87,13.16-14.39,12.73-4-.69-9.15-10-11.23-18a8,8,0,0,0-14-3c-8.88,10.94-16.3,17.79-22.13,21.66,15.8-35.65,13.27-48.59,9.6-55.3C107.35,69.84,102.59,64,92.1,64,79.66,64,69.68,75,65.41,93.46a75,75,0,0,0-.83,29.81c1.7,8.9,5.17,15.73,10.16,20.12-3,5.81-6.09,11.43-9,16.61H56a8,8,0,0,0,0,16h.44c-4.26,7.12-7.11,11.59-7.18,11.69a8,8,0,0,0,13.48,8.62c.36-.55,5.47-8.57,12.29-20.31H200a8,8,0,0,0,0-16Z"/></svg></span><h3>Prevista da un contratto</h3><p>Una clausola del contratto o dello statuto può prevederla prima di ogni altra strada.</p></article>'
+    costi_cards = '      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM56,146.87C36.41,141.4,24,132.39,24,124V109.93c8.16,5.78,19.09,10.44,32,13.57Zm80-23.37c12.91-3.13,23.84-7.79,32-13.57V124c0,8.39-12.41,17.4-32,22.87Zm-16,71.37C100.41,189.4,88,180.39,88,172v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41Zm0-44.62A163,163,0,0,1,96,152a163,163,0,0,1-24-1.75V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54Zm64,48a165.45,165.45,0,0,1-48,0V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54ZM232,172c0,8.39-12.41,17.4-32,22.87V171.5c12.91-3.13,23.84-7.79,32-13.57Z"/></svg></span><h3>Credito d’imposta</h3><p>Con l’accordo recuperi l’indennità pagata fino a € 600, nelle obbligatorie anche il compenso dell’avvocato. Senza accordo, la metà.</p></article>\n      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M216,40H40A16,16,0,0,0,24,56V208a8,8,0,0,0,11.58,7.15L64,200.94l28.42,14.21a8,8,0,0,0,7.16,0L128,200.94l28.42,14.21a8,8,0,0,0,7.16,0L192,200.94l28.42,14.21A8,8,0,0,0,232,208V56A16,16,0,0,0,216,40ZM176,144H80a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Zm0-32H80a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Z"/></svg></span><h3>Contributo unificato</h3><p>Se una causa in corso si chiude con l’accordo, credito pari al contributo versato, fino a € 518.</p></article>\n      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-52.2,6.84-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg></span><h3>Bollo e registro</h3><p>Nessuna imposta di bollo. Il verbale è esente dall’imposta di registro fino a € 100.000.</p></article>\n      <article class="mc-card"><span class="ic"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56Zm-10.9,27.15-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z"/></svg></span><h3>Patrocinio a spese dello Stato</h3><p>Se hai i requisiti, chiedi l’ammissione al Consiglio dell’Ordine degli Avvocati e non paghi la mediazione.</p></article>'
+    materie_li = ''.join(f'<li>{m}</li>' for m in MATERIE)
+    n_materie = len(MATERIE)
+    tabelle = ''.join(f'<a href="{DOCS}{f}" target="_blank" rel="noopener">__ICO_FILE__<span class="t">{n}</span><span class="m">PDF</span>{DL}</a>' for n, f in [('Indennità · mediazioni volontarie','INDENNITA_MEDIAZIONI_VOLONTARIE_DPL_2025.pdf'),('Indennità · materie obbligatorie','INDENNITA_MEDIAZIONI_OBBLIGATORIE_DPL_2025.pdf'),('Tabelle ministeriali','tabella_ministero_2024.pdf')])
     steps = [('01','Presenta la domanda','Online dall’area riservata, via e-mail o PEC. Bastano i dati delle parti e una breve descrizione della controversia.'),
              ('02','Informiamo le parti','Invitiamo le altre parti, nominiamo il mediatore e fissiamo la data del primo incontro.'),
              ('03','Vi incontrate','Il primo incontro si svolge in sede o in videoconferenza: il mediatore ascolta tutti e vi aiuta a trovare un terreno comune.'),
@@ -162,12 +197,10 @@ __HEADER__
 <section class="cs-sec flush tipi" id="tipi">
   <div class="in">
     <div class="cs-head"><h2 class="h2 blurin">Quando si fa la mediazione</h2><p class="blurin">Per alcune materie è obbligatoria prima di andare in tribunale. Negli altri casi puoi sceglierla tu, oppure la chiede il giudice o un contratto.</p></div>
-    <div class="grid">
-      <div class="pic"><img src="__IMG_card1w__" alt="Un uomo ascolta durante un incontro di mediazione"></div>
-      <div class="acc" id="acc">
-{acc}
-      </div>
+    <div class="mc-cards">
+{tipi_cards}
     </div>
+    <details class="mc-more"><summary>Le materie per cui è obbligatoria <span class="n">{n_materie}</span></summary><ul class="mc-mat">{materie_li}</ul></details>
   </div>
 </section>
 
@@ -205,18 +238,13 @@ __HEADER__
 <section class="cs-sec flush costi" id="costi">
   <div class="in">
     <div class="cs-head"><h2 class="h2 blurin">Costi e agevolazioni</h2><p class="blurin">Le tariffe sono predeterminate e contenute, secondo il D.M. 145/2011 e successive modifiche. In più, lo Stato riconosce crediti d’imposta ed esenzioni.</p></div>
-    <div class="links pills">{pdf('Tabella costi · mediazioni volontarie','INDENNITA_MEDIAZIONI_VOLONTARIE_DPL_2025.pdf')}{pdf('Tabella costi · materie obbligatorie','INDENNITA_MEDIAZIONI_OBBLIGATORIE_DPL_2025.pdf')}{pdf('Tabelle ministeriali','tabella_ministero_2024.pdf')}</div>
-    <div class="cols">
-      <div><h3 class="col-t">Credito d’imposta</h3><p class="col-sub">D.M. 1 agosto 2023 · art. 20 D.lgs. 28/2010</p>
-        <div class="row"><h4>Se raggiungete l’accordo</h4><p>Credito pari all’indennità pagata all’organismo, fino a € 600. Se la mediazione è obbligatoria, anche per il compenso dell’avvocato, fino a € 600. Limite di € 600 per procedura e, ogni anno, di € 2.400 per le persone fisiche e € 24.000 per le persone giuridiche.</p></div>
-        <div class="row"><h4>Se l’accordo non arriva</h4><p>I crediti d’imposta sono ridotti della metà.</p></div>
-        <div class="row"><h4>Se la causa si chiude con l’accordo</h4><p>Credito pari al contributo unificato versato per il giudizio, fino a € 518.</p></div>
-      </div>
-      <div><h3 class="col-t">Esenzioni e patrocinio</h3><p class="col-sub">Per tutte le mediazioni</p>
-        <div class="row"><h4>Nessuna imposta di bollo</h4><p>Atti, documenti e provvedimenti della mediazione sono esenti da bollo e da ogni spesa, tassa o diritto.</p></div>
-        <div class="row"><h4>Registro gratuito fino a € 100.000</h4><p>Il verbale con l’accordo è esente dall’imposta di registro fino a € 100.000 di valore; oltre, l’imposta si paga solo sulla parte eccedente.</p></div>
-        <div class="row"><h4>Patrocinio a spese dello Stato</h4><p>Se hai i requisiti (art. 15-ter D.lgs. 28/2010), chiedi l’ammissione al Consiglio dell’Ordine degli Avvocati della città dell’organismo e non paghi le spese di mediazione. Nelle mediazioni obbligatorie puoi chiederla già prima della domanda (art. 15-quater).</p></div>
-      </div>
+    <div class="mc-cards">
+{costi_cards}
+    </div>
+    <p class="mc-note">Limite di € 600 per procedura e, ogni anno, di € 2.400 per le persone fisiche e di € 24.000 per le persone giuridiche. Riferimenti: D.M. 1 agosto 2023, artt. 15-ter, 15-quater e 20 del D.lgs. 28/2010.</p>
+    <div class="mc-dl">
+      <h3>Tabelle dei costi</h3>
+      <div class="lst">{tabelle}</div>
     </div>
   </div>
 </section>
