@@ -487,26 +487,26 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .search svg{width:calc(18*var(--u));height:calc(18*var(--u));flex:none}
 .search input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 calc(16*var(--u))/calc(22*var(--u)) var(--sans);color:var(--navy)}
 .chips-f{display:flex;flex-wrap:wrap;gap:calc(8*var(--u))}
-.chips-f button{padding:calc(10*var(--u)) calc(16*var(--u));border:1px solid rgba(25,35,75,.28);border-radius:calc(5*var(--u));font:500 calc(14*var(--u))/calc(18*var(--u)) var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),color .4s var(--osmo)}
+.chips-f button{padding:calc(10*var(--u)) calc(16*var(--u));border:1px solid rgba(25,35,75,.28);border-radius:calc(5*var(--u));font:500 max(13px,calc(14*var(--u)))/1.3 var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),color .4s var(--osmo)}
 .chips-f button:hover{border-color:var(--navy)}
 .chips-f button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-/* course cards (DPL Accademy) */
+/* course cards */
 .courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(20*var(--u))}
-.course{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(90,28,48,.14);transition:border-color .5s var(--osmo),transform .6s var(--osmo),box-shadow .6s var(--osmo)}
-.course:hover{border-color:var(--bordeaux);transform:translateY(calc(-4*var(--u)));box-shadow:0 calc(20*var(--u)) calc(44*var(--u)) rgba(90,28,48,.08)}
-.course .tag{align-self:flex-start;margin:calc(32*var(--u)) calc(32*var(--u)) 0;padding:calc(6*var(--u)) calc(10*var(--u)) calc(5*var(--u));border-radius:calc(4*var(--u));font:500 calc(13*var(--u))/calc(16*var(--u)) var(--sans);letter-spacing:0;text-transform:none;white-space:nowrap}
-.course .tag.t-corso{background:var(--bordeaux);color:#fff}
-.course .tag.t-incontro{background:var(--rosa);color:var(--bordeaux)}
-.course .tag.t-aggiornamento{background:#fff;color:var(--bordeaux);box-shadow:inset 0 0 0 1px var(--bordeaux)}
-.course h3{margin:calc(20*var(--u)) calc(32*var(--u)) 0;min-height:calc(56*var(--u));font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);letter-spacing:calc(-.2*var(--u));color:var(--bordeaux)}
+.course{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(25,35,75,.14);transition:border-color .5s var(--osmo),transform .6s var(--osmo),box-shadow .6s var(--osmo)}
+.course:hover{border-color:var(--navy);transform:translateY(calc(-4*var(--u)));box-shadow:0 calc(20*var(--u)) calc(44*var(--u)) rgba(25,35,75,.08)}
+.course .tag{align-self:flex-start;margin:calc(32*var(--u)) calc(32*var(--u)) 0;padding:calc(6*var(--u)) calc(10*var(--u)) calc(5*var(--u));border-radius:calc(4*var(--u));font:500 max(12px,calc(13*var(--u)))/1.25 var(--sans);letter-spacing:0;text-transform:none;white-space:nowrap}
+.course .tag.t-corso{background:var(--navy);color:#fff}
+.course .tag.t-incontro{background:var(--azzurro);color:var(--navy)}
+.course .tag.t-aggiornamento{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.course h3{margin:calc(20*var(--u)) calc(32*var(--u)) 0;min-height:calc(56*var(--u));font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);letter-spacing:calc(-.2*var(--u));color:var(--navy)}
 .course dl{margin:calc(24*var(--u)) calc(32*var(--u)) calc(28*var(--u));display:flex;flex-direction:column;gap:calc(12*var(--u))}
 .course .m{display:grid;grid-template-columns:calc(20*var(--u)) minmax(0,1fr);gap:calc(12*var(--u));align-items:start}
 .course dt{display:flex;padding-top:calc(1*var(--u))}
-.course dt .ph{width:calc(20*var(--u));height:calc(20*var(--u));color:rgba(90,28,48,.55)}
-.course dd{margin:0;font:400 calc(15*var(--u))/calc(22*var(--u)) var(--sans);color:rgba(90,28,48,.85)}
-.course .go{display:flex;align-items:center;justify-content:space-between;gap:calc(12*var(--u));margin-top:auto;padding:calc(18*var(--u)) calc(32*var(--u)) calc(20*var(--u));border-top:1px solid rgba(90,28,48,.12);font:500 calc(15*var(--u))/calc(20*var(--u)) var(--sans);color:var(--bordeaux);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
+.course dt .ph{width:calc(20*var(--u));height:calc(20*var(--u));color:rgba(25,35,75,.55)}
+.course dd{margin:0;font:400 max(13px,calc(15*var(--u)))/1.45 var(--sans);color:rgba(25,35,75,.85)}
+.course .go{display:flex;align-items:center;justify-content:space-between;gap:calc(12*var(--u));margin-top:auto;padding:calc(18*var(--u)) calc(32*var(--u)) calc(20*var(--u));border-top:1px solid rgba(25,35,75,.12);font:500 calc(15*var(--u))/calc(20*var(--u)) var(--sans);color:var(--navy);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
 .course .go .ar{width:calc(20*var(--u));height:calc(20*var(--u));transition:transform .5s var(--osmo)}
-.course .go:hover{background:var(--bordeaux);color:#fff}
+.course .go:hover{background:var(--navy);color:#fff}
 .course .go:hover .ar{transform:translateX(calc(4*var(--u)))}
 .more-c{display:none}
 /* blog (zaro-like) */
@@ -858,35 +858,7 @@ a.post-feat{color:inherit}
   .nf-l{gap:8px 18px;margin-top:40px}
 }
 
-/* ---- DPL Accademy: tonalità rosse (D-054, D-128) — bordeaux #5A1C30, rosa #E1BED2; mai bordeaux attaccato al blu notte (D-142), niente gradienti ---- */
-:root{--bordeaux:#5A1C30;--rosa:#E1BED2;--rosa-t:#FAF5F8}
-.px-hero.acc{background:var(--bordeaux)}
-/* pagine DPL Accademy: solo rosa o bianco, mai l'azzurro */
-.px-hero.acc{--azzurro:var(--rosa);--title-light:#fff}
-.px-hero.acc h1 .a{color:var(--rosa)}
-body:has(.px-hero.acc) .closing{--azzurro:var(--rosa);--title-light:#fff}
-.px-hero.acc .device path{fill:var(--rosa)}
-.px-hero.acc h1 .b{color:var(--rosa)}
-.px-hero.acc .facts{color:var(--rosa)}
-.px-hero.acc .facts span+span::before{background:var(--rosa)}
-.px-sec.acc-t{background:var(--rosa-t)}
-.acc .cs-head .h2{color:var(--bordeaux)}
-.acc .vis{background:var(--bordeaux)}
-.acc .vis .glow{display:none}
-.acc .v-stack .c{color:var(--bordeaux);box-shadow:0 calc(20*var(--u)) calc(50*var(--u)) rgba(40,8,20,.35)}
-.acc .v-stack .c .tag{background:var(--rosa)}
-.acc .feat .ft h3{color:var(--bordeaux)}
-.acc .feat .ft li{color:var(--bordeaux)}
-.acc .feat .ft li::before{background:var(--rosa);box-shadow:0 0 0 calc(3*var(--u)) rgba(225,190,210,.4)}
-.acc .chips-f button{border-color:rgba(90,28,48,.3);color:var(--bordeaux)}
-.acc .chips-f button:hover{border-color:var(--bordeaux)}
-.acc .chips-f button[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
-.acc .btn-ghost:hover{border-color:var(--bordeaux)}
-.acc .lst a:hover{color:var(--bordeaux)}
-.acc .lst .ur path{stroke:var(--bordeaux)}
-.acc .lst .m{color:rgba(90,28,48,.75)}
-/* course cards are DPL Accademy products everywhere they appear */
-.course .tag.past{background:#fff;color:rgba(90,28,48,.75);box-shadow:inset 0 0 0 1px rgba(90,28,48,.35)}
+.course .tag.past{background:#fff;color:rgba(25,35,75,.75);box-shadow:inset 0 0 0 1px rgba(25,35,75,.35)}
 </style>
 
 <!-- page transition: navy curtain with the DPL symbol (draw → liquid fill) -->
@@ -948,7 +920,8 @@ body:has(.px-hero.acc) .closing{--azzurro:var(--rosa);--title-light:#fff}
         <a href="chi-siamo.html">Chi siamo</a>
         <div class="dd"><button class="dd-btn is-active" aria-expanded="false" aria-haspopup="true">Mediazione <svg class="ico" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4.79102 7.91666L9.99935 13.125L15.2077 7.91666" stroke="white" stroke-width="1.25" stroke-linecap="square"/></svg></button>
           <div class="dd-panel"><div class="dd-inner"><div class="dd-list"><a href="mediazione-civile.html">Civile e commerciale</a><a href="#top">Familiare</a><a href="mediazione-sanitaria.html">Sanitaria, penale e lavorativa</a></div></div></div></div>
-        <a href="formazione.html">Formazione</a>
+        <div class="dd"><button class="dd-btn" aria-expanded="false" aria-haspopup="true">Formazione <svg class="ico" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4.79102 7.91666L9.99935 13.125L15.2077 7.91666" stroke="white" stroke-width="1.25" stroke-linecap="square"/></svg></button>
+          <div class="dd-panel"><div class="dd-inner"><div class="dd-list"><a href="formazione.html">Corsi civile e commerciale</a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">Familiare <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">Coordinazione genitoriale <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.dplaccademy.it/" target="_blank" rel="noopener">Seminari e aggiornamenti <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.dplaccademy.it/login.html" target="_blank" rel="noopener">Area corsisti <svg class="ico" aria-hidden="true" width="14" height="14" viewBox="0 0 18 18" fill="none" style="transform:rotate(-45deg)"><path d="M10.5 4.3125L15.1875 8.99999L10.5 13.6875M14.625 8.99999H2.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></div></div>
         <a href="sedi.html">Le nostre sedi</a>
         <a href="modulistica.html">Modulistica</a>
         <div class="dd"><button class="dd-btn" aria-expanded="false" aria-haspopup="true">News &amp; eventi <svg class="ico" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4.79102 7.91666L9.99935 13.125L15.2077 7.91666" stroke="white" stroke-width="1.25" stroke-linecap="square"/></svg></button>

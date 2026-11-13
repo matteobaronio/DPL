@@ -59,8 +59,6 @@ CSS = r'''
 .idx a:hover .t{transform:translateX(U(16))}
 .idx a:hover .ar{background:var(--navy);border-color:var(--navy)}
 .idx a:hover .ar path{stroke:#fff}
-.idx a[data-acc]:hover{color:var(--bordeaux,#5A1C30)}
-.idx a[data-acc]:hover .ar{background:#5A1C30;border-color:#5A1C30}
 /* recensioni */
 .ab-rev{background:#fff;padding:0 0 U(120)}
 .ab-rev .in{height:auto;padding:0 U(40);box-sizing:border-box}

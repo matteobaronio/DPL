@@ -101,26 +101,26 @@ CSS = r'''
 .search svg{width:U(18);height:U(18);flex:none}
 .search input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 U(16)/U(22) var(--sans);color:var(--navy)}
 .chips-f{display:flex;flex-wrap:wrap;gap:U(8)}
-.chips-f button{padding:U(10) U(16);border:1px solid rgba(25,35,75,.28);border-radius:U(5);font:500 U(14)/U(18) var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),color .4s var(--osmo)}
+.chips-f button{padding:U(10) U(16);border:1px solid rgba(25,35,75,.28);border-radius:U(5);font:500 max(13px,U(14))/1.3 var(--sans);color:var(--navy);transition:background-color .4s var(--osmo),border-color .4s var(--osmo),color .4s var(--osmo)}
 .chips-f button:hover{border-color:var(--navy)}
 .chips-f button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-/* course cards (DPL Accademy) */
+/* course cards */
 .courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:U(20)}
-.course{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(90,28,48,.14);transition:border-color .5s var(--osmo),transform .6s var(--osmo),box-shadow .6s var(--osmo)}
-.course:hover{border-color:var(--bordeaux);transform:translateY(U(-4));box-shadow:0 U(20) U(44) rgba(90,28,48,.08)}
-.course .tag{align-self:flex-start;margin:U(32) U(32) 0;padding:U(6) U(10) U(5);border-radius:U(4);font:500 U(13)/U(16) var(--sans);letter-spacing:0;text-transform:none;white-space:nowrap}
-.course .tag.t-corso{background:var(--bordeaux);color:#fff}
-.course .tag.t-incontro{background:var(--rosa);color:var(--bordeaux)}
-.course .tag.t-aggiornamento{background:#fff;color:var(--bordeaux);box-shadow:inset 0 0 0 1px var(--bordeaux)}
-.course h3{margin:U(20) U(32) 0;min-height:U(56);font:400 U(22)/U(28) var(--sans);letter-spacing:U(-.2);color:var(--bordeaux)}
+.course{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(25,35,75,.14);transition:border-color .5s var(--osmo),transform .6s var(--osmo),box-shadow .6s var(--osmo)}
+.course:hover{border-color:var(--navy);transform:translateY(U(-4));box-shadow:0 U(20) U(44) rgba(25,35,75,.08)}
+.course .tag{align-self:flex-start;margin:U(32) U(32) 0;padding:U(6) U(10) U(5);border-radius:U(4);font:500 max(12px,U(13))/1.25 var(--sans);letter-spacing:0;text-transform:none;white-space:nowrap}
+.course .tag.t-corso{background:var(--navy);color:#fff}
+.course .tag.t-incontro{background:var(--azzurro);color:var(--navy)}
+.course .tag.t-aggiornamento{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.course h3{margin:U(20) U(32) 0;min-height:U(56);font:400 U(22)/U(28) var(--sans);letter-spacing:U(-.2);color:var(--navy)}
 .course dl{margin:U(24) U(32) U(28);display:flex;flex-direction:column;gap:U(12)}
 .course .m{display:grid;grid-template-columns:U(20) minmax(0,1fr);gap:U(12);align-items:start}
 .course dt{display:flex;padding-top:U(1)}
-.course dt .ph{width:U(20);height:U(20);color:rgba(90,28,48,.55)}
-.course dd{margin:0;font:400 U(15)/U(22) var(--sans);color:rgba(90,28,48,.85)}
-.course .go{display:flex;align-items:center;justify-content:space-between;gap:U(12);margin-top:auto;padding:U(18) U(32) U(20);border-top:1px solid rgba(90,28,48,.12);font:500 U(15)/U(20) var(--sans);color:var(--bordeaux);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
+.course dt .ph{width:U(20);height:U(20);color:rgba(25,35,75,.55)}
+.course dd{margin:0;font:400 max(13px,U(15))/1.45 var(--sans);color:rgba(25,35,75,.85)}
+.course .go{display:flex;align-items:center;justify-content:space-between;gap:U(12);margin-top:auto;padding:U(18) U(32) U(20);border-top:1px solid rgba(25,35,75,.12);font:500 U(15)/U(20) var(--sans);color:var(--navy);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
 .course .go .ar{width:U(20);height:U(20);transition:transform .5s var(--osmo)}
-.course .go:hover{background:var(--bordeaux);color:#fff}
+.course .go:hover{background:var(--navy);color:#fff}
 .course .go:hover .ar{transform:translateX(U(4))}
 .more-c{display:none}
 /* blog (zaro-like) */
@@ -481,35 +481,7 @@ a.post-feat{color:inherit}
 
 
 CSS += r'''
-/* ---- DPL Accademy: tonalità rosse (D-054, D-128) — bordeaux #5A1C30, rosa #E1BED2; mai bordeaux attaccato al blu notte (D-142), niente gradienti ---- */
-:root{--bordeaux:#5A1C30;--rosa:#E1BED2;--rosa-t:#FAF5F8}
-.px-hero.acc{background:var(--bordeaux)}
-/* pagine DPL Accademy: solo rosa o bianco, mai l'azzurro */
-.px-hero.acc{--azzurro:var(--rosa);--title-light:#fff}
-.px-hero.acc h1 .a{color:var(--rosa)}
-body:has(.px-hero.acc) .closing{--azzurro:var(--rosa);--title-light:#fff}
-.px-hero.acc .device path{fill:var(--rosa)}
-.px-hero.acc h1 .b{color:var(--rosa)}
-.px-hero.acc .facts{color:var(--rosa)}
-.px-hero.acc .facts span+span::before{background:var(--rosa)}
-.px-sec.acc-t{background:var(--rosa-t)}
-.acc .cs-head .h2{color:var(--bordeaux)}
-.acc .vis{background:var(--bordeaux)}
-.acc .vis .glow{display:none}
-.acc .v-stack .c{color:var(--bordeaux);box-shadow:0 U(20) U(50) rgba(40,8,20,.35)}
-.acc .v-stack .c .tag{background:var(--rosa)}
-.acc .feat .ft h3{color:var(--bordeaux)}
-.acc .feat .ft li{color:var(--bordeaux)}
-.acc .feat .ft li::before{background:var(--rosa);box-shadow:0 0 0 U(3) rgba(225,190,210,.4)}
-.acc .chips-f button{border-color:rgba(90,28,48,.3);color:var(--bordeaux)}
-.acc .chips-f button:hover{border-color:var(--bordeaux)}
-.acc .chips-f button[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
-.acc .btn-ghost:hover{border-color:var(--bordeaux)}
-.acc .lst a:hover{color:var(--bordeaux)}
-.acc .lst .ur path{stroke:var(--bordeaux)}
-.acc .lst .m{color:rgba(90,28,48,.75)}
-/* course cards are DPL Accademy products everywhere they appear */
-.course .tag.past{background:#fff;color:rgba(90,28,48,.75);box-shadow:inset 0 0 0 1px rgba(90,28,48,.35)}
+.course .tag.past{background:#fff;color:rgba(25,35,75,.75);box-shadow:inset 0 0 0 1px rgba(25,35,75,.35)}
 '''
 
 def esc(s): return H.escape(s, quote=True)
