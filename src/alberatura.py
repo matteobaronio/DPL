@@ -59,8 +59,11 @@ UR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fil
 def card(p, cls=''):
     ext = p.get('ext'); n = p.get('n')
     k = 'card' + (' ext' if ext else '') + (' tpl' if n else '') + (' flag' if p.get('note') else '') + (' ' + cls if cls else '')
-    tag = f'<span class="tag">×{n}</span>' if n else (f'<span class="tag ext">esterno {UR}</span>' if ext else '')
-    if p.get('note'): tag += f'<span class="tag note">{p["note"]}</span>'
+    meta = []
+    if n: meta.append(f'<span class="m">{n} pagine, stesso modello</span>')
+    if ext: meta.append(f'<span class="m">Sito esterno {UR}</span>')
+    if p.get('note'): meta.append(f'<span class="m note">{p["note"]}</span>')
+    tag = '<span class="meta">' + ''.join(meta) + '</span>' if meta else ''
     rows = ''
     if not ext: rows += '<li class="hd">Header</li>'
     rows += ''.join(f'<li>{x}</li>' for x in p['s'])
@@ -121,7 +124,7 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
 .sw.ext{{width:20px;height:16px;border:1.5px dashed rgba(25,35,75,.45)}}
 /* card pagina */
 .card{{position:relative;width:100%;background:#fff;border:1.5px solid var(--bd);border-radius:10px;padding:10px}}
-.card .ttl{{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;min-height:40px;padding:4px 4px 10px;text-align:center;font:500 15px/1.25 var(--sans)}}
+.card .ttl{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:40px;padding:4px 4px 10px;text-align:center;font:500 15px/1.25 var(--sans)}}
 .card ul{{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}}
 .card li{{padding:7px 10px;border-radius:5px;background:var(--sec);font-size:13px;line-height:1.3;color:rgba(25,35,75,.85)}}
 .card li.hd{{background:var(--hd);color:var(--navy);font-weight:500}}
@@ -129,11 +132,12 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
 .card.tpl{{box-shadow:5px 5px 0 -1.5px #fff,5px 5px 0 0 var(--bd)}}
 .card.ext{{border-style:dashed;border-color:rgba(25,35,75,.4)}}
 .card.ext li{{background:transparent;padding:4px 6px;color:rgba(25,35,75,.7)}}
-.tag{{display:inline-flex;align-items:center;gap:3px;padding:3px 6px 2px;border-radius:4px;background:var(--navy);color:#fff;font:500 11px/1.2 var(--sans)}}
-.tag.ext{{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 1px rgba(25,35,75,.35)}}
-.tag svg{{width:9px;height:9px}}
-.tag.note{{background:#FFE8D6;color:#9A3D00;box-shadow:inset 0 0 0 1px #F5A66B}}
-.card.flag{{border-color:#F5A66B}}
+.meta{{display:flex;flex-direction:column;align-items:center;gap:2px}}
+.meta .m{{display:inline-flex;align-items:center;gap:4px;font:400 12px/1.3 var(--sans);color:rgba(25,35,75,.6)}}
+.meta .m svg{{width:9px;height:9px}}
+.meta .note{{font-weight:500;color:#C2570C}}
+.meta .note::before{{content:"";width:6px;height:6px;background:#E8762B}}
+.card.flag{{border-color:#E8762B}}
 /* albero */
 .tree{{overflow-x:auto;padding:4px 4px 16px;-webkit-overflow-scrolling:touch}}
 .tree-in{{min-width:1280px}}
@@ -187,7 +191,7 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
         <li><span class="sw hd"></span>Header</li>
         <li><span class="sw sc"></span>Sezione della pagina</li>
         <li><span class="sw ft"></span>Footer</li>
-        <li><span class="sw tpl"></span>Modello ripetuto (×20 = venti pagine uguali)</li>
+        <li><span class="sw tpl"></span>Più pagine con lo stesso modello</li>
         <li><span class="sw ext"></span>Sito esterno</li>
       </ul>
       <div class="tree"><div class="tree-in">
