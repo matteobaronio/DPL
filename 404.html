@@ -402,12 +402,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 
 /* ================= KIT · inner pages ================= */
-.px-hero{height:calc(700*var(--u));background:var(--navy-deep)}
+.px-hero{height:auto;background:var(--navy-deep)}
+.px-hero .in{min-height:calc(700*var(--u));display:flex;flex-direction:column;padding:calc(196*var(--u)) calc(40*var(--u)) calc(64*var(--u));box-sizing:border-box}
 .px-hero .rings{height:calc(700*var(--u))}
-.px-hero h1{position:absolute;left:calc(40*var(--u));top:calc(196*var(--u));margin:0;width:calc(1060*var(--u));font:400 calc(88*var(--u))/calc(82*var(--u)) var(--serif);letter-spacing:calc(-3.4*var(--u));text-transform:uppercase;z-index:2}
+.px-hero h1{position:relative;margin:0 0 calc(40*var(--u));width:calc(1060*var(--u));font:400 calc(88*var(--u))/calc(82*var(--u)) var(--serif);letter-spacing:calc(-3.4*var(--u));text-transform:uppercase;z-index:2}
 .px-hero h1 .a{display:block;color:var(--title-light)}.px-hero h1 .b{display:block;color:var(--azzurro)}
-.px-hero .rule{position:absolute;left:calc(40*var(--u));right:calc(40*var(--u));bottom:calc(232*var(--u));height:1px;background:rgba(255,255,255,.12);z-index:2}
-.px-hero .foot-row{position:absolute;left:calc(40*var(--u));right:calc(40*var(--u));bottom:calc(64*var(--u));display:flex;justify-content:space-between;align-items:flex-end;gap:calc(40*var(--u));z-index:2}
+.px-hero .rule{position:relative;flex-shrink:0;margin-top:auto;height:1px;background:rgba(255,255,255,.12);z-index:2}
+.px-hero .foot-row{position:relative;min-height:calc(167*var(--u));padding-top:calc(32*var(--u));box-sizing:border-box;display:flex;justify-content:space-between;align-items:flex-end;gap:calc(40*var(--u));z-index:2}
 .px-hero .facts{display:flex;flex-wrap:wrap;gap:calc(12*var(--u)) calc(28*var(--u));max-width:calc(700*var(--u));font:500 calc(14*var(--u))/calc(20*var(--u)) var(--sans);letter-spacing:calc(.84*var(--u));text-transform:uppercase;color:var(--azzurro)}
 .px-hero .facts span{display:flex;align-items:center;gap:calc(28*var(--u))}
 .px-hero .facts span+span::before{content:"";width:calc(4*var(--u));height:calc(4*var(--u));border-radius:50%;background:var(--azzurro);opacity:.6}
@@ -639,11 +640,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @keyframes vorbr{to{transform:translate(-50%,-50%) rotate(-360deg)}}
 @media (max-width: 899px){
   .px-hero{height:auto}
-  .px-hero .in{height:auto;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
+  .px-hero .in{height:auto;min-height:0;display:block;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
   .px-hero .rings{height:100%}
-  .px-hero h1{position:relative;left:auto;top:auto;width:auto;padding-top:132px;font-size:44px;line-height:42px;letter-spacing:-1.6px}
+  .px-hero h1{position:relative;left:auto;top:auto;margin:0;width:auto;padding-top:132px;font-size:44px;line-height:42px;letter-spacing:-1.6px}
   .px-hero .rule{position:relative;left:auto;right:auto;bottom:auto;margin:36px 0 22px}
-  .px-hero .foot-row{position:relative;left:auto;right:auto;bottom:auto;flex-direction:column-reverse;align-items:flex-start;gap:28px;padding-bottom:48px}
+  .px-hero .foot-row{position:relative;left:auto;right:auto;bottom:auto;min-height:0;padding-top:0;flex-direction:column-reverse;align-items:flex-start;gap:28px;padding-bottom:48px}
   .px-hero .intro{width:auto;gap:22px}
   .px-hero .intro p{font-size:17px;line-height:26px}
   .px-hero .btns{flex-wrap:nowrap;gap:8px;width:100%}

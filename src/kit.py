@@ -15,12 +15,13 @@ SEARCH = '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="9"
 
 CSS = r'''
 /* ================= KIT · inner pages ================= */
-.px-hero{height:U(700);background:var(--navy-deep)}
+.px-hero{height:auto;background:var(--navy-deep)}
+.px-hero .in{min-height:U(700);display:flex;flex-direction:column;padding:U(196) U(40) U(64);box-sizing:border-box}
 .px-hero .rings{height:U(700)}
-.px-hero h1{position:absolute;left:U(40);top:U(196);margin:0;width:U(1060);font:400 U(88)/U(82) var(--serif);letter-spacing:U(-3.4);text-transform:uppercase;z-index:2}
+.px-hero h1{position:relative;margin:0 0 U(40);width:U(1060);font:400 U(88)/U(82) var(--serif);letter-spacing:U(-3.4);text-transform:uppercase;z-index:2}
 .px-hero h1 .a{display:block;color:var(--title-light)}.px-hero h1 .b{display:block;color:var(--azzurro)}
-.px-hero .rule{position:absolute;left:U(40);right:U(40);bottom:U(232);height:1px;background:rgba(255,255,255,.12);z-index:2}
-.px-hero .foot-row{position:absolute;left:U(40);right:U(40);bottom:U(64);display:flex;justify-content:space-between;align-items:flex-end;gap:U(40);z-index:2}
+.px-hero .rule{position:relative;flex-shrink:0;margin-top:auto;height:1px;background:rgba(255,255,255,.12);z-index:2}
+.px-hero .foot-row{position:relative;min-height:U(167);padding-top:U(32);box-sizing:border-box;display:flex;justify-content:space-between;align-items:flex-end;gap:U(40);z-index:2}
 .px-hero .facts{display:flex;flex-wrap:wrap;gap:U(12) U(28);max-width:U(700);font:500 U(14)/U(20) var(--sans);letter-spacing:U(.84);text-transform:uppercase;color:var(--azzurro)}
 .px-hero .facts span{display:flex;align-items:center;gap:U(28)}
 .px-hero .facts span+span::before{content:"";width:U(4);height:U(4);border-radius:50%;background:var(--azzurro);opacity:.6}
@@ -252,11 +253,11 @@ CSS = r'''
 @keyframes vorbr{to{transform:translate(-50%,-50%) rotate(-360deg)}}
 @media (max-width: 899px){
   .px-hero{height:auto}
-  .px-hero .in{height:auto;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
+  .px-hero .in{height:auto;min-height:0;display:block;padding:0 max(16px,env(safe-area-inset-left,0px));box-sizing:border-box}
   .px-hero .rings{height:100%}
-  .px-hero h1{position:relative;left:auto;top:auto;width:auto;padding-top:132px;font-size:44px;line-height:42px;letter-spacing:-1.6px}
+  .px-hero h1{position:relative;left:auto;top:auto;margin:0;width:auto;padding-top:132px;font-size:44px;line-height:42px;letter-spacing:-1.6px}
   .px-hero .rule{position:relative;left:auto;right:auto;bottom:auto;margin:36px 0 22px}
-  .px-hero .foot-row{position:relative;left:auto;right:auto;bottom:auto;flex-direction:column-reverse;align-items:flex-start;gap:28px;padding-bottom:48px}
+  .px-hero .foot-row{position:relative;left:auto;right:auto;bottom:auto;min-height:0;padding-top:0;flex-direction:column-reverse;align-items:flex-start;gap:28px;padding-bottom:48px}
   .px-hero .intro{width:auto;gap:22px}
   .px-hero .intro p{font-size:17px;line-height:26px}
   .px-hero .btns{flex-wrap:nowrap;gap:8px;width:100%}
