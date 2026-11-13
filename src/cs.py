@@ -21,7 +21,6 @@ CSS = r'''
 .manifesto p{margin:0 0 0 U(240);width:U(1000);font:400 U(44)/U(56) var(--sans);letter-spacing:U(-.88);color:var(--navy)}
 .manifesto .w{color:rgba(25,35,75,.16);transition:color .5s var(--osmo)}
 .manifesto .w.lit{color:var(--navy)}
-.manifesto .sig{margin:U(48) 0 0 U(240);font:500 U(14)/U(20) var(--sans);letter-spacing:U(.84);text-transform:uppercase;color:rgba(25,35,75,.5)}
 /* photo band with parallax */
 .band{position:relative;height:U(640);overflow:hidden}
 .band img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;will-change:transform}
@@ -90,7 +89,6 @@ CSS = r'''
   .manifesto{padding:80px 0 72px}
   .manifesto .in{padding:0 max(16px,env(safe-area-inset-left,0px))}
   .manifesto p{margin:0;width:auto;font-size:27px;line-height:36px;letter-spacing:-.5px}
-  .manifesto .sig{margin:32px 0 0;font-size:12px}
   .band{height:72vw}
   .rows{margin-top:32px}
   .rowx{grid-template-columns:36px 1fr;gap:6px 12px;padding:24px 0 28px}
@@ -165,7 +163,6 @@ __HEADER__
 <section class="manifesto" id="idea">
   <div class="in">
     <p>{words}</p>
-    <div class="sig">L’idea di DPL Mediazione &amp; Co.</div>
   </div>
 </section>
 
