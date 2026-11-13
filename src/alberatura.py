@@ -180,7 +180,7 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
 <main>
   <section class="sec">
     <div class="in">
-      <div class="sh"><h2>Mappa del sito</h2><p>In alto la home, sotto le voci del menu nell’ordine in cui compaiono. Ogni scheda è una pagina, dall’alto verso il basso come la si scorre.</p></div>
+      <div class="sh"><h2>Mappa del sito</h2></div>
       <ul class="legend">
         <li><span class="sw hd"></span>Header</li>
         <li><span class="sw sc"></span>Sezione della pagina</li>
