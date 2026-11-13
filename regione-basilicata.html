@@ -855,6 +855,10 @@ a.post-feat{color:inherit}
 /* ---- DPL Accademy: tonalità rosse (D-054, D-128) — bordeaux #5A1C30, rosa #E1BED2; mai bordeaux attaccato al blu notte (D-142), niente gradienti ---- */
 :root{--bordeaux:#5A1C30;--rosa:#E1BED2;--rosa-t:#FAF5F8}
 .px-hero.acc{background:var(--bordeaux)}
+/* pagine DPL Accademy: solo rosa o bianco, mai l'azzurro */
+.px-hero.acc{--azzurro:var(--rosa);--title-light:#fff}
+.px-hero.acc h1 .a{color:var(--rosa)}
+body:has(.px-hero.acc) .closing{--azzurro:var(--rosa);--title-light:#fff}
 .px-hero.acc .device path{fill:var(--rosa)}
 .px-hero.acc h1 .b{color:var(--rosa)}
 .px-hero.acc .facts{color:var(--rosa)}
