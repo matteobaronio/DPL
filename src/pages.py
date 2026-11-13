@@ -53,7 +53,7 @@ def sanitaria(src):
              'Con l’associazione Me.Dia.Re. di Torino offriamo servizi a chi sta vivendo un conflitto sul lavoro, in ambito sanitario o scolastico, tra vicini o nei rapporti professionali.',
              btn('Parla con noi', '__HREF_CON__') + btn('Chiama', 'tel:+390249717642', 'line'),
              ['In collaborazione con Me.Dia.Re.', 'Torino'])
-    b += band('mb6', 'Una professionista durante un incontro')
+    b += band('mb-sanitaria', 'Una professionista assorta durante un incontro')
     b += sec(head('Dove interveniamo', 'Conflitti diversi, lo stesso approccio: ascolto, chiarezza e competenza.') + icards([
         ('gruppo', 'Sul luogo di lavoro', 'Tensioni tra colleghi, con i responsabili o all’interno dei gruppi di lavoro.'),
         ('accoglienza', 'In ambito sanitario', 'Tra pazienti, familiari e strutture o professionisti della cura.'),
