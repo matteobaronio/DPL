@@ -28,8 +28,7 @@ MENU = [
         dict(t='DPL Accademy', ext=True, s=['Familiare', 'Coordinazione genitoriale', 'Seminari e aggiornamenti', 'Area corsisti']),
     ]),
     ('Le nostre sedi', True, [
-        dict(t='Tutte le sedi', s=['Hero', 'Mappa d’Italia', 'Trova la sede'], kids=[
-            dict(t='Regione', n=20, s=['Hero', 'Sedi della regione']),
+        dict(t='Tutte le sedi', s=['Hero', 'Mappa d’Italia', 'Trova la sede, filtri per regione'], kids=[
             dict(t='Sede', n=20, s=['Hero', 'Contatti e orari', 'Corsi della sede', 'Professionisti']),
         ]),
         dict(t='Sedi convenzionate ex art. 6', s=['Hero', 'Regione per regione']),
@@ -52,7 +51,7 @@ JOURNEYS = [
     ('Trovare una sede', ['Home', 'Le nostre sedi', 'Regione', 'Sede']),
     ('Iscriversi a un corso', ['Home', 'Formazione', 'Card del corso', 'Contatti, già compilato']),
 ]
-TOTAL, TPL = 67, 20 + 20 + 7 + 6
+TOTAL, TPL = 47, 20 + 7 + 6
 
 # ------------------------------------------------------------------ markup
 UR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>'
