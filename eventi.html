@@ -192,6 +192,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .area .bk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(32px) saturate(1.05);transform:scale(1.25);opacity:.95}
 .area .ph{position:absolute;top:0;left:50%;width:auto;max-width:none;height:100%;transform:translateX(calc(-50% + var(--dx,0px))) scale(1.001);-webkit-mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent);mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent);transition:transform 1.6s var(--osmo)}
 .area::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0) 55%);opacity:0;transition:opacity .8s var(--osmo);pointer-events:none}
+/* foto chiara (es. Sanitaria): velo in basso per leggere il titolo bianco */
+.area.light::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to top,rgba(17,23,74,.6),rgba(17,23,74,0) 55%);pointer-events:none}
 .area .txt{position:absolute;z-index:1;left:50%;bottom:calc(87*var(--u));width:calc(560*var(--u));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;text-align:center;transition:opacity .6s var(--osmo) .6s}
 .area h3{width:calc(336*var(--u));margin:0;font:400 calc(44.8*var(--u))/calc(43.077*var(--u)) var(--serif);letter-spacing:calc(-2.688*var(--u));text-transform:uppercase}
 .area .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .8s var(--osmo)}
