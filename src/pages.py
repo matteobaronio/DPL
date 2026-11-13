@@ -70,6 +70,8 @@ def sanitaria(src):
     return mk(src, 'mediazione-sanitaria.html', 'Mediazione sanitaria, penale e lavorativa', b, active_dd='Mediazione')
 
 # ---------------------------------------------------------------- Formazione
+# Fonte: https://www.dplmediazione.it/formazione-civcom.html («Corsi di formazione - Civile Commerciale»; elenco caricato via JS),
+# letta il 12/11/2026 con il browser. Dati da verificare con DPL prima della pubblicazione.
 COURSES = [
  ('corso', 'Corso di mediazione civile e commerciale · 41ª edizione', 'Milano e online', '24 febbraio – 12 marzo 2027', 'Consultare i dettagli', '80 ore (+14 approfondimento giuridico)', '18 CF corso · 10 CF aggiornamento'),
  ('corso', 'Corso di mediazione civile e commerciale · 42ª edizione', 'Milano e online', '9 – 25 giugno 2027', 'Consultare i dettagli', '80 ore (+14 approfondimento giuridico)', '18 CF corso · 10 CF aggiornamento'),

@@ -57,6 +57,14 @@ cd src && python3 build.py
 # poi: pages/dpl-home.html → index.html, e nei link "dpl-home.html" → "index.html"
 ```
 
+## Fonti dei contenuti
+
+| Contenuto | Fonte | Letta il |
+|---|---|---|
+| Corsi (Formazione, «Corsi della sede») ed eventi | [dplmediazione.it/formazione-civcom.html](https://www.dplmediazione.it/formazione-civcom.html) — elenco caricato via JavaScript | 12/11/2026 |
+
+Dati da verificare con DPL prima della messa online (date, prezzi, crediti; il biennale familiari risulta concluso a luglio 2026).
+
 ## Da completare
 
 - Testi nuovi da approvare (sottotitoli delle aree, step 02–04, pagina Mediazione civile).

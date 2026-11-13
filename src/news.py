@@ -13,6 +13,7 @@ RS = [('rassegna-in-evidenza', 'In evidenza', '[Titolo dell’articolo in eviden
       ('rassegna-intervista-2', 'Intervista', '[Titolo dell’intervista]', '[Testata · breve estratto.]', '[Data]', 'mb3')]
 
 # slug, category, title, excerpt, date shown, image, iso date, start, end
+# Eventi ricavati dal calendario corsi (fonte: https://www.dplmediazione.it/formazione-civcom.html, letta il 12/11/2026)
 EV = [('evento-mediazione-4-0', 'Incontri', 'Mediazione 4.0', 'L’appuntamento mensile per mediatori e avvocati: tre ore, il quarto lunedì del mese, in sede a Milano e online. Gratuito.', '23 novembre 2026 · 15:30', 'mb5', '2026-11-23', '15:30', '18:30'),
       ('evento-gestione-emozioni', 'Convegni', 'La gestione delle emozioni in mediazione', 'Profili deontologici e disciplinari. Accreditato dal COA di Milano: 3 crediti.', '23 novembre 2026', 'mb8', '2026-11-23', '15:30', '18:30'),
       ('evento-disturbi-personalita', 'Aggiornamenti', 'Relazioniamoci · Disturbi di personalità', 'Una giornata di aggiornamento per mediatori, a Milano.', '16 dicembre 2026', 'mb1', '2026-12-16', '09:00', '19:00'),
