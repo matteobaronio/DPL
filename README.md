@@ -71,3 +71,7 @@ Dati da verificare con DPL prima della messa online (date, prezzi, crediti; il b
 - Team di Chi siamo: foto, nomi, ruoli e presentazioni.
 - Link ancora segnaposto (`#`) per le pagine non ancora sviluppate.
 - Foto «licence to check» dal moodboard: verificare le licenze prima della messa online.
+
+## Alberatura (pagina interna)
+
+`alberatura.html` (online su `/alberatura`) è la mappa del sito da mostrare al cliente: non è collegata da nessuna pagina ed è `noindex`. Si rigenera con `cd src && python3 alberatura.py` dopo `build.py` (prende i font dalla home); i contenuti sono nella lista `TREE` dello script.
