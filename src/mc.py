@@ -44,10 +44,9 @@ CSS = r'''
 .acc-body p:last-child{padding-bottom:U(32)}
 /* come si svolge */
 .steps4{margin-top:U(64);display:grid;grid-template-columns:repeat(4,1fr);gap:U(16)}
-.s4{background:#F3F5FC;padding:U(28);min-height:U(300);box-sizing:border-box;display:flex;flex-direction:column;transition:background-color .5s var(--osmo)}
-.s4:hover{background:#EBEFFB}
+.s4{border-top:1px solid var(--navy);padding-top:U(20)}
 .s4 .n{font:400 U(40)/1 var(--serif);letter-spacing:U(-2);color:var(--navy)}
-.s4 h3{margin:auto 0 0;padding-top:U(40);font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.s4 h3{margin:U(28) 0 0;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
 .s4 p{margin:U(10) 0 0;font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.7)}
 .notes{margin-top:U(56);display:grid;grid-template-columns:repeat(3,1fr);gap:U(24)}
 .note{border-top:1px solid rgba(25,35,75,.15);padding-top:U(20)}
@@ -95,8 +94,8 @@ CSS = r'''
   .acc-t{font-size:21px;line-height:27px}
   .acc-body p,.acc-body .chips{padding-left:0}
   .steps4{margin-top:32px}
-  .s4{min-height:0}
-  .s4 h3{padding-top:28px}
+  .steps4{gap:28px}
+  .s4 h3{margin-top:22px}
   .notes{margin-top:32px}
   .avvia .block{padding:32px 16px 16px}
   .avvia .h2{width:auto}
@@ -108,12 +107,11 @@ CSS = r'''
 }
 
 /* card «quando» e «costi» (stile delle pagine interne) */
-.mc-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:U(16);margin-top:U(56)}
-.mc-card{background:#F3F5FC;padding:U(32) U(28);min-height:U(260);box-sizing:border-box;display:flex;flex-direction:column;transition:background-color .5s var(--osmo)}
-.mc-card:hover{background:#EBEFFB}
-.mc-card .ic{width:U(40);height:U(40)}
-.mc-card .ic svg{width:100%;height:100%;fill:var(--azzurro);display:block}
-.mc-card h3{margin:auto 0 0;padding-top:U(40);font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.mc-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:U(56) U(16);margin-top:U(56)}
+.mc-card{border-top:1px solid var(--navy);padding-top:U(20);display:flex;flex-direction:column}
+.mc-card .ic{width:U(36);height:U(36)}
+.mc-card .ic svg{width:100%;height:100%;fill:var(--navy);display:block}
+.mc-card h3{margin:U(28) 0 0;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
 .mc-card p{margin:U(10) 0 0;font:400 max(14px,U(16))/1.5 var(--sans);color:rgba(25,35,75,.7)}
 .mc-more{margin-top:U(16);border-top:1px solid rgba(25,35,75,.12);border-bottom:1px solid rgba(25,35,75,.12)}
 .mc-more summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:U(12);padding:U(24) 0;font:400 U(20)/U(26) var(--sans);color:var(--navy)}
@@ -135,9 +133,8 @@ CSS = r'''
 .mc-dl .lst .dl{width:U(16);height:U(16);flex:none}
 @media (max-width: 1100px) and (min-width: 900px){.mc-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width: 899px){
-  .mc-cards{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:32px}
-  .mc-card{min-height:0;padding:24px}
-  .mc-card h3{padding-top:28px;font-size:20px;line-height:26px}
+  .mc-cards{grid-template-columns:minmax(0,1fr);gap:28px;margin-top:32px}
+  .mc-card h3{margin-top:22px;font-size:20px;line-height:26px}
   .mc-more summary{font-size:18px;line-height:24px;padding:20px 0}
   .mc-mat{columns:1;padding-bottom:20px}
   .mc-dl{grid-template-columns:1fr;gap:16px;margin-top:48px}

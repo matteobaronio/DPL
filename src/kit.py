@@ -49,13 +49,11 @@ CSS = r'''
 .vis.light{background:#F3F5FC}
 .vis .glow{position:absolute;inset:-20%;background:radial-gradient(closest-side at 70% 30%,rgba(186,199,249,.22),transparent 70%),radial-gradient(closest-side at 20% 80%,rgba(186,199,249,.12),transparent 70%);animation:drift 22s var(--osmo) infinite alternate;z-index:-1}
 /* icon cards */
-.icards{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:U(16)}
-.icard{background:#F3F5FC;padding:U(32) U(28);min-height:U(260);box-sizing:border-box;display:flex;flex-direction:column;transition:background-color .5s var(--osmo)}
-.px-sec.tint .icard{background:#fff}
-.icard:hover{background:#EBEFFB}
+.icards{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:U(56) U(16)}
+.icard{border-top:1px solid var(--navy);padding:U(20) 0 0;display:flex;flex-direction:column}
 .icard .ic{width:U(40);height:U(48)}
-.icard .ic svg{width:100%;height:100%;fill:var(--azzurro);display:block}
-.icard h3{margin:auto 0 0;padding-top:U(40);font:400 U(22)/U(28) var(--sans);color:var(--navy)}
+.icard .ic svg{width:100%;height:100%;fill:var(--navy);display:block}
+.icard h3{margin:U(28) 0 0;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
 .icard p{margin:U(10) 0 0;font:400 U(16)/U(24) var(--sans);color:rgba(25,35,75,.7)}
 /* steps */
 .steps-x{display:grid;grid-template-columns:repeat(var(--cols,4),1fr);gap:U(16);counter-reset:s}
@@ -177,21 +175,21 @@ CSS = r'''
 .btn-ghost .ico,.btn-ghost .ur{width:U(16);height:U(16)}
 /* contact cards */
 .ccards{display:grid;grid-template-columns:repeat(4,1fr);gap:U(16)}
-.ccard{background:#F3F5FC;padding:U(28);display:flex;flex-direction:column;gap:U(8);min-height:U(180);box-sizing:border-box}
+.ccard{border-top:1px solid var(--navy);padding:U(20) 0 0;display:flex;flex-direction:column;gap:U(8);min-height:U(140);box-sizing:border-box}
 .ccard .k{font:500 U(13)/U(18) var(--sans);letter-spacing:U(.7);text-transform:uppercase;color:rgba(25,35,75,.55)}
 .ccard .v{margin-top:auto;font:400 U(22)/U(28) var(--sans);color:var(--navy)}
 .ccard a.v:hover{color:#3B4A8C}
 /* cities grid */
 .cities{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:U(16)}
-.city{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:U(168);padding:U(24);background:#F3F5FC;color:var(--navy);transition:background-color .5s var(--osmo),color .5s var(--osmo)}
+.city{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:U(168);padding:U(24);background:#fff;box-shadow:inset 0 0 0 1px rgba(25,35,75,.14);color:var(--navy);transition:background-color .5s var(--osmo),color .5s var(--osmo),box-shadow .5s var(--osmo)}
 .city .rg{font:500 U(12)/U(16) var(--sans);letter-spacing:U(.7);text-transform:uppercase;color:rgba(25,35,75,.5);transition:color .5s var(--osmo)}
 .city .c{font:400 U(30)/U(32) var(--serif);letter-spacing:U(-1);text-transform:uppercase;overflow-wrap:anywhere;padding-right:U(36)}
 .city .go{position:absolute;right:U(24);top:U(24);width:U(32);height:U(32);border-radius:50%;border:1px solid rgba(25,35,75,.25);display:grid;place-items:center;transition:all .5s var(--osmo)}
 .city .go .ico{width:U(14);height:U(14)}
-.city:hover{background:var(--navy);color:#fff}
+.city:hover{background:var(--navy);box-shadow:none;color:#fff}
 .city:hover .rg{color:var(--azzurro)}
 .city:hover .go{background:var(--azzurro);border-color:var(--azzurro)}
-.city.hq{background:var(--azzurro)}
+.city.hq{background:var(--azzurro);box-shadow:none}
 .city[hidden]{display:none}
 /* names list */
 .names{columns:4;column-gap:U(32);font:400 U(15)/U(30) var(--sans);color:var(--navy)}
@@ -283,8 +281,9 @@ CSS = r'''
   .feat .ft p{font-size:16px;line-height:24px}
   .vis{height:110vw;max-height:460px;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)))}
   .icards,.steps-x,.courses,.posts,.ccards{grid-template-columns:minmax(0,1fr);gap:12px}
-  .icard{min-height:0;padding:24px}
-  .icard h3{padding-top:28px}
+  .icards{gap:28px}
+  .icard{padding:20px 0 0}
+  .icard h3{margin-top:22px}
   .steps-x{gap:28px}
   .qband{padding:64px 0}
   .qband blockquote{font-size:30px;line-height:32px;letter-spacing:-1px}
@@ -316,7 +315,7 @@ CSS = r'''
   .city .go{right:14px;top:14px;width:28px;height:28px}
   .names{columns:1}
   .ccards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .ccard{min-height:0;padding:16px;gap:4px}
+  .ccard{min-height:0;padding:16px 0 0;gap:4px}
   .ccard .v{margin-top:14px;font-size:16px;line-height:22px;overflow-wrap:anywhere}
   .courses:not(.all) .course:nth-child(n+5){display:none}
   .more-c{display:flex!important;justify-content:center;margin-top:20px}
