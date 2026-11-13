@@ -20,7 +20,7 @@ def familiare(src):
              'Un’opportunità per gestire la separazione in modo meno doloroso: uno spazio neutro e riservato, alternativo alle vie legali, in cui sono le parti a decidere per il loro futuro.',
              btn('Fissa il primo incontro', 'tel:+390249717642') + btn('Scrivici', '__HREF_CON__', 'line'),
              ['Primo appuntamento gratuito', 'Al massimo 12 incontri', 'In sede o online'])
-    b += band('mb9', 'Persone a confronto durante un incontro')
+    b += band('mb-familiare', 'Due persone ascoltano durante un incontro di mediazione')
     b += sec(head('A chi si rivolge', 'Alle coppie, con o senza figli, e a chi vive un conflitto in famiglia.') + icards([
         ('persona', 'Coppie in crisi', 'Coniugate o conviventi, con o senza figli, in crisi o in fase di separazione.'),
         ('gruppo', 'Coppie separate o divorziate', 'Per riorganizzare la vita familiare e rivedere gli accordi quando le cose cambiano.'),
