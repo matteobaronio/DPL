@@ -36,11 +36,11 @@ MENU = [
     ]),
     ('Modulistica', False, [dict(t='Modulistica', s=['Hero', 'Moduli da scaricare', 'Area riservata'])]),
     ('News & eventi', True, [
-        dict(t='Rassegna stampa', s=['Hero', 'In evidenza', 'Articoli, interviste, video'], kids=[
+        dict(t='DPL Magazine', ext=True, s=['Media e magazine']),
+        dict(t='Rassegna stampa', note='Da discutere', s=['Hero', 'In evidenza', 'Articoli, interviste, video'], kids=[
             dict(t='Articolo', n=7, s=['Contenuto', 'Altri articoli']),
         ]),
-        dict(t='DPL Magazine', ext=True, s=['Media e magazine']),
-        dict(t='Eventi', s=['Hero', 'Prossimi eventi'], kids=[
+        dict(t='Eventi', note='Da discutere', s=['Hero', 'Prossimi eventi'], kids=[
             dict(t='Evento', n=6, s=['Programma', 'Altri eventi']),
         ]),
     ]),
@@ -59,8 +59,9 @@ UR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fil
 
 def card(p, cls=''):
     ext = p.get('ext'); n = p.get('n')
-    k = 'card' + (' ext' if ext else '') + (' tpl' if n else '') + (' ' + cls if cls else '')
+    k = 'card' + (' ext' if ext else '') + (' tpl' if n else '') + (' flag' if p.get('note') else '') + (' ' + cls if cls else '')
     tag = f'<span class="tag">×{n}</span>' if n else (f'<span class="tag ext">esterno {UR}</span>' if ext else '')
+    if p.get('note'): tag += f'<span class="tag note">{p["note"]}</span>'
     rows = ''
     if not ext: rows += '<li class="hd">Header</li>'
     rows += ''.join(f'<li>{x}</li>' for x in p['s'])
@@ -132,6 +133,8 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
 .tag{{display:inline-flex;align-items:center;gap:3px;padding:3px 6px 2px;border-radius:4px;background:var(--navy);color:#fff;font:500 11px/1.2 var(--sans)}}
 .tag.ext{{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 1px rgba(25,35,75,.35)}}
 .tag svg{{width:9px;height:9px}}
+.tag.note{{background:#FFE8D6;color:#9A3D00;box-shadow:inset 0 0 0 1px #F5A66B}}
+.card.flag{{border-color:#F5A66B}}
 /* albero */
 .tree{{overflow-x:auto;padding:4px 4px 16px;-webkit-overflow-scrolling:touch}}
 .tree-in{{min-width:1280px}}
