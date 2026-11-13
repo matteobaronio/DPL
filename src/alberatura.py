@@ -109,7 +109,7 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
 .stats b{{display:block;font:400 clamp(36px,4vw,56px)/1 var(--serif);color:#fff}}
 .stats span{{display:block;margin-top:10px;font-size:14px;line-height:1.4;color:rgba(255,255,255,.7)}}
 /* sezioni */
-.sec{{padding:88px 0 0}}
+.sec{{padding:72px 0 96px}}
 .sh{{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:36px}}
 .sh h2{{font-size:clamp(32px,4vw,52px);line-height:1}}
 .sh p{{margin:0;max-width:440px;font-size:17px;color:rgba(25,35,75,.75)}}
@@ -163,7 +163,7 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
   .top{{padding:20px 0 48px}}
   .top .kick{{margin-top:56px}}
   .stats{{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px;margin-top:40px}}
-  .sec{{padding-top:64px}}
+  .sec{{padding:40px 0 64px}}
   .sh{{flex-direction:column;gap:16px;margin-bottom:24px}}
   .legend{{margin-bottom:32px}}
   .tree-in{{min-width:0}}
@@ -177,21 +177,6 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="in">
-    <span class="logo" aria-label="DPL Mediazione">{LOGO}</span>
-    <p class="kick">Documento di lavoro · non pubblico</p>
-    <h1>Alberatura <span>del sito</span></h1>
-    <p class="lead">Le pagine del nuovo dplmediazione.it, come si raggiungono dal menu e quali sezioni contiene ognuna.</p>
-    <div class="stats">
-      <div><b>{N}</b><span>voci nel menu principale</span></div>
-      <div><b>{TOTAL}</b><span>pagine in tutto</span></div>
-      <div><b>{TOTAL - TPL}</b><span>pagine uniche, più {TPL} generate da 4 modelli</span></div>
-      <div><b>3</b><span>siti collegati: DPL Accademy, DPL Magazine, area riservata</span></div>
-    </div>
-  </div>
-</header>
-
 <main>
   <section class="sec">
     <div class="in">
@@ -211,22 +196,8 @@ h1,h2{{font-family:var(--serif);font-weight:400;text-transform:uppercase;letter-
     </div>
   </section>
 
-  <section class="sec">
-    <div class="in">
-      <div class="sh"><h2>Fuori dal menu</h2><p>Pagine raggiungibili dal footer o mostrate in casi particolari.</p></div>
-      <div class="others">{others}</div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="in">
-      <div class="sh"><h2>Percorsi principali</h2><p>I tre compiti più frequenti e i passaggi per completarli partendo dalla home.</p></div>
-      <div class="jrs">{journeys}</div>
-    </div>
-  </section>
 </main>
 
-<div class="in foot"><span>DPL Mediazione · alberatura del sito</span><span>Pagina riservata, non collegata al sito e non indicizzata</span></div>
 </body>
 </html>
 '''
