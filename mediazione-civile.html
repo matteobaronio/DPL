@@ -429,9 +429,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .acc-body p:last-child{padding-bottom:calc(32*var(--u))}
 /* come si svolge */
 .steps4{margin-top:calc(64*var(--u));display:grid;grid-template-columns:repeat(4,1fr);gap:calc(16*var(--u))}
-.s4{border-top:1px solid var(--navy);padding-top:calc(20*var(--u))}
+.s4{background:#F3F5FC;padding:calc(28*var(--u));min-height:calc(300*var(--u));box-sizing:border-box;display:flex;flex-direction:column;transition:background-color .5s var(--osmo)}
+.s4:hover{background:#EBEFFB}
 .s4 .n{font:400 calc(40*var(--u))/1 var(--serif);letter-spacing:calc(-2*var(--u));color:var(--navy)}
-.s4 h3{margin:calc(28*var(--u)) 0 0;font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);color:var(--navy)}
+.s4 h3{margin:auto 0 0;padding-top:calc(40*var(--u));font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);color:var(--navy)}
 .s4 p{margin:calc(10*var(--u)) 0 0;font:400 calc(16*var(--u))/calc(24*var(--u)) var(--sans);color:rgba(25,35,75,.7)}
 .notes{margin-top:calc(56*var(--u));display:grid;grid-template-columns:repeat(3,1fr);gap:calc(24*var(--u))}
 .note{border-top:1px solid rgba(25,35,75,.15);padding-top:calc(20*var(--u))}
@@ -479,8 +480,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .acc-t{font-size:21px;line-height:27px}
   .acc-body p,.acc-body .chips{padding-left:0}
   .steps4{margin-top:32px}
-  .steps4{gap:28px}
-  .s4 h3{margin-top:22px}
+  .s4{min-height:0}
+  .s4 h3{padding-top:28px}
   .notes{margin-top:32px}
   .avvia .block{padding:32px 16px 16px}
   .avvia .h2{width:auto}
@@ -492,11 +493,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 
 /* card «quando» e «costi» (stile delle pagine interne) */
-.mc-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(56*var(--u)) calc(16*var(--u));margin-top:calc(56*var(--u))}
-.mc-card{border-top:1px solid var(--navy);padding-top:calc(20*var(--u));display:flex;flex-direction:column}
-.mc-card .ic{width:calc(36*var(--u));height:calc(36*var(--u))}
-.mc-card .ic svg{width:100%;height:100%;fill:var(--navy);display:block}
-.mc-card h3{margin:calc(28*var(--u)) 0 0;font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);color:var(--navy)}
+.mc-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(16*var(--u));margin-top:calc(56*var(--u))}
+.mc-card{background:#F3F5FC;padding:calc(32*var(--u)) calc(28*var(--u));min-height:calc(260*var(--u));box-sizing:border-box;display:flex;flex-direction:column;transition:background-color .5s var(--osmo)}
+.mc-card:hover{background:#EBEFFB}
+.mc-card .ic{width:calc(40*var(--u));height:calc(40*var(--u))}
+.mc-card .ic svg{width:100%;height:100%;fill:var(--azzurro);display:block}
+.mc-card h3{margin:auto 0 0;padding-top:calc(40*var(--u));font:400 calc(22*var(--u))/calc(28*var(--u)) var(--sans);color:var(--navy)}
 .mc-card p{margin:calc(10*var(--u)) 0 0;font:400 max(14px,calc(16*var(--u)))/1.5 var(--sans);color:rgba(25,35,75,.7)}
 .mc-more{margin-top:calc(16*var(--u));border-top:1px solid rgba(25,35,75,.12);border-bottom:1px solid rgba(25,35,75,.12)}
 .mc-more summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:calc(12*var(--u));padding:calc(24*var(--u)) 0;font:400 calc(20*var(--u))/calc(26*var(--u)) var(--sans);color:var(--navy)}
@@ -518,8 +520,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .mc-dl .lst .dl{width:calc(16*var(--u));height:calc(16*var(--u));flex:none}
 @media (max-width: 1100px) and (min-width: 900px){.mc-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width: 899px){
-  .mc-cards{grid-template-columns:minmax(0,1fr);gap:28px;margin-top:32px}
-  .mc-card h3{margin-top:22px;font-size:20px;line-height:26px}
+  .mc-cards{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:32px}
+  .mc-card{min-height:0;padding:24px}
+  .mc-card h3{padding-top:28px;font-size:20px;line-height:26px}
   .mc-more summary{font-size:18px;line-height:24px;padding:20px 0}
   .mc-mat{columns:1;padding-bottom:20px}
   .mc-dl{grid-template-columns:1fr;gap:16px;margin-top:48px}
