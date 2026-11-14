@@ -299,7 +299,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .fcol a,.fcol span{display:block;font:400 calc(15*var(--u))/calc(22*var(--u)) var(--sans);color:rgba(255,255,255,.85);margin-bottom:calc(8*var(--u));transition:color .3s var(--osmo)}
 .fcol a:hover{color:#fff}
 .foot .rule{position:absolute;left:calc(40*var(--u));top:calc(420*var(--u));width:calc(1360*var(--u));height:1px;background:rgba(255,255,255,.12)}
-.foot .legal{position:absolute;left:calc(40*var(--u));top:calc(448*var(--u));font:400 calc(13*var(--u))/calc(18*var(--u)) var(--sans);color:rgba(255,255,255,.6);white-space:nowrap}
+.foot .legal{display:block;position:absolute;left:calc(40*var(--u));top:calc(448*var(--u));font:400 calc(13*var(--u))/calc(18*var(--u)) var(--sans);color:rgba(255,255,255,.6);white-space:nowrap}
+.foot .legal .credit{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:.2em;transition:color .4s var(--osmo),text-decoration-color .4s var(--osmo)}
+.foot .legal .credit:hover{color:#fff;text-decoration-color:#fff}
+.foot .legal .cr{display:inline!important;padding:0!important;margin:0!important;white-space:nowrap}
+@media (max-width: 899px){.foot .legal .cr{display:block!important;margin-top:4px!important}.foot .legal .dt{display:none}}
+.foot .legal .credit{display:inline!important;padding:0!important;margin:0!important;min-height:0!important;font:inherit!important}
 .foot .links{position:absolute;right:calc(40*var(--u));top:calc(448*var(--u));font:400 calc(13*var(--u))/calc(18*var(--u)) var(--sans);color:rgba(255,255,255,.6);white-space:pre}
 .foot .links a:hover{color:#fff}
 
@@ -1048,7 +1053,7 @@ a.post-feat{color:inherit}
       <div class="fcol" style="left:calc(951.1*var(--u))"><h4>DPL</h4><a href="chi-siamo.html">Chi siamo</a><a href="sedi.html">Le nostre sedi</a><a href="modulistica.html">Modulistica</a><a href="rassegna-stampa.html">News &amp; eventi</a><a href="contatti.html">Contatti</a></div>
       <div class="fcol" style="left:calc(1178.3*var(--u))"><h4>Contatti</h4><span>Via Monte Bianco 8</span><span>20149 Milano</span><a href="tel:+390249717642">T/ 02 49717642</a><a href="mailto:info@dplmediazione.it">E/ info@dplmediazione.it</a></div>
       <div class="rule"></div>
-      <p class="legal">© 2026 DPL Mediazione &amp; Co. · P.IVA 10286890966</p>
+      <p class="legal">© 2026 DPL Mediazione &amp; Co. · P.IVA 10286890966<span class="cr"><span class="dt"> · </span>Design e sviluppo <a class="credit" href="https://spaziozeno.com/" target="_blank" rel="noopener">Spazio Zeno</a></span></p>
       <p class="links"><a href="sedi-convenzionate.html">Sedi ex Art. 6-150/23</a>   ·   <a href="privacy.html">Privacy e cookie</a>   ·   <a href="https://www.dplmediazione.eu/" target="_blank" rel="noopener">Area riservata</a>   ·   <a href="https://www.dplmagazine.it/" target="_blank" rel="noopener">Magazine</a>   ·   <a href="#">YouTube</a></p>
     </footer>
   </div>
